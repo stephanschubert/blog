@@ -20,4 +20,15 @@ describe Blog::Post do
     F.build("blog/post").should be_valid
   end
 
+  describe "#tags" do
+
+    it "should be convertable into a string of names" do
+      post = F("blog/post")
+      post.tags << F("blog/tag", :name => "A")
+      post.tags << F("blog/tag", :name => "B")
+      post.tags.to_s.should == "A,B"
+    end
+
+  end
+
 end

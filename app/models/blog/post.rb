@@ -13,7 +13,11 @@ module Blog
 
     field :published_at, type: DateTime
 
-    has_and_belongs_to_many :tags
+    has_and_belongs_to_many :tags, :class_name => "Blog::Tag" do
+      def to_s
+        map(&:name).join(Blog::Tag.separator)
+      end
+    end
 
   end
 end
