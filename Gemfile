@@ -8,6 +8,8 @@ gem 'sprockets', :git => "git://github.com/sstephenson/sprockets.git"
 gem 'mongoid', :git => 'git://github.com/mongoid/mongoid.git'
 gem 'bson_ext', '>= 1.3.0'
 
+gem 'mongoid_slug', :require => 'mongoid/slug', :git => 'git://github.com/papercavalier/mongoid-slug.git'
+
 if RUBY_VERSION < '1.9'
   gem "ruby-debug", ">= 0.10.3"
 end
