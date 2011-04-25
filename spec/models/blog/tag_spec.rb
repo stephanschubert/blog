@@ -10,4 +10,6 @@ describe Blog::Tag do
 
   it { should have_slug(:name) }
 
+  it { should have_and_belong_to_many(:posts) }
+
 end

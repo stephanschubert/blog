@@ -8,5 +8,7 @@ module Blog
     validates_presence_of :name
     slug :name
 
+    has_and_belongs_to_many :posts
+
   end
 end

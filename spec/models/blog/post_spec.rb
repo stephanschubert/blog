@@ -14,7 +14,7 @@ describe Blog::Post do
 
   it { should have_field(:published_at).of_type(DateTime) }
 
-  it { should have_many(:tags) }
+  it { should have_and_belong_to_many(:tags) }
 
   it "should be valid using the factory" do
     F.build("blog/post").should be_valid
