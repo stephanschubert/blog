@@ -10,5 +10,7 @@ module Blog
 
     has_and_belongs_to_many :posts
 
+    cattr_accessor :separator
+    self.separator = ','
   end
 end

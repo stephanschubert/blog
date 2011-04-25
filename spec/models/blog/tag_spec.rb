@@ -16,4 +16,10 @@ describe Blog::Tag do
     F.build("blog/tag").should be_valid
   end
 
+  it "should have a configurable separator" do
+    Blog::Tag.separator.should == ','
+    Blog::Tag.separator = ';'
+    Blog::Tag.separator.should == ';'
+  end
+
 end
