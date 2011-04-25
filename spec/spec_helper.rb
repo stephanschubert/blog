@@ -20,7 +20,7 @@ Spork.prefork do
   # ----------------------------------------------------------------------------
 
   ENV["RAILS_ENV"] ||= 'test'
-  require File.expand_path("../test/dummy/config/environment.rb",  __FILE__)
+  require "dummy/config/environment"
 
   require 'rspec/rails'
   require 'database_cleaner'
