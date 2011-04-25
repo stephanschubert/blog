@@ -20,7 +20,12 @@ Spork.prefork do
   # ----------------------------------------------------------------------------
 
   ENV["RAILS_ENV"] ||= 'test'
-  require "dummy/config/environment"
+  require File.expand_path("../dummy/config/environment", __FILE__)
+
+  # The dummy app has no own Gemfile, so we use the global one and
+  # require the 'default' and 'test' groups.
+  require "bundler"
+  Bundler.require(:default, :test)
 
   require 'rspec/rails'
   require 'database_cleaner'
@@ -32,17 +37,17 @@ Spork.prefork do
   # in spec/support/ and spec/fabricators/ its subdirectories.
 
   %w(support fabricators).each do |dir|
-    Dir[Rails.root.join("spec/#{dir}/**/*.rb")].each {|f| require f}
+    Dir[Rails.root.join("../#{dir}/**/*.rb")].each {|f| require f}
   end
 
   RSpec.configure do |config|
     config.mock_with :rspec
 
     config.include Mongoid::Matchers
-    # config.include Devise::TestHelpers, :type => :controller
-
-    # config.include Capybara, :type => :helper
     config.include Capybara::RSpecMatchers, :type => :helper
+
+    # config.include Devise::TestHelpers, :type => :controller
+    # config.include Capybara, :type => :helper
 
     # Clean up the database
     config.before(:suite) do
@@ -51,7 +56,6 @@ Spork.prefork do
     end
 
     config.before(:each) do
-      #Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
       DatabaseCleaner.clean
     end
   end

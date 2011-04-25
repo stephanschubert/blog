@@ -17,7 +17,7 @@ group :test, :development do
 
   gem 'rspec', '>= 2.5.0'
   gem 'rspec-rails', '>= 2.5.0'
-  gem 'mongoid-rspec', '>= 1.4.1'
+  gem 'mongoid-rspec', :git => 'git://github.com/evansagge/mongoid-rspec.git'
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
 
   gem 'fabrication'
