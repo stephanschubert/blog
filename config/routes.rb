@@ -1,6 +1,11 @@
 Blog::Engine.routes.draw do
 
   root :to => "posts#index"
-  resources :posts
+
+  # Backend --------------------------------------------------------------------
+
+  scope "backend" do
+    resources :posts
+  end
 
 end

@@ -1,4 +1,5 @@
 source "http://rubygems.org"
+gemspec
 
 gem 'rails',     :git => 'git://github.com/rails/rails.git'
 gem 'arel',      :git => 'git://github.com/rails/arel.git'
@@ -8,10 +9,11 @@ gem 'sprockets', :git => "git://github.com/sstephenson/sprockets.git"
 gem 'mongoid', :git => 'git://github.com/mongoid/mongoid.git'
 gem 'bson_ext', '>= 1.3.0'
 
-gem 'mongoid_slug', :require => 'mongoid/slug', :git => 'git://github.com/papercavalier/mongoid-slug.git'
-
 gem 'haml', '>= 3.1.0'
 gem 'sass', '>= 3.1.0'
+
+#gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git'
+gem 'formtastic', :path => '../formtastic'
 
 if RUBY_VERSION < '1.9'
   gem "ruby-debug", ">= 0.10.3"

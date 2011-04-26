@@ -11,13 +11,26 @@ feature "Posts", %q{
     @two = F("blog/post", :title => "Two", :body => "Second body")
   end
 
-  scenario "Posts index" do
-    visit '/blog/posts'
+  scenario "Posts index" do # --------------------------------------------------
+    visit '/blog'
 
     page.html.should have_tag ".post" do
       with_tag ".title", :text => "One"
       with_tag ".body", :text => "This is a body"
     end
+  end
+
+  scenario "Create post" do # --------------------------------------------------
+    visit "/blog/backend/posts/new"
+
+    within "form#new_post" do
+      fill_in "post_title", :with => "A new post"
+      fill_in "post_body",  :with => "The real content"
+    end
+
+    click_button "post_submit"
+
+    page.should have_content t("post.created")
   end
 
 end
