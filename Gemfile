@@ -10,6 +10,9 @@ gem 'bson_ext', '>= 1.3.0'
 
 gem 'mongoid_slug', :require => 'mongoid/slug', :git => 'git://github.com/papercavalier/mongoid-slug.git'
 
+gem 'haml', '>= 3.1.0'
+gem 'sass', '>= 3.1.0'
+
 if RUBY_VERSION < '1.9'
   gem "ruby-debug", ">= 0.10.3"
 end
