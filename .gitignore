@@ -1,3 +1,6 @@
+# Don't check in Gemfile.lock when developing a gem/engine
+Gemfile.lock
+
 .bundle/
 log/*.log
 pkg/
