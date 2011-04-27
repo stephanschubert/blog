@@ -23,12 +23,12 @@ feature "Posts", %q{
   scenario "Create post" do # --------------------------------------------------
     visit "/blog/backend/posts/new"
 
-    within "form#new_post" do
+    within "form#new_blog_post" do
       fill_in "post_title", :with => "A new post"
       fill_in "post_body",  :with => "The real content"
-    end
 
-    click_button "post_submit"
+      find("*[type='submit']").click
+    end
 
     page.should have_content t("post.created")
   end
