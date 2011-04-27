@@ -3,7 +3,7 @@ module Blog
     respond_to :html
 
     #before_filter :require_login, :except => %w(index)
-    before_filter :find_post, :only => %w(show)
+    before_filter :find_post, :only => %w(edit show update)
 
     def index
       @posts = Post.all
@@ -11,6 +11,9 @@ module Blog
 
     def new
       @post = Post.new
+    end
+
+    def edit
     end
 
     def show
@@ -25,6 +28,16 @@ module Blog
       else
         flash[:error] = t("post.invalid")
         render :new
+      end
+    end
+
+    def update
+      if @post.update_attributes(params[:post])
+        flash[:notice] = t("post.updated")
+        respond_with @post
+      else
+        flash[:error] = t("post.invalid")
+        render :edit
       end
     end
 

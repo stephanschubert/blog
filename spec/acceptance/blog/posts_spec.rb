@@ -33,4 +33,16 @@ feature "Posts", %q{
     page.should have_content t("post.created")
   end
 
+  scenario "Update post" do # --------------------------------------------------
+    visit "/blog/backend/posts/one/edit"
+
+    within "form[id^='edit_blog_post']" do
+      fill_in "post_body",  :with => "Updated content"
+
+      find("*[type='submit']").click
+    end
+
+    page.should have_content t("post.updated")
+  end
+
 end
