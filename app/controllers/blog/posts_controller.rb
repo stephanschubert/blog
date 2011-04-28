@@ -1,8 +1,7 @@
 module Blog
-  class PostsController < SessionsController
+  class PostsController < ProtectedController
     respond_to :html
 
-    #before_filter :require_login, :except => %w(index)
     before_filter :find_post, :only => %w(edit show update)
 
     def index
