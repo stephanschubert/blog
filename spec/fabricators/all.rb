@@ -6,3 +6,6 @@ end
 Fabricator "blog/tag" do
   name "A tag"
 end
+
+Fabricator "blog/user" do
+end
