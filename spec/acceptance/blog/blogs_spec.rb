@@ -24,6 +24,7 @@ feature "Default blog behavior", %q{
     visit '/blog/one'
 
     page.should have_post @one
+    page.should_not have_post @two
   end
 
 end
