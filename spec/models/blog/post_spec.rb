@@ -33,6 +33,14 @@ describe Blog::Post do
 
   describe "#published" do # ---------------------------------------------------
 
+    it "should return all posts published so if no date is given" do
+      one   = F("blog/post", :published_at => 10.days.ago)
+      two   = F("blog/post", :published_at => nil)
+      three = F("blog/post", :published_at => 2.days.ago)
+
+      Blog::Post.published.should == [ one, three ]
+    end
+
     it "should return all posts published before a given date" do
       one   = F("blog/post", :published_at => 10.days.ago)
       two   = F("blog/post", :published_at => 7.days.ago)

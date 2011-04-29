@@ -2,17 +2,23 @@ module Blog
   class BlogsController < SessionsController
 
     def index
-      @posts = Post.all
+      @posts = posts.all
     end
 
     def post
-      @post = Post.find_by_slug(params[:id])
+      @post = posts.find_by_slug(params[:id])
     end
 
     def posts_by_date
       year   = params[:year]
       month  = params[:month]
-      @posts = Post.published(year, month)
+      @posts = posts.published(year, month)
+    end
+
+    private # ------------------------------------------------------------------
+
+    def posts
+      Post.published
     end
 
   end

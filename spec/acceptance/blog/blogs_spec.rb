@@ -18,11 +18,14 @@ feature "Default blog behavior", %q{
              :title => "Two",
              :body => "Second body",
              :published_at => Time.parse("2011/04/03"))
+
+    @draft = F("blog/post", :published_at => nil)
   end
 
   scenario "View home page" do # -----------------------------------------------
     visit '/blog'
 
+    page.html.should have_tag(".post", :count => 2)
     page.should have_post @one
     page.should have_post @two
   end
@@ -30,6 +33,7 @@ feature "Default blog behavior", %q{
   scenario "View single post" do # ---------------------------------------------
     visit '/blog/one'
 
+    page.html.should have_tag(".post", :count => 1)
     page.should have_post @one
     page.should_not have_post @two
   end
@@ -37,6 +41,7 @@ feature "Default blog behavior", %q{
   scenario "View single post w/ date" do # -------------------------------------
     visit '/blog/2011/04/one'
 
+    page.html.should have_tag(".post", :count => 1)
     page.should have_post @one
     page.should_not have_post @two
   end
@@ -44,6 +49,7 @@ feature "Default blog behavior", %q{
   scenario "View all posts published in a month" do # --------------------------
     visit 'blog/2011/04'
 
+    page.html.should have_tag(".post", :count => 2)
     page.should have_post @one
     page.should have_post @two
   end
@@ -53,6 +59,7 @@ feature "Default blog behavior", %q{
 
     visit 'blog/2011'
 
+    page.html.should have_tag(".post", :count => 2)
     page.should have_post @one
     page.should have_post @two
     page.should_not have_post three
