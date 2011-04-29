@@ -2,11 +2,15 @@ module Blog
   module PostsHelper
 
     def link_to_post(post, options = {})
+      backend = options.pluck(:backend)
+
       options.reverse_merge! \
       :text => post.title,
-      :url  => blog.backend_post_path(post)
+      :url  => backend ? blog.backend_post_path(post) : blog.post_path(post)
 
-      link_to options[:text], options[:url]
+      text, url = options.pluck(:text, :url)
+
+      link_to text, url, options
     end
 
   end

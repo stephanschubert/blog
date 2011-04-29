@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Default user behavior", %q{
+feature "Default blog behavior", %q{
 
   In order to have a great time
   As an user
@@ -24,6 +24,15 @@ feature "Default user behavior", %q{
     page.html.should have_tag ".post" do
       with_tag ".title", :text => "Two"
       with_tag ".body",  :text => "Second body"
+    end
+  end
+
+  scenario "View single post" do # ---------------------------------------------
+    visit '/blog/one'
+
+    page.html.should have_tag ".post" do
+      with_tag ".title", :text => "One"
+      with_tag ".body",  :text => "This is a body"
     end
   end
 
