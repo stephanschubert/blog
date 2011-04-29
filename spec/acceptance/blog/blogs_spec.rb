@@ -16,24 +16,14 @@ feature "Default blog behavior", %q{
   scenario "View home page" do # -----------------------------------------------
     visit '/blog'
 
-    page.html.should have_tag ".post" do
-      with_tag ".title", :text => "One"
-      with_tag ".body",  :text => "This is a body"
-    end
-
-    page.html.should have_tag ".post" do
-      with_tag ".title", :text => "Two"
-      with_tag ".body",  :text => "Second body"
-    end
+    page.should have_post @one
+    page.should have_post @two
   end
 
   scenario "View single post" do # ---------------------------------------------
     visit '/blog/one'
 
-    page.html.should have_tag ".post" do
-      with_tag ".title", :text => "One"
-      with_tag ".body",  :text => "This is a body"
-    end
+    page.should have_post @one
   end
 
 end
