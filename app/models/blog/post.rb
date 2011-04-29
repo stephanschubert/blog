@@ -19,5 +19,23 @@ module Blog
       end
     end
 
+    named_scope :published, lambda { |before = Time.now, month = nil|
+      if before.is_a?(Time)
+        where(:published_at.lt => before.utc)
+      else
+        year = before
+
+        if month
+          from = Time.parse("#{year}/#{month}")
+          till = from.end_of_month
+        else
+          from = Time.parse("#{year}/01")
+          till = from.end_of_year
+        end
+
+        where(:published_at => { "$gte" => from.utc, "$lte" => till.utc })
+      end
+    }
+
   end
 end
