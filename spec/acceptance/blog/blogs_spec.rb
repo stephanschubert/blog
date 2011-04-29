@@ -27,4 +27,11 @@ feature "Default blog behavior", %q{
     page.should_not have_post @two
   end
 
+  scenario "View single post w/ date" do # ------------------------------------
+    visit '/blog/2011/04/one'
+
+    page.should have_post @one
+    page.should_not have_post @two
+  end
+
 end

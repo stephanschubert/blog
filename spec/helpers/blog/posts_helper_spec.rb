@@ -11,11 +11,13 @@ describe Blog::PostsHelper do
       html.should have_tag "a[href$='/first-post']"
     end
 
-    it "should return a link to the public post as default" do
-      post = F("blog/post", :title => "First post")
-      html = helper.link_to_post(post)
+    it "should return a link to the public post w/ date as default" do
+      post = F("blog/post",
+               :title => "First post",
+               :published_at => Time.parse("2011/04/02"))
 
-      html.should have_tag "a[href='/blog/first-post']"
+      html = helper.link_to_post(post)
+      html.should have_tag "a[href='/blog/2011/04/first-post']"
     end
 
   end
