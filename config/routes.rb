@@ -4,7 +4,7 @@ Blog::Engine.routes.draw do
 
   # Backend --------------------------------------------------------------------
 
-  scope "backend" do
+  scope "backend", :as => "backend" do
     resources :posts
   end
 
