@@ -1,6 +1,6 @@
 Blog::Engine.routes.draw do
 
-  root :to => "posts#index"
+  root :to => "blogs#index"
 
   # Backend --------------------------------------------------------------------
 
