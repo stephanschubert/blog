@@ -22,4 +22,17 @@ describe Blog::PostsHelper do
 
   end
 
+  describe "#pretty_date" do # -------------------------------------------------
+
+    it "should return a date w/ hAtom markup" do
+      date      = Time.parse("2011/04/02 13:37:42")
+      iso8601   = date.iso8601 # 2011-04-02T13:37:42+02:00
+      humanized = l(date, :format => "%d.%m.%Y")
+      html      = helper.pretty_date(date)
+
+      html.should have_tag("abbr[title='#{iso8601}']", :text => humanized)
+    end
+
+  end
+
 end
