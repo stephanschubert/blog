@@ -12,6 +12,11 @@ Rspec::Matchers.define :have_post do |post|
       humanized_date = l(post.published_at, :format => :standard)
       with_tag ".published", :text => humanized_date
 
+      # The post's author
+      # TODO Remove rescue clause
+      name = post.user.name rescue "Admin"
+      with_tag ".author", :text => /#{name}/
+
       # The post's content
       with_tag ".entry-content", :text => /#{post.body}/
     end
