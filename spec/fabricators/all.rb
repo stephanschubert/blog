@@ -8,4 +8,5 @@ Fabricator "blog/tag" do
 end
 
 Fabricator "blog/user" do
+  name "Stephan Schubert"
 end

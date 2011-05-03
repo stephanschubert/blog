@@ -35,4 +35,17 @@ describe Blog::PostsHelper do
 
   end
 
+  describe "#pretty_author" do # -----------------------------------------------
+
+    it "should return an author w/ hAtom markup" do
+      user = F("blog/user", :name => "Stephan Schubert")
+      html = helper.pretty_author(user)
+
+      html.should have_tag("span[class='author vcard']") do
+        with_tag "span[class='fn']", :text => "Stephan Schubert"
+      end
+    end
+
+  end
+
 end

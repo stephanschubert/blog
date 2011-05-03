@@ -5,6 +5,8 @@ describe Blog::Post do
   it { should be_mongoid_document }
   it { should be_timestamped_document }
 
+  it { should belong_to(:user).as_inverse_of(:posts) }
+
   it { should have_field(:title).of_type(String) }
   it { should validate_presence_of(:title) }
   it { should have_slug(:title) }

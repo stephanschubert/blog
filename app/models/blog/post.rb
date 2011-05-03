@@ -4,6 +4,8 @@ module Blog
     include Mongoid::Timestamps
     include Mongoid::Slug
 
+    belongs_to :user, inverse_of: :posts
+
     field :title, type: String
     validates_presence_of :title
     slug :title

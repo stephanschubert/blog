@@ -7,5 +7,9 @@
 
   = pretty_date(post.published_at, :class => "published")
 
+  .entry-author
+    = t(".written_by")
+    = pretty_author(post.user)
+
   .entry-content
     = post.body

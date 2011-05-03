@@ -44,5 +44,14 @@ module Blog
       end
     end
 
+    # Returns markup'd information about a post's author (user).
+    def pretty_author(user, options = {})
+      content_tag :span, :class => "author vcard" do
+        content_tag :span, :class => "fn" do
+          user.name rescue "Admin"
+        end
+      end
+    end
+
   end
 end
