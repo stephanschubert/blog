@@ -31,6 +31,19 @@ module Blog
       link_to text, url, options
     end
 
+    # Returns a link to tag/category according to the hAtom spec.
+    def link_to_tag(tag, options = {})
+      options.reverse_merge! \
+      :rel   => "tag",
+      :title => tag.name,
+      :text  => tag.name,
+      :url   => blog.posts_by_tag_path(tag)
+
+      text, url = options.pluck(:text, :url)
+
+      link_to text, url, options
+    end
+
     # Returns an <abbr>-markup'd date according to the hAtom spec.
     def pretty_date(date, options = {})
       options.reverse_merge! \

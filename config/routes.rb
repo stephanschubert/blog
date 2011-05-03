@@ -12,6 +12,9 @@ Blog::Engine.routes.draw do
   :as => :post,
   :constraints => { :year => /\d{4}/, :month => /\d{2}/ }
 
+  match '/tags/:id' => 'blogs#posts_by_tag',
+  :as => :posts_by_tag
+
   # Backend --------------------------------------------------------------------
 
   scope "backend", :as => "backend" do

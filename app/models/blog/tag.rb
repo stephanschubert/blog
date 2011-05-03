@@ -8,7 +8,8 @@ module Blog
     validates_presence_of :name
     slug :name
 
-    has_and_belongs_to_many :posts
+    #has_and_belongs_to_many :posts
+    embedded_in :post
 
     cattr_accessor :separator
     self.separator = ','

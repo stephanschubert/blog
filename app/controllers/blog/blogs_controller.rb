@@ -15,6 +15,10 @@ module Blog
       @posts = posts.published(year, month)
     end
 
+    def posts_by_tag
+      @posts = posts.tagged_with(params[:id], :slug => true)
+    end
+
     private # ------------------------------------------------------------------
 
     def posts
