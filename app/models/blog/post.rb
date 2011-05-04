@@ -4,6 +4,8 @@ module Blog
     include Mongoid::Timestamps
     include Mongoid::Slug
 
+    belongs_to :user, inverse_of: :posts
+
     field :title, type: String
     validates_presence_of :title
     slug :title
@@ -13,13 +15,32 @@ module Blog
 
     field :published_at, type: DateTime
 
-    has_and_belongs_to_many :tags, :class_name => "Blog::Tag" do
+    # TAGS ---------------------------------------------------------------------
+
+    embeds_many :tags, :class_name => "Blog::Tag" do
       def to_s
         map(&:name).join(Blog::Tag.separator)
       end
     end
 
-    named_scope :published, lambda { |before = Time.now, month = nil|
+    scope :tagged_with, lambda { |*tags|
+      options   = tags.extract_options!
+      attr_name = options[:slug] ? "slug" : "name"
+
+      values = tags.map do |tag|
+        if tag.is_a?(String)
+          tag
+        else
+          tag.read_attribute(attr_name)
+        end
+      end
+
+      where(:"tags.#{attr_name}".in => values)
+    }
+
+    # --------------------------------------------------------------------------
+
+    scope :published, lambda { |before = Time.now, month = nil|
       if before.is_a?(Time)
         where(:published_at.lt => before.utc)
       else

@@ -5,6 +5,8 @@ describe Blog::Post do
   it { should be_mongoid_document }
   it { should be_timestamped_document }
 
+  it { should belong_to(:user).as_inverse_of(:posts) }
+
   it { should have_field(:title).of_type(String) }
   it { should validate_presence_of(:title) }
   it { should have_slug(:title) }
@@ -14,7 +16,8 @@ describe Blog::Post do
 
   it { should have_field(:published_at).of_type(DateTime) }
 
-  it { should have_and_belong_to_many(:tags) }
+  # it { should have_and_belong_to_many(:tags) }
+  it { should embed_many(:tags) }
 
   it "should be valid using the factory" do # ----------------------------------
     F.build("blog/post").should be_valid
@@ -24,16 +27,58 @@ describe Blog::Post do
 
     it "should be convertable into a string of names" do
       post = F("blog/post")
-      post.tags << F("blog/tag", :name => "A")
-      post.tags << F("blog/tag", :name => "B")
+      post.tags.create(:name => "A")
+      post.tags.create(:name => "B")
       post.tags.to_s.should == "A,B"
+    end
+
+  end
+
+  describe "#tagged_with" do # -------------------------------------------------
+
+    it "should return all posts tagged w/ given tag" do
+      post = F("blog/post")
+      tag  = post.tags.create(:name => "A")
+
+      Blog::Post.tagged_with(tag).should == [ post ]
+    end
+
+    it "should return all posts tagged w/ given tags" do
+      post = F("blog/post")
+      tag0 = post.tags.create(:name => "A")
+      tag1 = post.tags.create(:name => "B")
+
+      Blog::Post.tagged_with(tag0,tag1).should == [ post ]
+    end
+
+    it "should return all posts tagged w/ given tag name" do
+      post = F("blog/post")
+      tag  = post.tags.create(:name => "A")
+
+      Blog::Post.tagged_with("A").should == [ post ]
+    end
+
+    it "should return all posts tagged w/ given tag names" do
+      post = F("blog/post")
+      tag0 = post.tags.create(:name => "A")
+      tag1 = post.tags.create(:name => "B")
+
+      Blog::Post.tagged_with("A", "B").should == [ post ]
+    end
+
+    it "should return all posts tagged w/ given tag (by slug)" do
+      post = F("blog/post")
+      tag0 = post.tags.create(:name => "It's me")
+      tag1 = post.tags.create(:name => "And me")
+
+      Blog::Post.tagged_with("and-me", "its-me", :slug => true).should == [ post ]
     end
 
   end
 
   describe "#published" do # ---------------------------------------------------
 
-    it "should return all posts published so if no date is given" do
+    it "should return all posts published if no date is given" do
       one   = F("blog/post", :published_at => 10.days.ago)
       two   = F("blog/post", :published_at => nil)
       three = F("blog/post", :published_at => 2.days.ago)

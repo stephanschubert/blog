@@ -10,7 +10,8 @@ describe Blog::Tag do
 
   it { should have_slug(:name) }
 
-  it { should have_and_belong_to_many(:posts) }
+  # it { should have_and_belong_to_many(:posts) }
+  it { should be_embedded_in(:post) }
 
   it "should be valid using the factory" do
     F.build("blog/tag").should be_valid

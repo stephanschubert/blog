@@ -65,4 +65,21 @@ feature "Default blog behavior", %q{
     page.should_not have_post three
   end
 
+  scenario "View all posts tagged with ..." do # -------------------------------
+    @one.tags.create(:name => "General")
+    @one.tags.create(:name => "Updates")
+    @two.tags.create(:name => "General")
+
+    visit 'blog/tags/general'
+
+    page.html.should have_tag(".post", :count => 2)
+    page.should have_post @one
+    page.should have_post @two
+
+    visit 'blog/tags/updates'
+
+    page.html.should have_tag(".post", :count => 1)
+    page.should have_post @one
+  end
+
 end

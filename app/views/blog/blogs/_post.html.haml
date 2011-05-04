@@ -1,4 +1,20 @@
+-# Details: http://microformats.org/wiki/hatom
 
-%article.post{:id => "post-#{post.id}"}
-  %h1.title= link_to_post(post)
-  .body= post.body
+%article.hentry.post{:id => "post-#{post.id}"}
+
+  %h1.entry-title
+    = link_to_post(post, :rel => "bookmark")
+
+  .entry-meta
+    .entry-published
+      = pretty_date(post.published_at, :class => "published")
+
+    .entry-author
+      = t(".written_by")
+      = pretty_author(post.user)
+
+  .entry-content
+    = post.body
+
+  .entry-tags
+    = render "tags", :tags => post.tags
