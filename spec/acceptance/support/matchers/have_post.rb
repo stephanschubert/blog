@@ -15,10 +15,18 @@ Rspec::Matchers.define :have_post do |post|
       # The post's author
       # TODO Remove rescue clause
       name = post.user.name rescue "Admin"
-      with_tag ".author", :text => /#{name}/
+      with_tag ".entry-author", :text => /#{name}/
 
       # The post's content
       with_tag ".entry-content", :text => /#{post.body}/
+
+      # The post's tags/categories
+      with_tag ".entry-tags" do
+        post.tags.each do |tag|
+          with_tag "a[href$='#{tag.slug}']", :text => tag.name
+        end
+      end
+
     end
   end
 end
