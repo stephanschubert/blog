@@ -22,6 +22,20 @@ describe Blog::PostsHelper do
 
   end
 
+  describe "#link_to_tag" do # -------------------------------------------------
+
+    it "should return a valid link" do
+      post = F("blog/post")
+      tag  = post.tags.create(:name => "A tag")
+      html = helper.link_to_tag(tag)
+
+      html.should have_tag "a[href$='/a-tag']" do
+        with_tag "span", :text => tag.name
+      end
+    end
+
+  end
+
   describe "#pretty_date" do # -------------------------------------------------
 
     it "should return a date w/ hAtom markup" do

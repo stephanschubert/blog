@@ -41,7 +41,10 @@ module Blog
 
       text, url = options.pluck(:text, :url)
 
-      link_to text, url, options
+      link_to url, options do
+        # The extra <span> is just for styling purposes.
+        content_tag :span, text
+      end
     end
 
     # Returns an <abbr>-markup'd date according to the hAtom spec.

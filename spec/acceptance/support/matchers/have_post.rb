@@ -10,7 +10,7 @@ Rspec::Matchers.define :have_post do |post|
 
       # The publication date
       humanized_date = l(post.published_at, :format => :standard)
-      with_tag ".published", :text => humanized_date
+      with_tag ".entry-published", :text => /#{humanized_date}/
 
       # The post's author
       # TODO Remove rescue clause
