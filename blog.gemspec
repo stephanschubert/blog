@@ -8,4 +8,5 @@ Gem::Specification.new do |s|
   s.version     = "0.0.1"
 
   s.add_dependency 'mongoid_slug'
+  s.add_dependency 'RedCloth'
 end

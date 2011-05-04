@@ -47,7 +47,7 @@ feature "Default blog behavior", %q{
   end
 
   scenario "View all posts published in a month" do # --------------------------
-    visit 'blog/2011/04'
+    visit '/blog/2011/04'
 
     page.html.should have_tag(".post", :count => 2)
     page.should have_post @one
@@ -57,7 +57,7 @@ feature "Default blog behavior", %q{
   scenario "View all posts published in a year" do # ---------------------------
     three = F("blog/post", :published_at => Time.parse("2010/12/28"))
 
-    visit 'blog/2011'
+    visit '/blog/2011'
 
     page.html.should have_tag(".post", :count => 2)
     page.should have_post @one
@@ -70,16 +70,29 @@ feature "Default blog behavior", %q{
     @one.tags.create(:name => "Updates")
     @two.tags.create(:name => "General")
 
-    visit 'blog/tags/general'
+    visit '/blog/tags/general'
 
     page.html.should have_tag(".post", :count => 2)
     page.should have_post @one
     page.should have_post @two
 
-    visit 'blog/tags/updates'
+    visit '/blog/tags/updates'
 
     page.html.should have_tag(".post", :count => 1)
     page.should have_post @one
+  end
+
+  scenario "Textilized post content" do # --------------------------------------
+    post = F("blog/post",
+             :title => "One",
+             :body => "This is a body",
+             :published_at => Time.parse("2011/04/01"))
+
+    visit '/blog'
+
+    within ".entry-content" do
+      page.html.should match(/<p>This is a body<\/p>/)
+    end
   end
 
 end

@@ -1,4 +1,5 @@
 require "mongoid/slug"
+require "redcloth"
 
 module Blog
   class Engine < Rails::Engine

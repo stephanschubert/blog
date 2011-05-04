@@ -30,3 +30,9 @@ Rspec::Matchers.define :have_post do |post|
     end
   end
 end
+
+Rspec::Matchers.define :have_post_content do |content|
+  match do |page|
+    page.html.should have_tag ".entry-content", :text => /#{content}/
+  end
+end

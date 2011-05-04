@@ -14,7 +14,7 @@
       = pretty_author(post.user)
 
   .entry-content
-    = post.body
+    = textilize(post.body)
 
   .entry-tags
     = render "tags", :tags => post.tags
