@@ -1,5 +1,7 @@
 de:
   blog:
+    latest_posts: "Neuste Einträge"
+
     blogs:
       post:
         written_by: "von"
