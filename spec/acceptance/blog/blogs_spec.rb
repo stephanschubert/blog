@@ -127,4 +127,23 @@ feature "Default blog behavior", %q{
     end
   end
 
+  scenario "Auto-Discovery Links" do # -----------------------------------------
+    visit '/blog'
+
+    %w(rss atom).each do |type|
+      page.html.should have_tag \
+      "link[type='application/#{type}+xml'][rel='alternate'][href$='/feed.#{type}']"
+    end
+  end
+
+  scenario "Visible Feed Links" do # -------------------------------------------
+    visit '/blog'
+
+    within "#feeds" do
+      %w(rss atom).each do |type|
+        with_tag "a[href$='/feed.#{type}']"
+      end
+    end
+  end
+
 end

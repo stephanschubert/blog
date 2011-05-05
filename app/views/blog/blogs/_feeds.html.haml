@@ -1,0 +1,6 @@
+
+%section#feeds
+  %h3= t("blog.feeds")
+  %ol.xoxo
+    %li= link_to t("blog.feed.rss.link"), blog.feed_path(:format => :rss)
+    %li= link_to t("blog.feed.atom.link"), blog.feed_path(:format => :atom)
