@@ -114,4 +114,17 @@ feature "Default blog behavior", %q{
     end
   end
 
+  scenario "Tags overview" do # ------------------------------------------------
+    post = F("blog/post", :published_at => 1.day.ago)
+    post.tags.create :name => "General"
+    post.tags.create :name => "Updates"
+
+    visit '/blog'
+
+    page.html.should have_tag("#all-tags") do
+      with_tag "a[href$='/general']"
+      with_tag "a[href$='/updates']"
+    end
+  end
+
 end

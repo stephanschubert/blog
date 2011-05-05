@@ -5,5 +5,9 @@ module Blog
       Blog::Post.published.latest(max)
     end
 
+    def all_tags
+      Blog::Tag.all
+    end
+
   end
 end

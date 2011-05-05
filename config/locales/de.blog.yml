@@ -1,6 +1,7 @@
 de:
   blog:
     latest_posts: "Neuste Einträge"
+    all_tags: "Kategorien"
 
     blogs:
       post:

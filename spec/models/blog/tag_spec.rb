@@ -27,4 +27,20 @@ describe Blog::Tag do
 
   end
 
+  describe ".all" do # ---------------------------------------------------------
+
+    it "should return all unique tags" do
+      one = F("blog/post")
+      a   = one.tags.create :name => "A"
+
+      two = F("blog/post")
+      a2  = one.tags.create :name => "A"
+      b   = two.tags.create :name => "B"
+      c   = two.tags.create :name => "C"
+
+      Blog::Tag.all.should == [ a, b, c ]
+    end
+
+  end
+
 end
