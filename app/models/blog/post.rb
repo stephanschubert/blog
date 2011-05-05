@@ -40,6 +40,9 @@ module Blog
 
     # --------------------------------------------------------------------------
 
+    # Return posts published +before+ a point in time or
+    # published in a given +year+ (and +month+)
+
     scope :published, lambda { |before = Time.now, month = nil|
       if before.is_a?(Time)
         where(:published_at.lt => before.utc)
@@ -57,6 +60,9 @@ module Blog
         where(:published_at => { "$gte" => from.utc, "$lte" => till.utc })
       end
     }
+
+    # Return the latest +max+ posts
+    scope :latest, lambda { |max| order_by(:published_at.desc).limit(max) }
 
   end
 end

@@ -31,8 +31,9 @@ Rspec::Matchers.define :have_post do |post|
   end
 end
 
-Rspec::Matchers.define :have_post_content do |content|
+Rspec::Matchers.define :have_link_to_post do |post|
   match do |page|
-    page.html.should have_tag ".entry-content", :text => /#{content}/
+    path = helper.post_path(post)
+    page.html.should have_tag "a[href$='#{path}']"
   end
 end

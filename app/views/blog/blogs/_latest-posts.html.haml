@@ -1,0 +1,8 @@
+
+%section#latest-posts
+
+  %h3= t("blog.latest_posts")
+
+  %ol.xoxo
+    - latest_posts.each do |post|
+      %li= link_to_post(post)

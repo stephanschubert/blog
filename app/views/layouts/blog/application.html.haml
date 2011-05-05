@@ -38,6 +38,9 @@
     %section#content
       = yield
 
+    %aside#sidebar
+      = render "latest-posts"
+
     %footer
 
   -# Grab Google CDN's jQuery. fall back to local if necessary

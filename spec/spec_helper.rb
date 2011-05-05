@@ -41,6 +41,9 @@ Spork.prefork do
   end
 
   RSpec.configure do |config|
+    config.include Rails.application.routes.url_helpers
+    config.include Blog::Engine.routes.url_helpers
+
     config.mock_with :rspec
 
     config.include Mongoid::Matchers

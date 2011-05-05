@@ -95,4 +95,23 @@ feature "Default blog behavior", %q{
     end
   end
 
+  scenario "Latest posts" do # -------------------------------------------------
+    visit '/blog'
+
+    page.html.should have_tag("#latest-posts") do
+      path = post_path(:year  => @one.published_at.year.to_s,
+                       :month => @one.published_at.month.to_s.rjust(2, '0'),
+                       :id    => @one.slug)
+
+      with_tag "a[href$='#{path}']"
+
+      path = post_path(:year  => @two.published_at.year.to_s,
+                       :month => @two.published_at.month.to_s.rjust(2, '0'),
+                       :id    => @two.slug)
+
+      with_tag "a[href$='#{path}']"
+
+    end
+  end
+
 end
