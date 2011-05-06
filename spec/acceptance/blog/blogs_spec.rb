@@ -20,6 +20,9 @@ feature "Default blog behavior", %q{
              :published_at => Time.parse("2011/04/03"))
 
     @draft = F("blog/post", :published_at => nil)
+
+    # Annoying.
+    @host = "www.example.com"
   end
 
   scenario "View home page" do # -----------------------------------------------
@@ -139,9 +142,65 @@ feature "Default blog behavior", %q{
   scenario "Visible Feed Links" do # -------------------------------------------
     visit '/blog'
 
-    within "#feeds" do
+    page.html.should have_tag "#feeds" do
       %w(rss atom).each do |type|
         with_tag "a[href$='/feed.#{type}']"
+      end
+    end
+  end
+
+  scenario "View RSS Feed" do # ------------------------------------------------
+    visit '/blog/feed.rss'
+
+    page.html.should have_tag "rss[version='2.0']" do
+      with_tag "channel" do
+        with_tag "title"
+        with_tag "description"
+        with_tag "link"
+
+        [ @one, @two ].each do |post|
+          with_tag "item" do
+            with_tag "title", :text => post.title
+            with_tag "description" # TODO
+
+            with_tag "link" #, :text => public_post_url(post, :host => @host)
+            with_tag "guid", :text => public_post_url(post, :host => @host)
+
+            with_tag "pubdate", :text => post.published_at.to_s(:rfc822)
+
+            post.tags.each do |tag|
+              with_tag "category", :text => tag.name
+            end
+          end
+        end
+      end
+    end
+  end
+
+  scenario "View ATOM Feed" do # -----------------------------------------------
+    visit '/blog/feed.atom'
+
+    page.html.should have_tag "feed" do
+      with_tag "id"
+      with_tag "title"
+      with_tag "updated"
+
+      [ @one, @two ].each do |post|
+        with_tag "entry" do
+          with_tag "id"
+          with_tag "published", :text => post.published_at.iso8601
+          with_tag "updated", :text => post.published_at.iso8601
+
+          with_tag "title", :text => post.title
+          with_tag "content[type='html']" # TODO
+
+          url = public_post_url(post, :host => @host)
+          with_tag "link[href='#{url}']"
+
+          post.tags.each do |tag|
+            with_tag "category", :text => tag.name
+          end
+        end
       end
     end
   end
