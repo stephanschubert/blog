@@ -1,8 +1,19 @@
 module Blog
   class BlogsController < SessionsController
 
+    respond_to :html, :rss, :atom
+
     def index
-      @posts = posts.all
+      @posts = posts.latest(10)
+    end
+
+    def feed
+      @posts = posts.latest(10)
+
+      respond_to do |wants|
+        wants.rss
+        wants.atom
+      end
     end
 
     def post

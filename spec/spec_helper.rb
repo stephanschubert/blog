@@ -43,6 +43,7 @@ Spork.prefork do
   RSpec.configure do |config|
     config.include Rails.application.routes.url_helpers
     config.include Blog::Engine.routes.url_helpers
+    config.include Blog::Engine.helpers
 
     config.mock_with :rspec
 

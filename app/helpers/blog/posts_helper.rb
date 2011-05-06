@@ -1,6 +1,21 @@
 module Blog
   module PostsHelper
 
+    def parameters_for_post_path(post, options = {})
+      options.reverse_merge! \
+      :year  => post.published_at.year.to_s,
+      :month => post.published_at.month.to_s.rjust(2, '0'),
+      :id    => post.to_param
+    end
+
+    def public_post_path(post, options = {})
+      blog.post_path parameters_for_post_path(post, options)
+    end
+
+    def public_post_url(post, options = {})
+      blog.post_url parameters_for_post_path(post, options)
+    end
+
     def link_to_post(post, options = {})
       options.reverse_merge! \
       :backend => false
