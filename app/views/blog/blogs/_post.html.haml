@@ -13,6 +13,8 @@
       = t(".written_by")
       = pretty_author(post.user)
 
+  = addthis_buttons :url => public_post_url(post), :title => post.title, :description => truncate(post.body, :length => 250)
+
   .entry-content
     = textilize(post.body)
 

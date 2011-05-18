@@ -13,10 +13,6 @@
   -#= track_with_google_analytics
   -#= track_with_google_webmaster_tools
 
-  -# RSS and ATOM feeds
-  = auto_discovery_link_tag(:rss,  :action => "feed", :format => :rss)
-  = auto_discovery_link_tag(:atom, :action => "feed", :format => :atom)
-
   %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
 
   -#= favicon_link_tag
@@ -44,9 +40,6 @@
       = yield
 
     %aside#sidebar
-      = render "feeds"
-      = render "latest-posts"
-      = render "all-tags"
 
     %footer
 

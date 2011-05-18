@@ -2,6 +2,8 @@ module Blog
   class ProtectedController < SessionsController
     before_filter :require_login
 
+    layout "blog/backend"
+
     private # ------------------------------------------------------------------
 
     Users = {
