@@ -1,0 +1,11 @@
+de:
+  formtastic:
+    labels:
+      'blog/post':
+        title: Titel
+        body:  Inhalt
+        published_at: Wann veröffentlichen?
+
+    actions:
+      'blog/post':
+        create: Artikel anlegen
