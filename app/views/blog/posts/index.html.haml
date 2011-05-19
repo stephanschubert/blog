@@ -1,4 +1,11 @@
 
-%ol.xoxo
+= link_to t("backend.actions.create_post"), new_backend_post_path
+
+%ol.xoxo.posts
   - @posts.each do |post|
-    %li= render "post", :post => post
+    %li
+      .post-actions
+        %ul
+          %li= link_to t("backend.post_actions.edit"), edit_backend_post_path(post)
+
+      = render "post", :post => post

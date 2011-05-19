@@ -24,7 +24,8 @@ feature "Posts", %q{
   end
 
   scenario "Create post" do # --------------------------------------------------
-    visit "/blog/backend/posts/new"
+    visit "/blog/backend/posts"
+    click_on t("backend.actions.create_post")
 
     within "form#new_blog_post" do
       fill_in "post_title", :with => "A new post"
@@ -37,7 +38,11 @@ feature "Posts", %q{
   end
 
   scenario "Update post" do # --------------------------------------------------
-    visit "/blog/backend/posts/one/edit"
+    visit "/blog/backend/posts"
+
+    within ".posts li:first-child" do
+      click_on t("backend.post_actions.edit")
+    end
 
     within "form[id^='edit_blog_post']" do
       fill_in "post_body",  :with => "Updated content"

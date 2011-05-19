@@ -17,8 +17,6 @@ gem 'RedCloth', :require => 'redcloth'
 #gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git'
 gem 'formtastic', :path => '../formtastic'
 
-gem 'stringex'
-
 # FIXME
 gem 'santas-little-helpers', :path => '../santas-little-helpers'
 

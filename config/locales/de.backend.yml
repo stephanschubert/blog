@@ -9,3 +9,10 @@ de:
     actions:
       'blog/post':
         create: Artikel anlegen
+
+  backend:
+    actions:
+      create_post: Neuen Artikel anlegen
+
+    post_actions:
+      edit: Bearbeiten
