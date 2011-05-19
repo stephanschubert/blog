@@ -3,5 +3,8 @@
   = f.inputs do
     = f.input :title
     = f.input :body, :as => :text
+
+    = f.input :published_at, :as => :datetime
+
   = f.buttons do
     = f.commit_button t("post.create")
