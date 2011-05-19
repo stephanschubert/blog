@@ -8,7 +8,9 @@ module Blog
 
     field :title, type: String
     validates_presence_of :title
-    slug :title
+    slug :title do |doc|
+      doc.title.to_url
+    end
 
     field :body, type: String
     validates_presence_of :body

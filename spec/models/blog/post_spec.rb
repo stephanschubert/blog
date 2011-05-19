@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe Blog::Post do
@@ -21,6 +22,20 @@ describe Blog::Post do
 
   it "should be valid using the factory" do # ----------------------------------
     F.build("blog/post").should be_valid
+  end
+
+  describe "#slug" do # --------------------------------------------------------
+
+    it "should convert umlauts and other special chars to ASCII" do
+      post = F("blog/post", :title => "Ä ö Ü ß")
+      post.slug.should == "ae-oe-ue-ss"
+    end
+
+    it "should produce nice-looking URLs" do
+      post = F("blog/post", :title => "Schmidt & Söhne 3€")
+      post.slug.should == "schmidt-und-soehne-3-euro"
+    end
+
   end
 
   describe "#tags" do # --------------------------------------------------------

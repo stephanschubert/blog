@@ -17,6 +17,11 @@ gem 'RedCloth', :require => 'redcloth'
 #gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git'
 gem 'formtastic', :path => '../formtastic'
 
+gem 'stringex'
+
+# FIXME
+gem 'santas-little-helpers', :path => '../santas-little-helpers'
+
 if RUBY_VERSION < '1.9'
   gem "ruby-debug", ">= 0.10.3"
 end
