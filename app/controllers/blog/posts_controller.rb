@@ -23,7 +23,7 @@ module Blog
 
       if @post.save
         flash[:notice] = t("post.created")
-        respond_with @post
+        respond_with :backend, @post
       else
         flash[:error] = t("post.invalid")
         render :new
@@ -33,7 +33,7 @@ module Blog
     def update
       if @post.update_attributes(params[:post])
         flash[:notice] = t("post.updated")
-        respond_with @post
+        respond_with :backend, @post
       else
         flash[:error] = t("post.invalid")
         render :edit

@@ -9,10 +9,13 @@ feature "Posts", %q{
   background do
     @one = F("blog/post", :title => "One", :body => "This is a body")
     @two = F("blog/post", :title => "Two", :body => "Second body")
+
+    # FIXME Add real users/accounts
+    basic_auth "baktinet", "6bd5069e47fc68f2"
   end
 
   scenario "Posts index" do # --------------------------------------------------
-    visit '/blog'
+    visit '/blog/backend/posts'
 
     page.html.should have_tag ".post" do
       with_tag ".title", :text => "One"
