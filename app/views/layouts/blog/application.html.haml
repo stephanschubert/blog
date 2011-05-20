@@ -22,7 +22,8 @@
   -#= favicon_link_tag
   -# <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  = stylesheet_link_tag "screen"
+  = stylesheet_link_tag "application"
+  = javascript_include_tag "application"
 
   -# For the less-enabled mobile browsers like Opera Mini
   -# <link rel="stylesheet" media="handheld" href="css/handheld.css?v=1">
@@ -30,7 +31,7 @@
   -#
     All JavaScript at the bottom, except for Modernizr which enables
     HTML5 elements & feature detects
-  = javascript_include_tag "shared/modernizr.min.js"
+  -#= javascript_include_tag "shared/modernizr.min.js"
   = addthis_javascript
 
 %body.blog
@@ -51,17 +52,17 @@
     %footer
 
   -# Grab Google CDN's jQuery. fall back to local if necessary
-  :plain
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
-    <script>!window.jQuery && document.write(unescape('%3Cscript src="javascripts/shared/jquery.min.js"%3E%3C/script%3E'))</script>
+  -# :plain
+  -#   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+  -#   <script>!window.jQuery && document.write(unescape('%3Cscript src="javascripts/shared/jquery.min.js"%3E%3C/script%3E'))</script>
 
   -#
     Grab all JavaScript files from shared/ with the exceptions of Modernizr and
     jQuery which got included earlier. Add the JavaScript files from the frontend/
     and load the whole bunch.
 
-  - javascripts = javascripts_from_directory("shared", :except => [ "modernizr.min", "jquery.min" ])
-  - javascripts += javascripts_from_directory("frontend")
-  = javascript_include_tag *javascripts, :cache => "frontend"
+-#   - javascripts = javascripts_from_directory("shared", :except => [ "modernizr.min", "jquery.min" ])
+-#   - javascripts += javascripts_from_directory("frontend")
+-#   = javascript_include_tag *javascripts, :cache => "frontend"
 
 </html>
