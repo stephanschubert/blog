@@ -5,15 +5,12 @@ gem 'rails',     :git => 'git://github.com/rails/rails.git'
 gem 'arel',      :git => 'git://github.com/rails/arel.git'
 gem 'rack',      :git => 'git://github.com/rack/rack.git'
 gem 'sprockets', :git => "git://github.com/sstephenson/sprockets.git"
+gem 'mongoid',   :git => 'git://github.com/mongoid/mongoid.git'
 
-gem 'mongoid', :git => 'git://github.com/mongoid/mongoid.git'
 gem 'bson_ext', '>= 1.3.0'
-
 gem 'haml', '>= 3.1.0'
 gem 'sass', '>= 3.1.0'
-
 gem 'RedCloth', :require => 'redcloth'
-
 #gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git'
 gem 'formtastic', :path => '../formtastic'
 
