@@ -1,10 +1,10 @@
 
 = semantic_form_for(post, :url => polymorphic_url([:backend, post])) do |f|
   = f.inputs do
-    = f.input :title
-    = f.input :body, :as => :text
+    = f.input :title, :required => textilize_without_paragraph(t("formtastic.required"))
+    = f.input :body, :as => :text, :hint => textilize_without_paragraph(t("formtastic.hints.blog/post.body")), :required => textilize_without_paragraph(t("formtastic.required"))
 
-    = f.input :published_at, :as => :datetime
+    = f.input :published_at, :as => :datetime, :use_month_numbers => true
 
   = f.buttons do
     = f.commit_button

@@ -1,5 +1,12 @@
 Blog::Engine.routes.draw do
 
+  # Backend --------------------------------------------------------------------
+
+  scope "backend", :as => "backend" do
+    root :to => "posts#index"
+    resources :posts
+  end
+
   # Frontend -------------------------------------------------------------------
 
   root :to => "blogs#index"
@@ -17,11 +24,5 @@ Blog::Engine.routes.draw do
   match '(/:year/:month)/:id' => 'blogs#post',
   :as => :post,
   :constraints => { :year => /\d{4}/, :month => /\d{2}/ }
-
-  # Backend --------------------------------------------------------------------
-
-  scope "backend", :as => "backend" do
-    resources :posts
-  end
 
 end

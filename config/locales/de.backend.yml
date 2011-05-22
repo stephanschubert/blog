@@ -1,14 +1,22 @@
 de:
   formtastic:
+    required: "_benötigt_"
+
     labels:
       'blog/post':
         title: Titel
         body:  Inhalt
         published_at: Wann veröffentlichen?
 
+    hints:
+      'blog/post':
+        title: So kurz wie möglich, so lang wie nötig.
+        body: '"Textile Formatierungen":http://redcloth.org/textile/writing-paragraph-text/ können verwendet werden.'
+
     actions:
       'blog/post':
         create: Artikel anlegen
+        update: Artikel speichern
 
   backend:
     actions:
