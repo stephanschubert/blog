@@ -19,6 +19,10 @@ de:
         update: Artikel speichern
 
   backend:
+    links:
+      dashboard: Übersicht
+      posts: Artikel
+
     actions:
       create_post: Neuen Artikel anlegen
 

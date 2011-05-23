@@ -30,12 +30,18 @@
   -#= javascript_include_tag "shared/modernizr.min.js"
   = addthis_javascript
 
-%body.blog
+%body.backend
   #page
     = flash[:notice] if flash[:notice]
     = flash[:error] if flash[:error]
 
     %header
+
+    %nav
+      %ul.xoxo
+        %li= link_to t("backend.links.dashboard"), backend_root_path
+        %li= link_to t("backend.links.posts"), backend_posts_path
+
 
     %section#content
       = yield
