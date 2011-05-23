@@ -44,7 +44,9 @@ describe Blog::Post do
       post = F("blog/post")
       post.tags.create(:name => "A")
       post.tags.create(:name => "B")
-      post.tags.to_s.should == "A,B"
+
+      post.tags.to_s.should == "A, B"
+      post.tag_list.should == "A, B"
     end
 
   end

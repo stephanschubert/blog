@@ -21,7 +21,8 @@ module Blog
 
     embeds_many :tags, :class_name => "Blog::Tag" do
       def to_s
-        map(&:name).join(Blog::Tag.separator)
+        glue = Blog::Tag.separator + " "
+        map(&:name).join(glue)
       end
     end
 
@@ -39,6 +40,13 @@ module Blog
 
       where(:"tags.#{attr_name}".in => values)
     }
+
+    def tag_list
+      tags.to_s
+    end
+
+    def tag_list=(s)
+    end
 
     # --------------------------------------------------------------------------
 

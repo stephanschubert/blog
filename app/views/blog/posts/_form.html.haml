@@ -4,6 +4,7 @@
     = f.input :title, :required => textilize_without_paragraph(t("formtastic.required"))
     = f.input :body, :as => :text, :hint => textilize_without_paragraph(t("formtastic.hints.blog/post.body")), :required => textilize_without_paragraph(t("formtastic.required"))
 
+    = f.input :tag_list
     = f.input :published_at, :as => :datetime, :use_month_numbers => true
 
   = f.buttons do
