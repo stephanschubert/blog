@@ -13,8 +13,8 @@
     %meta{:name => "description", :content => @meta_description}
 
   = csrf_meta_tag
-  -#= track_with_google_analytics
-  -#= track_with_google_webmaster_tools
+  = track_with_google_analytics
+  = track_with_google_webmasters_tools
 
   -# RSS and ATOM feeds
   = auto_discovery_link_tag(:rss,  :action => "feed", :format => :rss)
