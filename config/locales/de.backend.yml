@@ -2,17 +2,24 @@ de:
   formtastic:
     required: "_benötigt_"
 
+    titles:
+      advanced: Erweiterte Einstellungen für SEO
+
     labels:
       'blog/post':
         title: Titel
         body:  Inhalt
         published_at: Wann veröffentlichen?
         tag_list: Tags / Kategorien
+        page_title: Titel der Seite
+        meta_description: Meta-Beschreibung
 
     hints:
       'blog/post':
         title: So kurz wie möglich, so lang wie nötig.
         body: '"Textile Formatierungen":http://redcloth.org/textile/writing-paragraph-text/ können verwendet werden.'
+        page_title: Wenn leergelassen, wird der Titel des Beitrags verwendet.
+        meta_description: 1-2 Sätze, die den Inhalt der Seite zusammenfassen.
 
     actions:
       'blog/post':

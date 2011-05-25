@@ -7,5 +7,9 @@
     = f.input :tag_list
     = f.input :published_at, :as => :datetime, :use_month_numbers => true
 
+  = f.inputs :advanced, :class => "advanced" do
+    = f.input :page_title
+    = f.input :meta_description, :as => :text
+
   = f.buttons do
     = f.commit_button

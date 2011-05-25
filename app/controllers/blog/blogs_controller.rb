@@ -18,6 +18,9 @@ module Blog
 
     def post
       @post = posts.find_by_slug(params[:id])
+
+      @page_title = page_title(@post)
+      @meta_description = @post.meta_description
     end
 
     def posts_by_date
@@ -34,6 +37,12 @@ module Blog
 
     def posts
       Post.published
+    end
+
+    def page_title(post)
+      title = post.page_title
+      title = post.title if title.blank?
+      title
     end
 
   end

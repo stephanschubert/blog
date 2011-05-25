@@ -53,6 +53,25 @@ feature "Posts", %q{
     page.should have_content t("post.updated")
   end
 
+  scenario "View public post" do # ---------------------------------------------
+    post = F("blog/post",
+             :title => "A post",
+             :body => "The content.",
+             :page_title => "",
+             :meta_description => "",
+             :published_at => 1.day.ago)
+
+    visit public_post_path(post)
+
+    page.html.should have_tag "title", :text => "A post"
+    page.html.should_not have_tag "meta[name='description']"
+
+    page.html.should have_tag ".post" do
+      with_tag ".entry-title", :text => "A post"
+      with_tag ".entry-content", :text => /The content/
+    end
+  end
+
   scenario "Adding tags to a post" do # ----------------------------------------
     post = F("blog/post", :title => "A post", :published_at => 1.day.ago)
 
@@ -69,6 +88,36 @@ feature "Posts", %q{
       with_tag "a", :text => /General/
       with_tag "a", :text => /Updates/
     end
+  end
+
+  scenario "Add custom page title" do # ----------------------------------------
+    post = F("blog/post", :title => "A post", :published_at => 1.day.ago)
+
+    visit edit_backend_post_path(post)
+
+    within "form[id^='edit_blog_post']" do
+      fill_in "post_page_title", :with => "Custom page title"
+      find("*[type='submit']").click
+    end
+
+    visit public_post_path(post)
+
+    page.html.should have_tag "title", :text => "Custom page title"
+  end
+
+  scenario "Add custom meta description" do # ----------------------------------
+    post = F("blog/post", :title => "A post", :published_at => 1.day.ago)
+
+    visit edit_backend_post_path(post)
+
+    within "form[id^='edit_blog_post']" do
+      fill_in "post_meta_description", :with => "Custom meta description"
+      find("*[type='submit']").click
+    end
+
+    visit public_post_path(post)
+
+    page.html.should have_tag "meta[name='description'][content='Custom meta description']"
   end
 
 end

@@ -7,7 +7,10 @@
 %head
   %meta{:charset => "utf-8"}
   %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1"}
-  %title Blog
+  %title= @page_title
+
+  - unless @meta_description.blank?
+    %meta{:name => "description", :content => @meta_description}
 
   = csrf_meta_tag
   -#= track_with_google_analytics

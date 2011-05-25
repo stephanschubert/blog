@@ -17,6 +17,9 @@ module Blog
 
     field :published_at, type: DateTime
 
+    field :page_title, type: String
+    field :meta_description, type: String
+
     # TAGS ---------------------------------------------------------------------
 
     embeds_many :tags, :class_name => "Blog::Tag" do
