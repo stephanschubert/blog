@@ -120,4 +120,18 @@ feature "Posts", %q{
     page.html.should have_tag "meta[name='description'][content='Custom meta description']"
   end
 
+  # FIXME
+  # have_tag can't handle the colon in the custom tag's name...
+  #
+  # scenario "Use meta description for addthis button" do # ----------------------
+  #   post = F("blog/post",
+  #            :title => "A post",
+  #            :meta_description => "A custom description",
+  #            :published_at => 1.day.ago)
+
+  #   visit public_post_path(post)
+
+  #   page.html.should have_tag ".addthis_toolbox[addthis:description='A custom description']"
+  # end
+
 end

@@ -29,5 +29,18 @@ module Blog
       ).html_safe
     end
 
+    def addthis_buttons_for_post(post, options = {})
+      options.reverse_merge! \
+      :url => public_post_url(post),
+      :title => post.title,
+      :description => post.meta_description
+
+      if options[:description].blank?
+        options[:description] = truncate(post.body, :length => 250)
+      end
+
+      addthis_buttons(options)
+    end
+
   end
 end
