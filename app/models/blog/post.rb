@@ -45,7 +45,11 @@ module Blog
       tags.to_s
     end
 
-    def tag_list=(s)
+    def tag_list=(input)
+      tags.clear
+      input.split(/\s*#{Blog::Tag.separator}\s*/).each do |name|
+        tags.create :name => name
+      end
     end
 
     # --------------------------------------------------------------------------

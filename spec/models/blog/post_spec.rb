@@ -51,6 +51,22 @@ describe Blog::Post do
 
   end
 
+  describe "#tag_list" do # ----------------------------------------------------
+
+    it "should accept a list of tags" do
+      post = F("blog/post")
+      post.tag_list.should == ""
+
+      post.tag_list = "General, Updates"
+      post.save
+
+      post.reload
+      post.tags.size.should == 2
+      post.tag_list.should == "General, Updates"
+    end
+
+  end
+
   describe "#tagged_with" do # -------------------------------------------------
 
     it "should return all posts tagged w/ given tag" do
