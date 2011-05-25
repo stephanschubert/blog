@@ -44,7 +44,25 @@ describe Blog::Post do
       post = F("blog/post")
       post.tags.create(:name => "A")
       post.tags.create(:name => "B")
-      post.tags.to_s.should == "A,B"
+
+      post.tags.to_s.should == "A, B"
+      post.tag_list.should == "A, B"
+    end
+
+  end
+
+  describe "#tag_list" do # ----------------------------------------------------
+
+    it "should accept a list of tags" do
+      post = F("blog/post")
+      post.tag_list.should == ""
+
+      post.tag_list = "General, Updates"
+      post.save
+
+      post.reload
+      post.tags.size.should == 2
+      post.tag_list.should == "General, Updates"
     end
 
   end

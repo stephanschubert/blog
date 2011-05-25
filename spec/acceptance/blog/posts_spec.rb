@@ -45,12 +45,30 @@ feature "Posts", %q{
     end
 
     within "form[id^='edit_blog_post']" do
-      fill_in "post_body",  :with => "Updated content"
+      fill_in "post_body", :with => "Updated content"
 
       find("*[type='submit']").click
     end
 
     page.should have_content t("post.updated")
+  end
+
+  scenario "Adding tags to a post" do # ----------------------------------------
+    post = F("blog/post", :title => "A post", :published_at => 1.day.ago)
+
+    visit edit_backend_post_path(post)
+
+    within "form[id^='edit_blog_post']" do
+      fill_in "post_tag_list", :with => "General, Updates"
+      find("*[type='submit']").click
+    end
+
+    visit public_post_path(post)
+
+    page.html.should have_tag ".post .tags" do
+      with_tag "a", :text => /General/
+      with_tag "a", :text => /Updates/
+    end
   end
 
 end
