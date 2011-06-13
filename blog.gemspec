@@ -9,4 +9,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'mongoid_slug'
   s.add_dependency 'RedCloth'
+
+  # TODO Add santas-little-helpers?
 end
