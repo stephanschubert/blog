@@ -43,5 +43,41 @@ module Blog
       addthis_buttons(options)
     end
 
+    # GOOGLE PLUSONE +1 --------------------------------------------------------
+
+    def plusone_javascript
+      (<<-JS
+      <script>
+        (function(d, t) {
+          var g = d.createElement(t),
+            	s = d.getElementsByTagName(t)[0];
+          g.async = true;
+          g.src = 'https://apis.google.com/js/plusone.js';
+          s.parentNode.insertBefore(g, s);
+        })(document, 'script');
+     </script>
+     JS
+     ).html_safe
+    end
+
+    def plusone_button(options = {})
+      options.reverse_merge! \
+      :class => "g-plusone",
+      :lang  => I18n.locale,
+      # TODO Should be prefixed w/ 'data-' but it won't work for now..
+      :size  => :standard,
+      :count => true
+
+      content_tag :div, options do
+      end
+    end
+
+    def plusone_button_for_post(post, options = {})
+      options.reverse_merge! \
+      :href => public_post_url(post)
+
+      plusone_button(options)
+    end
+
   end
 end

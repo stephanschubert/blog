@@ -24,4 +24,33 @@ describe Blog::ShareHelper do
 
   end
 
+  describe "#plusone_button" do # ----------------------------------------------
+
+    it "should return least valid markup" do
+      html = helper.plusone_button
+      html.should have_tag "div.g-plusone[data-size=standard][data-count=true]"
+    end
+
+    it "should set the 'lang' attribute" do
+      locale = I18n.locale
+      html   = helper.plusone_button
+
+      html.should have_tag "div.g-plusone[lang=#{locale}]"
+    end
+
+  end
+
+  describe "#plusone_button_for_post" do # ------------------------------------
+
+    # TODO Doesn't work because we can't access 'public_post_url' helper!?
+    #
+    # it "should return valid markup w/ href matching the post's url" do
+    #   post = F("blog/post", :slug => "a-post", :published_at => 1.day.ago)
+    #   html = helper.plusone_button_for_post(post)
+
+    #   html.should have_tag "div.g-plusone[href$=/a-post]"
+    # end
+
+  end
+
 end
