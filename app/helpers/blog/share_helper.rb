@@ -36,7 +36,8 @@ module Blog
       :description => post.meta_description
 
       if options[:description].blank?
-        options[:description] = truncate(post.body, :length => 250)
+        text = truncate(post.body, :length => 250, :words_only => true)
+        options[:description] = text
       end
 
       addthis_buttons(options)
