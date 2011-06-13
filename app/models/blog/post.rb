@@ -21,6 +21,8 @@ module Blog
     field :page_title, type: String
     field :meta_description, type: String
 
+    field :views, type: Integer
+
     # TAGS ---------------------------------------------------------------------
 
     embeds_many :tags, :class_name => "Blog::Tag" do

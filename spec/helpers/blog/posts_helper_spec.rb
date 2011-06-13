@@ -75,4 +75,18 @@ describe Blog::PostsHelper do
 
   end
 
+  describe "#most_viewed_posts" do # -------------------------------------------
+
+    it "should return published posts sorted by views" do
+      p0 = F("blog/post", :views => 3,  :published_at => 1.day.ago)
+      p1 = F("blog/post", :views => 23, :published_at => 2.days.ago)
+      p2 = F("blog/post", :views => 11, :published_at => 3.days.ago)
+      p3 = F("blog/post", :views => 48, :published_at => nil)
+
+      posts = helper.most_viewed_posts.to_a
+      posts.should == [ p1, p2, p0 ]
+    end
+
+  end
+
 end

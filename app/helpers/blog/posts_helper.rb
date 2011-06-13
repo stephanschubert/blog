@@ -85,5 +85,14 @@ module Blog
       end
     end
 
+    def most_viewed_posts(options = {})
+      options.reverse_merge! \
+      :limit => 10
+
+      limit = options.pluck(:limit)
+
+      Blog::Post.published.order_by(:views.desc).limit(limit)
+    end
+
   end
 end
