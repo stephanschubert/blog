@@ -1,6 +1,7 @@
 de:
   blog:
     latest_posts: "Neuste Einträge"
+    most_viewed_posts: "Best Of"
     all_tags: "Kategorien"
     feeds: "News abonnieren"
 
