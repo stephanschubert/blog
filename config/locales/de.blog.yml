@@ -1,7 +1,11 @@
 de:
   blog:
     latest_posts: "Neuste Einträge"
-    most_viewed_posts: "Best Of"
+
+    most_viewed_posts:
+      title: "Best Of"
+      legend: "# Klicks"
+
     all_tags: "Kategorien"
     feeds: "News abonnieren"
 

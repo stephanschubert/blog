@@ -16,7 +16,7 @@ module Blog
       blog.post_url parameters_for_post_path(post, options)
     end
 
-    def link_to_post(post, options = {})
+    def link_to_post(post, options = {}, &block)
       options.reverse_merge! \
       :backend => false
 
@@ -42,8 +42,12 @@ module Blog
       :title => post.title
 
       text, url = options.pluck(:text, :url)
+      text = capture(&block) if block_given?
 
-      link_to text, url, options
+      link_to url, options do
+        # The extra <span> is just for styling purposes.
+        content_tag :span, text
+      end
     end
 
     # Returns a link to tag/category according to the hAtom spec.

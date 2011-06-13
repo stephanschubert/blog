@@ -20,6 +20,18 @@ describe Blog::PostsHelper do
       html.should have_tag "a[href='/blog/2011/04/first-post']"
     end
 
+    it "should accept a block" do
+      post = F("blog/post", :tag_list => "a,b")
+
+      html = helper.link_to_post(post) do
+        "test"
+      end
+
+      html.should have_tag "a" do
+        with_tag "span", :text => /test/
+      end
+    end
+
   end
 
   describe "#link_to_tag" do # -------------------------------------------------
