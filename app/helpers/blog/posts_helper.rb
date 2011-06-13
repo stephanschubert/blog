@@ -47,7 +47,7 @@ module Blog
     end
 
     # Returns a link to tag/category according to the hAtom spec.
-    def link_to_tag(tag, options = {})
+    def link_to_tag(tag, options = {}, &block)
       options.reverse_merge! \
       :rel   => "tag",
       :title => tag.name,
@@ -55,6 +55,7 @@ module Blog
       :url   => blog.posts_by_tag_path(tag)
 
       text, url = options.pluck(:text, :url)
+      text = capture(&block) if block_given?
 
       link_to url, options do
         # The extra <span> is just for styling purposes.

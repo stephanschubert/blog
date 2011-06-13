@@ -34,6 +34,19 @@ describe Blog::PostsHelper do
       end
     end
 
+    it "should accept a block" do
+      post = F("blog/post", :tag_list => "a,b")
+      tag  = post.tags.first
+
+      html = helper.link_to_tag(tag) do
+        "test"
+      end
+
+      html.should have_tag "a" do
+        with_tag "span", :text => /test/
+      end
+    end
+
   end
 
   describe "#pretty_date" do # -------------------------------------------------

@@ -2,6 +2,7 @@ module Blog
   class Post
     include Mongoid::Document
     include Mongoid::Timestamps
+    include Mongoid::MultiParameterAttributes
     include Mongoid::Slug
 
     belongs_to :user, inverse_of: :posts
@@ -48,6 +49,7 @@ module Blog
       tags.to_s
     end
 
+    # FIXME: Something is broken here!
     def tag_list=(input)
       tags.clear
       input.split(/\s*#{Blog::Tag.separator}\s*/).each do |name|
