@@ -62,11 +62,10 @@ module Blog
 
     def plusone_button(options = {})
       options.reverse_merge! \
-      :class => "g-plusone",
-      :lang  => I18n.locale,
-      # TODO Should be prefixed w/ 'data-' but it won't work for now..
-      :size  => :standard,
-      :count => true
+      :class       => "g-plusone",
+      :lang        => I18n.locale,
+      "data-size"  => :standard,
+      "data-count" => true
 
       content_tag :div, options do
       end

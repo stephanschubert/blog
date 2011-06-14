@@ -20,20 +20,10 @@ module Blog
       options.reverse_merge! \
       :backend => false
 
-      backend = options.pluck(:backend)
-
-      url = if backend
+      url = if options.pluck(:backend)
               blog.backend_post_path(post)
-
             else
-              path_options = { :year => nil, :month => nil }
-
-              if date = post.published_at
-                path_options[:year]  = date.year.to_s
-                path_options[:month] = date.month.to_s.rjust(2, "0")
-              end
-
-              blog.post_path(post, path_options)
+              public_post_path(post)
             end
 
       options.reverse_merge! \

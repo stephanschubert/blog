@@ -11,5 +11,11 @@ module Blog
       textilize(*args).gsub /^<p>|<\/p>$/, ''
     end
 
+    # Remove textile formatting
+    def untextilize(*args)
+      # Let textile do the work and just strip the tags afterwards.
+      strip_tags(textilize(*args))
+    end
+
   end
 end

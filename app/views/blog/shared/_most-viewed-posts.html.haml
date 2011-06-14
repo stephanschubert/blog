@@ -1,0 +1,8 @@
+%section#most-viewed-posts
+  %header
+    %h4.section-title= t("blog.most_viewed_posts.title")
+    %span.section-legend= t("blog.most_viewed_posts.legend")
+
+  = render "blog/blogs/post_list",
+    :posts => most_viewed_posts,
+    :show_views => true

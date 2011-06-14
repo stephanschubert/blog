@@ -13,6 +13,8 @@
       = t(".written_by")
       = pretty_author(post.user)
 
+  = plusone_button_for_post(post, "data-size" => :small)
+  = flattr_button_for_post(post)
   = addthis_buttons_for_post(post)
 
   .entry-content
