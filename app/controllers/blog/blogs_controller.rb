@@ -1,5 +1,6 @@
 module Blog
   class BlogsController < SessionsController
+    layout "application"
 
     respond_to :html, :rss, :atom
 
