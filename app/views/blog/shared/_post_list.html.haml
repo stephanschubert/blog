@@ -1,0 +1,8 @@
+- show_views = false unless defined?(show_views)
+
+%ol.xoxo.post-list
+  - posts.each do |post|
+    %li{:class => cycle("odd", "even")}
+      = link_to_post(post) do
+        %span.post-title= post.title
+        %span.post-views= post.views.to_i
