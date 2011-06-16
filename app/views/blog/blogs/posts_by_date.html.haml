@@ -1,4 +1,2 @@
 
-%ol.xoxo
-  - @posts.each do |post|
-    %li= render "post", :post => post
+= render "blog/shared/posts", :posts => @posts
