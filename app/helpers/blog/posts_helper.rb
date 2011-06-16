@@ -12,9 +12,9 @@ module Blog
             end
 
       options.reverse_merge! \
-      :text  => post.title,
+      :text  => untextilize(post.title),
       :url   => url,
-      :title => post.title
+      :title => untextilize(post.title)
 
       text, url = options.pluck(:text, :url)
       text = capture(&block) if block_given?

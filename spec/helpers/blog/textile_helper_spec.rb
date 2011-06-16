@@ -18,6 +18,11 @@ describe Blog::TextileHelper do
       result.should_not match(/^<p>|<\/p>$/)
     end
 
+    it "should be html-safe" do
+      result = helper.textilize_without_paragraph("Some text")
+      result.should be_html_safe
+    end
+
   end
 
   describe "#untextilize" do # -------------------------------------------------
@@ -26,6 +31,12 @@ describe Blog::TextileHelper do
       textiled = "The *quick* _brown fox_ <em>jumps</em> over the lazy dog."
       cleaned  = helper.untextilize(textiled)
       cleaned.should == "The quick brown fox jumps over the lazy dog."
+    end
+
+    it "should be html-safe" do
+      textiled = "The *quick* _brown fox_ <em>jumps</em> over the lazy dog."
+      cleaned  = helper.untextilize(textiled)
+      cleaned.should be_html_safe
     end
 
   end

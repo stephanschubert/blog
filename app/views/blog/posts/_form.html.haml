@@ -1,7 +1,7 @@
 
 = semantic_form_for(post, :url => polymorphic_url([:backend, post])) do |f|
   = f.inputs do
-    = f.input :title, :required => textilize_without_paragraph(t("formtastic.required"))
+    = f.input :title, :as => :text, :required => textilize_without_paragraph(t("formtastic.required"))
     = f.input :body, :as => :text, :hint => textilize_without_paragraph(t("formtastic.hints.blog/post.body")), :required => textilize_without_paragraph(t("formtastic.required"))
 
     = f.input :tag_list

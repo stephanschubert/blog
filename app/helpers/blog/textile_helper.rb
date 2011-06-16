@@ -8,7 +8,7 @@ module Blog
 
     # Textilize the input but don't wrap the result in a <p>aragraph.
     def textilize_without_paragraph(*args)
-      textilize(*args).gsub /^<p>|<\/p>$/, ''
+      textilize(*args).gsub(/^<p>|<\/p>$/, '').html_safe
     end
 
     # Remove textile formatting

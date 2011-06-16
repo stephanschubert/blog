@@ -3,7 +3,9 @@
 %article.hentry.post{:id => "post-#{post.id}"}
 
   %h1.entry-title
-    = link_to_post(post, :rel => "bookmark")
+    = link_to_post(post,
+    :text => textilize_without_paragraph(post.title),
+    :rel => "bookmark")
 
   .entry-meta
     .entry-published
