@@ -36,6 +36,11 @@ describe Blog::Post do
       post.slug.should == "ae-oe-ue-ss"
     end
 
+    it "should remove any textile formatting" do
+      post = F("blog/post", :title => "A *nice*\n _post_")
+      post.slug.should == "a-nice-post"
+    end
+
     it "should produce nice-looking URLs" do
       post = F("blog/post", :title => "Schmidt & Söhne 3€")
       post.slug.should == "schmidt-und-soehne-3-euro"

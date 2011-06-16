@@ -11,14 +11,6 @@ module Blog
       g.test_framework  :rspec
     end
 
-    # The main app should be able to use the engine's helpers.
-
-    initializer "blog.grant_helper_access" do |app|
-      ActiveSupport.on_load(:action_controller) do
-        helper Blog::Engine.helpers
-      end
-    end
-
     # On the other hand, the engine should be able to use at least
     # some of the main app's helpers to ensure basic support for
     # rendering a single layout for both.
@@ -27,6 +19,14 @@ module Blog
       ActiveSupport.on_load(:action_view) do
         require app.root + 'app/helpers/application_helper'
         include ApplicationHelper
+      end
+    end
+
+    # The main app should be able to use the engine's helpers.
+
+    initializer "blog.grant_helper_access" do |app|
+      ActiveSupport.on_load(:action_controller) do
+        helper Blog::Engine.helpers
       end
     end
 
