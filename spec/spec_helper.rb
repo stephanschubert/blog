@@ -54,12 +54,12 @@ Spork.prefork do
     # config.include Capybara, :type => :helper
 
     # Clean up the database
-    config.before(:suite) do
+    config.before :suite do
       DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.orm = "mongoid"
     end
 
-    config.before(:each) do
+    config.before :each do
       DatabaseCleaner.clean
     end
   end
