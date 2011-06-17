@@ -36,7 +36,7 @@ module Blog
       :description => post.meta_description
 
       if options[:description].blank?
-        text = truncate(post.body, :length => 250, :words_only => true)
+        text = truncate(untextilize(post.body), :length => 250, :words_only => true)
         options[:description] = text
       end
 
