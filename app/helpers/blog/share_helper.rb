@@ -12,11 +12,17 @@ module Blog
       ).html_safe
     end
 
+
     def addthis_buttons(options = {})
       html_attrs = options.map { |k,v| "addthis:#{k}=\"#{v}\"" }.join(" ")
 
-      (
-      <<-HTML
+      # <a class="addthis_button_google_plusone"></a>
+      # <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+      # <a class="addthis_button_tweet"></a>
+      # <a class="addthis_counter addthis_pill_style"></a>
+
+
+      (<<-HTML
       <div class="addthis_toolbox addthis_default_style" #{html_attrs}>
         <a class="addthis_button_preferred_1"></a>
         <a class="addthis_button_preferred_2"></a>
@@ -36,7 +42,7 @@ module Blog
       :description => post.meta_description
 
       if options[:description].blank?
-        text = truncate(post.body, :length => 250, :words_only => true)
+        text = truncate(untextilize(post.body), :length => 250, :words_only => true)
         options[:description] = text
       end
 
