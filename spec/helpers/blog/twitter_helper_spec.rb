@@ -27,4 +27,14 @@ describe Blog::TwitterHelper do
 
   end
 
+  describe "#twitter_follow_button" do # ---------------------------------------
+
+    it "should return valid markup" do
+      url  = "http://twitter.com/twitterapi"
+      html = helper.twitter_follow_button("user")
+      html.should have_tag "a.twitter-follow-button[href='#{url}']", :text => "Follow user"
+    end
+
+  end
+
 end

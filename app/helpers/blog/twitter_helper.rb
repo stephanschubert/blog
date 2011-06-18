@@ -40,5 +40,15 @@ module Blog
       tweet_button(text, url, options)
     end
 
+    def twitter_follow_button(name, options = {})
+      options.reverse_merge! \
+      :text  => "Follow #{name}",
+      :url   => "http://twitter.com/twitterapi",
+      :class => "twitter-follow-button"
+
+      text, url = options.pluck(:text, :url)
+      link_to text, url, options
+    end
+
   end
 end
