@@ -22,8 +22,8 @@ module Blog
       options.reverse_merge! \
       :text  => truncate(untextilize(post.body), :length => 500, :words_only => true),
       :url   => public_post_url(post),
-      :title => untextilize(post.title)
-      # TODO "data-flattr-tags"
+      :title => untextilize(post.title),
+      "data-flattr-tags" => post.tag_list
 
       text, url = options.pluck(:text, :url)
       flattr_button(text, url, options)
