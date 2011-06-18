@@ -2,7 +2,7 @@
 
 %article.hentry.post{:id => "post-#{post.id}"}
   %header
-    = render "blog/shared/share_buttons_for_post", :post => @post
+    = render "blog/shared/share_buttons_for_post", :post => post
 
     %h1.entry-title
       = link_to_post(post,
@@ -30,7 +30,7 @@
     = textilize(post.body)
 
   %footer
-    = render "blog/shared/share_buttons_for_post", :post => @post
+    = render "blog/shared/share_buttons_for_post", :post => post
 
     - unless post.tags.blank?
       .entry-tags
