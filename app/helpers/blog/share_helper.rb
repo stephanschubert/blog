@@ -2,11 +2,23 @@ module Blog
   module ShareHelper
 
     def addthis_javascript(options = {})
+      options.reverse_merge! \
+      :ga_id => (Settings.google.analytics.id rescue nil)
+
+      track_with_ga = if (ga_id = options.pluck(:ga_id))
+        <<-JS
+        <script>
+          var addthis_config = {
+            data_ga_property: '#{ga_id}',
+            data_track_clickback: true
+          };
+        </script>
+        JS
+      end
+
       (
       <<-JS
-      <script type="text/javascript">
-        var addthis_config = {"data_track_clickback":true};
-      </script>
+      #{track_with_ga}
       <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dd2c24527d41a6b"></script>
       JS
       ).html_safe
