@@ -10,6 +10,7 @@ module Blog
 
       # Call the original truncate
       shorty = super(text, options)
+      shorty = shorty.to_str # Ensure we don't get a html-safe string
 
       # Remove the broken/impartial word at the end of the string
       if options[:words_only]
@@ -17,7 +18,7 @@ module Blog
         broken_word = /([^\s]+)#{omission}\Z/
 
         if shorty =~ broken_word
-          shorty.sub! broken_word, omission
+          shorty.sub!(broken_word, omission)
         end
       end
 

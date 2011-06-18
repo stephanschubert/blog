@@ -32,7 +32,8 @@
   %footer
     = render "blog/shared/share_buttons_for_post", :post => @post
 
-    .entry-tags
-      Dieser Artikel wurde in den Kategorien
-      = linked_tags_as_sentence(post.tags)
-      einsortiert.
+    - unless post.tags.blank?
+      .entry-tags
+        Dieser Artikel wurde in den Kategorien
+        = linked_tags_as_sentence(post.tags)
+        einsortiert.
