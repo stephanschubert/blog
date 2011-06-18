@@ -2,6 +2,8 @@
 
 %article.hentry.post{:id => "post-#{post.id}"}
 
+  = render "blog/shared/share_buttons_for_post", :post => @post
+
   %h1.entry-title
     = link_to_post(post,
     :text => textilize_without_paragraph(post.title),
@@ -15,13 +17,10 @@
       = t(".written_by")
       = pretty_author(post.user)
 
-  .entry-sharing
-    = plusone_button_for_post(post, "data-size" => :small)
-    = flattr_button_for_post(post)
-    = addthis_buttons_for_post(post)
-
   .entry-content
     = textilize(post.body)
+
+  = render "blog/shared/share_buttons_for_post", :post => @post
 
   .entry-tags
     = render "blog/shared/tags", :tags => post.tags

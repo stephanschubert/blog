@@ -1,0 +1,7 @@
+#sharebar
+  %ul
+    %li= plusone_button_for_post(post, "data-size" => :tall)
+    %li= flattr_button_for_post(post, "data-flattr-button" => :default)
+    %li= addthis_buttons_for_post(post, :layout => :pills)
+    %li= tweet_button_for_post(post)
+    %li= facebook_like_button_for_post(post, "layout" => "box_count")
