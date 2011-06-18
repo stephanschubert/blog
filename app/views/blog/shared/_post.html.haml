@@ -17,6 +17,15 @@
         = t(".written_by")
         = pretty_author(post.user)
 
+  = adsense_block(:class => "adsense large-rect") do
+    :plain
+      <script>
+        google_ad_client = "ca-pub-5288272203015721";
+        google_ad_slot = "7303175719";
+        google_ad_width = 336;
+        google_ad_height = 280;
+      </script>
+
   .entry-content
     = textilize(post.body)
 
