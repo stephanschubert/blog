@@ -30,7 +30,9 @@
     = textilize(post.body)
 
   %footer
+
     = render "blog/shared/share-buttons-for-post", :post => post
+    = render "shared/donate-with-paypal"
 
     - unless post.tags.blank?
       .entry-tags
