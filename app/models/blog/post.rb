@@ -90,5 +90,11 @@ module Blog
     # Return the latest +max+ posts
     scope :latest, lambda { |max| order_by(:published_at.desc).limit(max) }
 
+    # --------------------------------------------------------------------------
+
+    def preferred_title
+      page_title.blank? ? title : page_title
+    end
+
   end
 end

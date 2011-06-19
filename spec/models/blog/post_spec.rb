@@ -176,4 +176,18 @@ describe Blog::Post do
 
   end
 
+  describe "#preferred_title" do # ---------------------------------------------
+
+    it "should return the 'title' if 'page_title' is not set" do
+      post = F("blog/post", :title => "A title", :page_title => nil)
+      post.preferred_title.should == "A title"
+    end
+
+    it "should return the 'page_title' if set" do
+      post = F("blog/post", :title => "A title", :page_title => "A better title")
+      post.preferred_title.should == "A better title"
+    end
+
+  end
+
 end
