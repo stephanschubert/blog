@@ -33,6 +33,7 @@ module Blog
     end
 
     scope :tagged_with, lambda { |*tags|
+      tags      = [tags].flatten # Ensure we have a flat array
       options   = tags.extract_options!
       attr_name = options[:slug] ? "slug" : "name"
 
@@ -57,6 +58,10 @@ module Blog
       input.split(/\s*#{Blog::Tag.separator}\s*/).each do |name|
         tags.create :name => name
       end
+    end
+
+    def related_posts(limit = nil)
+      self.class.tagged_with(tags).where(:_id.ne => id).limit(limit)
     end
 
     # --------------------------------------------------------------------------

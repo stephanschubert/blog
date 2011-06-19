@@ -119,6 +119,27 @@ describe Blog::Post do
 
   end
 
+  describe "#related_posts" do # -----------------------------------------------
+
+    it "should return all posts which share at least one tag" do
+      post = F("blog/post", :tag_list => "a, b, c")
+      p1   = F("blog/post", :tag_list => "a, d")
+      p2   = F("blog/post", :tag_list => "b, c")
+      p3   = F("blog/post", :tag_list => "x")
+
+      post.related_posts.should == [ p1, p2 ]
+    end
+
+    it "should take a 'limit' parameter" do
+      post = F("blog/post", :tag_list => "a, b, c")
+      p1   = F("blog/post", :tag_list => "a, d")
+      p2   = F("blog/post", :tag_list => "b, c")
+      p3   = F("blog/post", :tag_list => "x")
+
+      post.related_posts(1).should == [ p1 ]
+    end
+  end
+
   describe "#published" do # ---------------------------------------------------
 
     it "should return all posts published if no date is given" do
