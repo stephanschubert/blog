@@ -4,7 +4,7 @@
   - posts.each do |post|
     %li{:class => cycle("odd", "even")}
       = link_to_post(post) do
-        %span.post-title= post.title
+        %span.title= post.title
 
         - if show_views
-          %span.post-views= post.views.to_i
+          %span.count= post.views.to_i

@@ -2,5 +2,5 @@
   - tags.each do |tag|
     %li{:class => cycle("odd", "even")}
       = link_to_tag(tag) do
-        %span.tag-name= tag.name
-        %span.post-count= Blog::Post.tagged_with(tag).count
+        %span.title= tag.name
+        %span.count= Blog::Post.tagged_with(tag).count
