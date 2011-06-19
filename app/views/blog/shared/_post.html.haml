@@ -2,7 +2,7 @@
 
 %article.hentry.post{:id => "post-#{post.id}"}
   %header
-    = render "blog/shared/share_buttons_for_post", :post => post
+    = render "blog/shared/share-buttons-for-post", :post => post
 
     %h1.entry-title
       = link_to_post(post,
@@ -30,10 +30,12 @@
     = textilize(post.body)
 
   %footer
-    = render "blog/shared/share_buttons_for_post", :post => post
+    = render "blog/shared/share-buttons-for-post", :post => post
 
     - unless post.tags.blank?
       .entry-tags
         Dieser Artikel wurde in den Kategorien
         = linked_tags_as_sentence(post.tags)
         einsortiert.
+
+    = render "blog/shared/related-posts", :post => post

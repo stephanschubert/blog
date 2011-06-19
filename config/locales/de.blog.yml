@@ -1,23 +1,27 @@
 de:
   blog:
-    latest_posts: "Neuste Einträge"
+    latest_posts: Neuste Einträge
 
     most_viewed_posts:
-      title: "Best Of"
+      title: Best Of
       legend: "# Klicks"
 
-    all_tags: "Kategorien"
-    feeds: "News abonnieren"
+    related_posts:
+      title: Mehr zu diesem Thema
+      legend: "# Klicks"
+
+    all_tags: Kategorien
+    feeds: News abonnieren
 
     blogs:
       post:
-        written_by: "von"
+        written_by: von
 
     feed:
       rss:
-        link: "RSS"
-        title: "Blog Feed"
-        description: "Die neusten Einträge im Blog."
+        link: RSS
+        title: Blog Feed
+        description: Die neusten Einträge im Blog.
       atom:
-        link: "ATOM"
-        title: "Blog Feed"
+        link: ATOM
+        title: Blog Feed

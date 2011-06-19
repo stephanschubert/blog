@@ -5,4 +5,6 @@
     %li{:class => cycle("odd", "even")}
       = link_to_post(post) do
         %span.post-title= post.title
-        %span.post-views= post.views.to_i
+
+        - if show_views
+          %span.post-views= post.views.to_i

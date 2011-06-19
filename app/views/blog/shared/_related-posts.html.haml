@@ -1,0 +1,6 @@
+%section.related-posts
+  %header
+    %h4.section-title= t("blog.related_posts.title")
+
+  = render "blog/shared/post-list",
+    :posts => post.related_posts(5)
