@@ -1,0 +1,4 @@
+%ol.xoxo.post-previews
+  - posts.each do |post|
+    %li{:class => cycle("odd", "even")}
+      = render "blog/shared/post-preview", :post => post

@@ -28,6 +28,7 @@ module Blog
       year   = params[:year]
       month  = params[:month]
       @posts = posts.published(year, month)
+      @date  = formatted_date(year, month)
     end
 
     def posts_by_tag
@@ -38,6 +39,17 @@ module Blog
 
     def posts
       Post.published
+    end
+
+    def formatted_date(year, month)
+      if month.blank?
+        date = Time.parse("#{year}/01")
+        l(date, :format => "%Y")
+      else
+        month = month.to_s.rjust(2, "0")
+        date  = Time.parse("#{year}/#{month}")
+        l(date, :format => "%B %Y")
+      end
     end
 
   end
