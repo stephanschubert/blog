@@ -11,6 +11,8 @@ Blog::Engine.routes.draw do
 
   root :to => "blogs#index"
 
+  match '/archive' => 'blogs#archive', :as => :archive
+
   match '/tags/:id' => 'blogs#posts_by_tag',
   :as => :posts_by_tag
 

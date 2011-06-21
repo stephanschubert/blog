@@ -1,0 +1,6 @@
+%article#archive
+  %h1= t("blog.archive.title")
+
+  - @posts_by_year.each do |year, posts|
+    %h2= year
+    = render "blog/shared/post-list", :posts => posts

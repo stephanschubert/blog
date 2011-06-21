@@ -22,39 +22,39 @@ feature "Default blog behavior", %q{
     @draft = F("blog/post", :published_at => nil)
 
     # Annoying.
-    @host = "www.example.com"
+    @host = "example.com"
   end
 
   scenario "View home page" do # -----------------------------------------------
     visit '/blog'
 
     page.html.should have_tag(".post", :count => 2)
-    page.should have_post @one
-    page.should have_post @two
+    page.html.should have_post @one
+    page.html.should have_post @two
   end
 
   scenario "View single post" do # ---------------------------------------------
     visit '/blog/one'
 
     page.html.should have_tag(".post", :count => 1)
-    page.should have_post @one
-    page.should_not have_post @two
+    page.html.should have_post @one
+    page.html.should_not have_post @two
   end
 
   scenario "View single post w/ date" do # -------------------------------------
     visit '/blog/2011/04/one'
 
     page.html.should have_tag(".post", :count => 1)
-    page.should have_post @one
-    page.should_not have_post @two
+    page.html.should have_post @one
+    page.html.should_not have_post @two
   end
 
   scenario "View all posts published in a month" do # --------------------------
     visit '/blog/2011/04'
 
     page.html.should have_tag(".post", :count => 2)
-    page.should have_post @one
-    page.should have_post @two
+    page.html.should have_post @one
+    page.html.should have_post @two
   end
 
   scenario "View all posts published in a year" do # ---------------------------
@@ -63,9 +63,9 @@ feature "Default blog behavior", %q{
     visit '/blog/2011'
 
     page.html.should have_tag(".post", :count => 2)
-    page.should have_post @one
-    page.should have_post @two
-    page.should_not have_post three
+    page.html.should have_post @one
+    page.html.should have_post @two
+    page.html.should_not have_post three
   end
 
   scenario "View all posts tagged with ..." do # -------------------------------
@@ -76,13 +76,13 @@ feature "Default blog behavior", %q{
     visit '/blog/tags/general'
 
     page.html.should have_tag(".post", :count => 2)
-    page.should have_post @one
-    page.should have_post @two
+    page.html.should have_post @one
+    page.html.should have_post @two
 
     visit '/blog/tags/updates'
 
     page.html.should have_tag(".post", :count => 1)
-    page.should have_post @one
+    page.html.should have_post @one
   end
 
   scenario "Textilized post content" do # --------------------------------------
@@ -113,7 +113,6 @@ feature "Default blog behavior", %q{
                        :id    => @two.slug)
 
       with_tag "a[href$='#{path}']"
-
     end
   end
 
@@ -203,6 +202,13 @@ feature "Default blog behavior", %q{
         end
       end
     end
+  end
+
+  scenario "View archive" do # -------------------------------------------------
+    visit '/blog/archive'
+
+    page.html.should have_link_to_post(@one)
+    page.html.should have_link_to_post(@two)
   end
 
 end

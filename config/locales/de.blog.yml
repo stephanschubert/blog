@@ -16,6 +16,11 @@ de:
     all_tags: Kategorien
     feeds: News abonnieren
 
+    archive:
+      page_title: Artikel-Archiv
+      meta_description: Alle Artikel auf einen Blick.
+      title: Archiv
+
     posts_by_date:
       title: "Alle Artikel von %{date}"
 

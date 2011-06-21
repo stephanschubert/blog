@@ -24,6 +24,12 @@ module Blog
       @meta_description = t("blog.post.meta_description", :description => @post.meta_description)
     end
 
+    def archive
+      @posts_by_year = posts.desc(:published_at).group_by do |post|
+        post.published_at.year
+      end
+    end
+
     def posts_by_date
       year   = params[:year]
       month  = params[:month]
