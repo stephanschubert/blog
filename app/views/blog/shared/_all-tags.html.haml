@@ -1,3 +1,5 @@
 %section#all-tags
-  %h4.section-title= t("blog.all_tags")
-  = render "blog/shared/tags", :tags => all_tags
+  %header
+    %h4.section-title= t("blog.all_tags.title")
+    %span.section-legend= t("blog.all_tags.legend")
+  = render "blog/shared/tags", :tags => all_tags, :show_count => true

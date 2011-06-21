@@ -13,7 +13,10 @@ de:
       title: Mehr zu diesem Thema
       legend: "# Klicks"
 
-    all_tags: Kategorien
+    all_tags:
+      title: Kategorien
+      legend: "# Artikel"
+
     feeds: News abonnieren
 
     archive:
