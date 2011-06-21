@@ -11,8 +11,11 @@ gem 'bson_ext', '>= 1.3.0'
 gem 'haml', '>= 3.1.0'
 gem 'sass', '>= 3.1.0'
 gem 'RedCloth', :require => 'redcloth'
+
+# FIXME
 #gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git'
 gem 'formtastic', :path => '../formtastic'
+gem 'scss', :path => '../scss'
 
 # FIXME
 gem 'santas-little-helpers', :path => '../santas-little-helpers'
