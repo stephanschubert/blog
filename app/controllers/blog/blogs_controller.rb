@@ -24,10 +24,17 @@ module Blog
       @meta_description = t("blog.post.meta_description", :description => @post.meta_description)
     end
 
+    def archive
+      @posts_by_year = posts.desc(:published_at).group_by do |post|
+        post.published_at.year
+      end
+    end
+
     def posts_by_date
       year   = params[:year]
       month  = params[:month]
       @posts = posts.published(year, month)
+      @date  = formatted_date(year, month)
     end
 
     def posts_by_tag
@@ -38,6 +45,17 @@ module Blog
 
     def posts
       Post.published
+    end
+
+    def formatted_date(year, month)
+      if month.blank?
+        date = Time.parse("#{year}/01")
+        l(date, :format => "%Y")
+      else
+        month = month.to_s.rjust(2, "0")
+        date  = Time.parse("#{year}/#{month}")
+        l(date, :format => "%B %Y")
+      end
     end
 
   end

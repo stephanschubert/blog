@@ -2,6 +2,9 @@ de:
   blog:
     latest_posts: Neuste Einträge
 
+    excerpt_from_post:
+      read_on: Weiterlesen
+
     most_viewed_posts:
       title: Best Of
       legend: "# Klicks"
@@ -10,8 +13,19 @@ de:
       title: Mehr zu diesem Thema
       legend: "# Klicks"
 
-    all_tags: Kategorien
+    all_tags:
+      title: Kategorien
+      legend: "# Artikel"
+
     feeds: News abonnieren
+
+    archive:
+      page_title: Artikel-Archiv
+      meta_description: Alle Artikel auf einen Blick.
+      title: Archiv
+
+    posts_by_date:
+      title: "Alle Artikel von %{date}"
 
     blogs:
       post:

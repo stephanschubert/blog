@@ -1,2 +1,3 @@
-
-= render "blog/shared/posts", :posts => @posts
+#archived-posts
+  %h1= t("blog.posts_by_date.title", :date => @date)
+  = render "blog/shared/post-previews", :posts => @posts

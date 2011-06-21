@@ -73,5 +73,16 @@ module Blog
       Blog::Post.published.order_by(:views.desc).limit(limit)
     end
 
+    def excerpt_from_post(post, options = {})
+      options.reverse_merge! \
+      :length => 350,
+      :words_only => true
+
+      excerpt  = truncate(post.body, options)
+      excerpt << " " << link_to_post(post, :text => t("blog.excerpt_from_post.read_on"))
+      excerpt  = textilize(excerpt)
+      excerpt
+    end
+
   end
 end
