@@ -14,12 +14,13 @@ gem 'sass', '>= 3.1.0'
 gem 'RedCloth', :require => 'redcloth'
 
 # FIXME
-#gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git'
-gem 'formtastic', :path => '../formtastic'
-gem 'scss', :path => '../scss'
+#gem 'formtastic', :path => '../formtastic'
+#gem 'scss', :path => '../scss'
+#gem 'santas-little-helpers', :path => '../santas-little-helpers'
 
-# FIXME
-gem 'santas-little-helpers', :path => '../santas-little-helpers'
+gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git'
+gem 'scss', :git => 'git@github.com:jazen/scss.git'
+gem 'santas-little-helpers', :git => 'git@github.com:jazen/santas-little-helpers.git'
 
 group :test, :development do
   gem 'database_cleaner', '>= 0.6.6'
