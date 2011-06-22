@@ -6,6 +6,7 @@ gem 'arel',      :git => 'git://github.com/rails/arel.git'
 gem 'rack',      :git => 'git://github.com/rack/rack.git'
 gem 'sprockets', :git => "git://github.com/sstephenson/sprockets.git"
 gem 'mongoid',   :git => 'git://github.com/mongoid/mongoid.git'
+gem 'jquery-rails', :git => 'git://github.com/rails/jquery-rails.git'
 
 gem 'bson_ext', '>= 1.3.0'
 gem 'haml', '>= 3.1.0'
@@ -19,10 +20,6 @@ gem 'scss', :path => '../scss'
 
 # FIXME
 gem 'santas-little-helpers', :path => '../santas-little-helpers'
-
-if RUBY_VERSION < '1.9'
-  gem "ruby-debug", ">= 0.10.3"
-end
 
 group :test, :development do
   gem 'database_cleaner', '>= 0.6.6'
