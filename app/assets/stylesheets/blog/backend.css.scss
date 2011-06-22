@@ -1,2 +1,216 @@
 @import "../scss/all";
 @include reset-global;
+
+// GRID ----------------------------------------------------
+
+$grid-columns: 12;
+$grid-column-width: 90px;
+$grid-column-margin: 0px;
+$grid-column-outer-width: $grid-column-width + $grid-column-margin;
+$grid-container-width: $grid-columns * $grid-column-outer-width;
+
+// THEME ---------------------------------------------------
+
+$color-bg:   #fff;
+$color-text: #333;
+
+strong { @include text-bold; color: darken($color-text, 15%); }
+p      { margin-bottom: 1.5em; }
+
+body {
+  background: $color-bg;
+  color: $color-text;
+}
+
+body, table, input, textarea, select {
+  font: 12px/1.5 Arial, Helvetica, sans-serif;
+}
+
+.backend {
+  a       { color: #00f; }
+  a:hover { color: darken(#00f, 20%); }
+
+  #page {
+    @include grid-container;
+    @include center;
+  }
+
+  #content {
+    margin: 0;
+    padding: 0;
+    border-top: 0;
+
+    @include grid-column(8);
+    @include grid-first;
+  }
+
+  .posts {
+    margin: 1em 0;
+
+    li { @include clearfix; }
+
+    .post-actions {
+      @include clearfix;
+      @include float-right;
+
+      li {
+        @include float-left;
+        margin: 0 .5em;
+      }
+    }
+  }
+
+  // BLOG POST, HENTRY -------------------------------------
+
+  .post {
+    border-bottom: 2px solid $color-bg;
+  }
+
+  .hentry h1 { line-height: 1.25em; }
+
+  // Line up publication date and author
+  .entry-meta {
+    @include clearfix;
+
+    .entry-published,
+    .entry-author {
+      @include float-left;
+      margin-right: .25em;
+    }
+  }
+
+  // ...
+  .entry-published abbr { border-bottom: 0; }
+
+  // The post's content
+  .entry-content { margin: 1.5em 0; }
+
+  // Line up the post's tags
+  .entry-tags li { @include display-inline; }
+
+  // BLOG TAGS ---------------------------------------------
+
+  .tags a {
+    // Adjust for small buttons
+    font-size: 10px;
+    span { padding: .15em .5em; }
+  }
+
+  // BLOG SIDEBAR --------------------------------------------------------------
+
+  #sidebar {
+    @include grid-column(4);
+    padding: 2em 1em;
+
+    font-size: 12px;
+    h3 { color: #fff; font-size: 14px; }
+
+    section { margin: 0 0 1em 0; }
+    a { text-decoration: none; }
+
+    #feeds {
+      .xoxo li { @include display-inline; }
+      .xoxo li:first-child {
+        border-right: 2px solid $color-bg;
+        padding-right: .3em;
+      }
+    }
+
+    #latest-posts {
+      .xoxo li { border-bottom: 1px solid $color-bg; }
+      .xoxo a  { @include display-block; padding: 0.25em 0.15em; }
+    }
+
+    #all-tags {
+      .xoxo li { @include display-inline; }
+    }
+  }
+}
+
+// BACKEND ---------------------------------------------------------------------
+
+.backend {
+  nav {
+    .xoxo {
+      li { @include display-inline; padding: .5em 0; }
+    }
+  }
+}
+
+// FORMS -----------------------------------------------------------------------
+
+form {
+  padding: 1em;
+  font-size: 12px;
+
+  li {
+    margin: 0 0 1em 0;
+  }
+
+  label, legend span {
+    @include display-block;
+    @include text-bold;
+    font-size: 14px;
+    margin: .25em 0;
+
+    em {
+      @include text-normal;
+      @include text-italic;
+      font-size: 12px;
+      color: #ccc;
+      color: rgba(255,255,255,0.8);
+      margin: 0 .5em;
+    }
+  }
+
+  legend span {
+    font-size: 16px;
+  }
+
+  .inline-hints {
+    margin: .25em 0;
+  }
+
+  .datetime {
+    li {
+      @include float-left;
+
+      label {
+        @include text-lowercase;
+        @include text-caps;
+        @include text-normal;
+        font-size: 12px;
+        letter-spacing: .075em;
+      }
+    }
+  }
+
+  .string {
+    input {
+      @include box-sizing(border-box);
+      width: 100%;
+      padding: .4em;
+    }
+  }
+
+  .text {
+    textarea {
+      @include box-sizing(border-box);
+      width: 100%;
+      padding: .4em;
+      height: 20em;
+    }
+  }
+
+  #post_meta_description_input {
+    textarea {
+      height: 4em;
+    }
+  }
+
+  #post_title_input {
+    textarea {
+      height: 4em;
+    }
+  }
+}

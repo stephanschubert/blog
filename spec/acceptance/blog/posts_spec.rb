@@ -14,7 +14,7 @@ feature "Posts", %q{
     basic_auth "baktinet", "6bd5069e47fc68f2"
   end
 
-  scenario "Posts index" do # --------------------------------------------------
+  scenario "Posts index" do # ------------------------------
     visit '/blog/backend/posts'
 
     page.html.should have_tag ".post" do
@@ -23,7 +23,7 @@ feature "Posts", %q{
     end
   end
 
-  scenario "Create post" do # --------------------------------------------------
+  scenario "Create post" do # ------------------------------
     visit "/blog/backend/posts"
     click_on t("backend.actions.create_post")
 
@@ -37,7 +37,7 @@ feature "Posts", %q{
     page.should have_content t("post.created")
   end
 
-  scenario "Update post" do # --------------------------------------------------
+  scenario "Update post" do # ------------------------------
     visit "/blog/backend/posts"
 
     within ".posts li:first-child" do
@@ -53,7 +53,7 @@ feature "Posts", %q{
     page.should have_content t("post.updated")
   end
 
-  scenario "View public post" do # ---------------------------------------------
+  scenario "View public post" do # -------------------------
     post = F("blog/post",
              :title => "A post",
              :body => "The content.",
@@ -72,7 +72,7 @@ feature "Posts", %q{
     end
   end
 
-  scenario "Adding tags to a post" do # ----------------------------------------
+  scenario "Adding tags to a post" do # --------------------
     post = F("blog/post", :title => "A post", :published_at => 1.day.ago)
 
     visit edit_backend_post_path(post)
@@ -90,7 +90,7 @@ feature "Posts", %q{
     end
   end
 
-  scenario "Add custom page title" do # ----------------------------------------
+  scenario "Add custom page title" do # --------------------
     post = F("blog/post", :title => "A post", :published_at => 1.day.ago)
 
     visit edit_backend_post_path(post)
@@ -105,7 +105,7 @@ feature "Posts", %q{
     page.html.should have_tag "title", :text => "Custom page title"
   end
 
-  scenario "Add custom meta description" do # ----------------------------------
+  scenario "Add custom meta description" do # --------------
     post = F("blog/post", :title => "A post", :published_at => 1.day.ago)
 
     visit edit_backend_post_path(post)
@@ -120,10 +120,20 @@ feature "Posts", %q{
     page.html.should have_tag "meta[name='description'][content='Custom meta description']"
   end
 
+  # TODO https://github.com/thoughtbot/capybara-webkit
+  # scenario "Delete post" do # ------------------------------
+  #   post = F("blog/post", :title => "A new post")
+
+  #   visit backend_posts_path
+  #   find("a[data-method='delete'][href$='/a-new-post']").click
+
+  #   page.should have_content t("post.deleted")
+  # end
+
   # FIXME
   # have_tag can't handle the colon in the custom tag's name...
   #
-  # scenario "Use meta description for addthis button" do # ----------------------
+  # scenario "Use meta description for addthis button" do #
   #   post = F("blog/post",
   #            :title => "A post",
   #            :meta_description => "A custom description",

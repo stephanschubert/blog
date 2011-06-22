@@ -2,7 +2,7 @@ module Blog
   class PostsController < ProtectedController
     respond_to :html
 
-    before_filter :find_post, :only => %w(edit show update)
+    before_filter :find_post, :only => %w(edit show update destroy)
 
     def index
       @posts = Post.all
@@ -38,6 +38,12 @@ module Blog
         flash[:error] = t("post.invalid")
         render :edit
       end
+    end
+
+    def destroy
+      @post.destroy
+      flash[:notice] = t("post.destroyed")
+      redirect_to :back
     end
 
     private # ------------------------------------------------------------------

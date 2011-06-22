@@ -1,4 +1,27 @@
+%article.hentry.post{:id => "post-#{post.id}"}
+  %header
+    = render "blog/shared/share-buttons-for-post", :post => post
 
-%article.post{:id => "post-#{post.id}"}
-  %h1.title= post.title
-  .body= post.body
+    %h1.entry-title
+      = link_to_post(post,
+      :text => textilize_without_paragraph(post.title),
+      :rel => "bookmark")
+
+    .entry-meta
+      - if date = post.published_at
+        .entry-published
+          = pretty_date(date, :class => "published")
+
+      .entry-author
+        = t(".written_by")
+        = pretty_author(post.user)
+
+  .entry-content
+    = textilize(post.body)
+
+  %footer
+    - unless post.tags.blank?
+      .entry-tags
+        Dieser Artikel wurde in den Kategorien
+        = linked_tags_as_sentence(post.tags)
+        einsortiert.

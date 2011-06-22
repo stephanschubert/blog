@@ -1,11 +1,22 @@
-
-= link_to t("backend.actions.create_post"), new_backend_post_path
+%nav
+  %ol
+    %li
+      = link_to t("backend.actions.create_post"),
+      new_backend_post_path
 
 %ol.xoxo.posts
   - @posts.each do |post|
     %li
       .post-actions
         %ul
-          %li= link_to t("backend.post_actions.edit"), edit_backend_post_path(post)
+          %li
+            = link_to t("backend.post_actions.edit"),
+            edit_backend_post_path(post)
 
-      = render "post", :post => post
+          %li
+            = link_to t("backend.post_actions.delete"),
+            backend_post_path(post),
+            method: 'delete',
+            confirm: t("backend.post_actions.confirm_delete")
+
+      = link_to_post(post)

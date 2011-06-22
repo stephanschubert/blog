@@ -36,3 +36,5 @@ de:
 
     post_actions:
       edit: Bearbeiten
+      delete: Löschen
+      confirm_delete: Wirklich löschen?

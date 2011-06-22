@@ -7,28 +7,12 @@
 %head
   %meta{:charset => "utf-8"}
   %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1"}
-  %title Blog
-
+  %title Blog / Backend
   = csrf_meta_tag
-  -#= track_with_google_analytics
-  -#= track_with_google_webmaster_tools
-
   %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-
-  -#= favicon_link_tag
-  -# <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   = stylesheet_link_tag "blog/backend"
   = javascript_include_tag "blog/backend"
-
-  -# For the less-enabled mobile browsers like Opera Mini
-  -# <link rel="stylesheet" media="handheld" href="css/handheld.css?v=1">
-
-  -#
-    All JavaScript at the bottom, except for Modernizr which enables
-    HTML5 elements & feature detects
-  -#= javascript_include_tag "shared/modernizr.min.js"
-  -#= addthis_javascript
 
 %body.backend
   #page
@@ -37,10 +21,10 @@
 
     %header
 
-    %nav
-      %ul.xoxo
-        %li= link_to t("backend.links.dashboard"), backend_root_path
-        %li= link_to t("backend.links.posts"), backend_posts_path
+      %nav
+        %ol.xoxo
+          %li= link_to t("backend.links.dashboard"), backend_root_path
+          %li= link_to t("backend.links.posts"), backend_posts_path
 
 
     %section#content
