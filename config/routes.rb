@@ -23,8 +23,8 @@ Blog::Engine.routes.draw do
   :as => :posts_by_date,
   :constraints => { :year => /\d{4}/, :month => /\d{2}/ }
 
-  match '(/:year/:month)/:id' => 'blogs#post',
-  :as => :post,
+  match '(/:year/:month)/:slug' => 'blogs#slug',
+  :as => :slug,
   :constraints => { :year => /\d{4}/, :month => /\d{2}/ }
 
 end
