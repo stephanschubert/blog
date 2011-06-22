@@ -17,11 +17,15 @@ module Blog
       end
     end
 
-    def post
-      @post = posts.find_by_slug(params[:id])
-
-      @page_title = t("blog.post.page_title", :title => @post.preferred_title)
-      @meta_description = t("blog.post.meta_description", :description => @post.meta_description)
+    def slug
+      if @post = posts.find_by_slug(params[:slug])
+        @page_title = t("blog.slug.page_title", :title => @post.preferred_title)
+        @meta_description = t("blog.slug.meta_description", :description => @post.meta_description)
+        @post.inc(:views, 1)
+      else
+        @posts = posts.tagged_with(params[:slug], :slug => true)
+        # TODO title/description
+      end
     end
 
     def archive

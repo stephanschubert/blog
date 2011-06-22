@@ -27,6 +27,10 @@ de:
     posts_by_date:
       title: "Alle Artikel von %{date}"
 
+    slug:
+      page_title: "%{title}"
+      meta_description: "%{description}"
+
     blogs:
       post:
         written_by: von

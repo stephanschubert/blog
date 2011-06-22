@@ -23,7 +23,7 @@ describe Blog::Post do
   it { should have_field(:page_title).of_type(String) }
   it { should have_field(:meta_description).of_type(String) }
 
-  it { should have_field(:views).of_type(Integer) }
+  it { should have_field(:views).of_type(Integer).with_default_value_of(0) }
 
   it "should be valid using the factory" do # ----------------------------------
     F.build("blog/post").should be_valid

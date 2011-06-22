@@ -5,19 +5,19 @@ module Blog
       options.reverse_merge! \
       :year  => post.published_at.year.to_s,
       :month => post.published_at.month.to_s.rjust(2, '0'),
-      :id    => post.to_param
+      :slug  => post.slug
     end
 
     def public_post_path(post, options = {})
       main_app.slug_path(post)
     rescue
-      blog.post_path parameters_for_post_path(post, options)
+      blog.slug_path parameters_for_post_path(post, options)
     end
 
     def public_post_url(post, options = {})
       main_app.slug_url(post)
     rescue
-      blog.post_url parameters_for_post_path(post, options)
+      blog.slug_url parameters_for_post_path(post, options)
     end
 
     def public_tag_path(tag, options = {})

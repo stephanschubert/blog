@@ -1,0 +1,5 @@
+
+- if @post
+  = render "blog/shared/post", :post => @post
+- elsif @posts
+  = render "blog/shared/post-previews", :posts => @posts
