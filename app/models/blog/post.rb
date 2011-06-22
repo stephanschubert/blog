@@ -52,11 +52,10 @@ module Blog
       tags.to_s
     end
 
-    # FIXME: Something is broken here!
-    def tag_list=(input)
-      tags.clear
-      input.split(/\s*#{Blog::Tag.separator}\s*/).each do |name|
-        tags.create :name => name
+    def tag_list=(tag_list)
+      self.tags.destroy_all
+      tag_list.split(/\s*#{Blog::Tag.separator}\s*/).map do |name|
+        self.tags.build :name => name
       end
     end
 

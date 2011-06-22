@@ -20,8 +20,3 @@
     = textilize(post.body)
 
   %footer
-    - unless post.tags.blank?
-      .entry-tags
-        Dieser Artikel wurde in den Kategorien
-        = linked_tags_as_sentence(post.tags)
-        einsortiert.
