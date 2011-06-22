@@ -11,3 +11,6 @@ spec/dummy/tmp/
 # Backup files
 *#*
 *~
+
+# Symlinks
+app/assets/stylesheets/scss
