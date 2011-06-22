@@ -34,7 +34,11 @@ feature "Default blog behavior", %q{
   end
 
   scenario "View single post" do # ---------------------------------------------
+    # Should increase 'views' counter.
+    @one.views.should == 0
     visit '/blog/one'
+    @one.reload
+    @one.views.should == 1
 
     page.html.should have_tag(".post", :count => 1)
     page.html.should have_post @one
