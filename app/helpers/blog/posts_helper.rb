@@ -25,23 +25,6 @@ module Blog
       end
     end
 
-    # Returns a link to tag/category according to the hAtom spec.
-    def link_to_tag(tag, options = {}, &block)
-      options.reverse_merge! \
-      :rel   => "tag",
-      :title => tag.name,
-      :text  => tag.name,
-      :url   => public_tag_path(tag)
-
-      text, url = options.pluck(:text, :url)
-      text = capture(&block) if block_given?
-
-      link_to url, options do
-        # The extra <span> is just for styling purposes.
-        content_tag :span, text
-      end
-    end
-
     # Returns an <abbr>-markup'd date according to the hAtom spec.
     def pretty_date(date, options = {})
       options.reverse_merge! \
