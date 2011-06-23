@@ -52,10 +52,20 @@ module Blog
       tags.to_s
     end
 
+    after_save :update_tags
+
     def tag_list=(tag_list)
+      @tag_list = tag_list
+    end
+
+    def update_tags
+      return unless @tag_list
+
+      sep = Blog::Tag.separator
       self.tags.destroy_all
-      tag_list.split(/\s*#{Blog::Tag.separator}\s*/).map do |name|
-        self.tags.build :name => name
+
+      @tag_list.split(sep).map(&:strip).reject(&:blank?).map do |name|
+        self.tags.create :name => name
       end
     end
 
