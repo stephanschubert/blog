@@ -63,7 +63,7 @@ module Blog
       self.class.tagged_with(tags).where(:_id.ne => id).limit(limit)
     end
 
-    # --------------------------------------------------------------------------
+    # ------------------------------------------------------
 
     # Return posts published +before+ a point in time or
     # published in a given +year+ (and +month+)
@@ -87,9 +87,9 @@ module Blog
     }
 
     # Return the latest +max+ posts
-    scope :latest, lambda { |max| order_by(:published_at.desc).limit(max) }
+    scope :latest, lambda { |max| desc(:published_at).limit(max) }
 
-    # --------------------------------------------------------------------------
+    # ------------------------------------------------------
 
     def preferred_title
       page_title.blank? ? title : page_title
