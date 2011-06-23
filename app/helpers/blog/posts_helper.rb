@@ -62,8 +62,8 @@ module Blog
       :words_only => true
 
       excerpt  = truncate(post.body, options)
-      excerpt << " " << link_to_post(post, :text => t("blog.excerpt_from_post.read_on"))
       excerpt  = textilize(excerpt)
+      excerpt << " " << link_to_post(post, :text => t("blog.excerpt_from_post.read_on"))
       excerpt
     end
 
