@@ -10,7 +10,10 @@ gem 'jquery-rails', :git => 'git://github.com/rails/jquery-rails.git'
 
 gem 'bson_ext', '>= 1.3.0'
 gem 'haml', '>= 3.1.0'
-gem 'sass', '>= 3.1.0'
+
+gem 'sass', :git => 'git://github.com/nex3/sass.git'
+gem 'sass-rails', :git => 'git://github.com/rails/sass-rails.git'
+
 gem 'RedCloth', :require => 'redcloth'
 
 # FIXME
