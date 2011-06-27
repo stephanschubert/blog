@@ -42,7 +42,7 @@ module Blog
     end
 
     def posts_by_tag
-      @posts = posts.tagged_with(params[:id], :slug => true)
+      @posts = posts.desc(:published_at).tagged_with(params[:id], :slug => true)
     end
 
     private # ------------------------------------------------------------------

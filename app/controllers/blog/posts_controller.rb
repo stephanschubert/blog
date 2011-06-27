@@ -46,7 +46,7 @@ module Blog
       redirect_to :back
     end
 
-    private # ------------------------------------------------------------------
+    private # ----------------------------------------------
 
     def find_post
       @post = Post.find_by_slug(params[:id])
