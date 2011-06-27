@@ -14,7 +14,7 @@ module Blog
     end
 
     def all_tags
-      Blog::Tag.all
+      Blog::Tag.all.sort_by(&:name)
     end
 
   end
