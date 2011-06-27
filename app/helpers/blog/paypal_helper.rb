@@ -2,6 +2,7 @@
 module Blog
   module PaypalHelper
 
+    # TODO Make customizable..
     def paypal_donate_button
       (<<-PAYPAL
       <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
