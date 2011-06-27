@@ -1,15 +1,15 @@
 - length ||= 350
 
 = media_block(:class => "post-preview") do
-  .post-published
+  .entry-published
     = pretty_date(post.published_at, :format => :short)
 
-  %h2.post-title
+  %h2.entry-title
     = link_to_post(post)
 
-  .post-excerpt
+  .entry-excerpt
     = excerpt_from_post(post, :length => length)
 
-  .post-sharing
+  .entry-sharing
     = addthis_buttons_for_post(post)
     = plusone_button_for_post(post, "data-size" => :small)
