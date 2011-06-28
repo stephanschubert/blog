@@ -66,7 +66,12 @@ module Blog
 
       link = link_to_post(post, :text => t("blog.excerpt_from_post.read_on"), :class => "read-on")
 
-      excerpt = excerpt.sub /<\/p>\Z/, " #{link}</p>"
+      if excerpt =~ /<\/p>\Z/
+        excerpt.sub! /<\/p>\Z/, " #{link}</p>"
+      else
+        excerpt << content_tag(:p) { link }
+      end
+
       excerpt.html_safe
     end
 
