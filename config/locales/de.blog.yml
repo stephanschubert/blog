@@ -28,8 +28,13 @@ de:
       title: "Alle Artikel von %{date}"
 
     slug:
-      page_title: "%{title}"
-      meta_description: "%{description}"
+      post:
+        page_title: "%{title}"
+        meta_description: "%{description}"
+
+      post:
+        page_title: "Artikel zum Thema '%{title}'"
+        meta_description: "Alle Artikel zum Thema '%{title}' auf einen Blick. %{description} ..."
 
     blogs:
       post:

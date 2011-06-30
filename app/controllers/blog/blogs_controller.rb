@@ -19,12 +19,17 @@ module Blog
 
     def slug
       if @post = posts.find_by_slug(params[:slug])
-        @page_title = t("blog.slug.page_title", :title => @post.preferred_title)
-        @meta_description = t("blog.slug.meta_description", :description => @post.meta_description)
+        @page_title = t("blog.slug.post.page_title", :title => @post.preferred_title)
+        @meta_description = t("blog.slug.post.meta_description", :description => @post.meta_description)
         @post.inc(:views, 1)
       else
-        @posts = posts.tagged_with(params[:slug], :slug => true)
-        # TODO title/description
+        @posts = posts.desc(:published_at).tagged_with(params[:slug], :slug => true)
+        # TODO Ugly
+        @tag = Blog::Tag.all.select { |t| t.slug == params[:slug] }.first
+        @page_title = t("blog.slug.posts.page_title", :title => @tag.name)
+
+        some_post_titles = @posts.slice(0,5).map(&:title).join(", ")
+        @meta_description = t("blog.slug.posts.meta_description", :title => @tag.name, :description => some_post_titles)
       end
     end
 
