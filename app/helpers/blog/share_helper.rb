@@ -103,7 +103,8 @@ module Blog
 
     def plusone_button_for_post(post, options = {})
       options.reverse_merge! \
-      :href => public_post_url(post)
+      :href => public_post_url(post),
+      "data-href" => public_post_url(post)
 
       plusone_button(options)
     end
