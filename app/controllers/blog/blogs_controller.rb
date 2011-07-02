@@ -5,6 +5,8 @@ module Blog
     respond_to :html, :except => %w(feed)
     respond_to :rss, :atom, :only => %w(feed)
 
+    caches_page :index, :slug, :archive, :posts_by_date, :posts_by_tag
+
     def index
       @posts = posts.latest(10)
     end
