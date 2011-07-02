@@ -25,11 +25,11 @@ describe Blog::Post do
 
   it { should have_field(:views).of_type(Integer).with_default_value_of(0) }
 
-  it "should be valid using the factory" do # ----------------------------------
+  it "should be valid using the factory" do # --------------
     F.build("blog/post").should be_valid
   end
 
-  describe "#slug" do # --------------------------------------------------------
+  describe "#slug" do # ------------------------------------
 
     it "should convert umlauts and other special chars to ASCII" do
       post = F("blog/post", :title => "Ä ö Ü ß")
@@ -48,7 +48,7 @@ describe Blog::Post do
 
   end
 
-  describe "#tags" do # --------------------------------------------------------
+  describe "#tags" do # ------------------------------------
 
     it "should be convertable into a string of names" do
       post = F("blog/post")
@@ -61,7 +61,7 @@ describe Blog::Post do
 
   end
 
-  describe "#tag_list" do # ----------------------------------------------------
+  describe "#tag_list" do # --------------------------------
 
     it "should accept a list of tags" do
       post = F("blog/post")
@@ -77,7 +77,7 @@ describe Blog::Post do
 
   end
 
-  describe "#tagged_with" do # -------------------------------------------------
+  describe "#tagged_with" do # -----------------------------
 
     it "should return all posts tagged w/ given tag" do
       post = F("blog/post")
@@ -119,7 +119,7 @@ describe Blog::Post do
 
   end
 
-  describe "#related_posts" do # -----------------------------------------------
+  describe "#related_posts" do # ---------------------------
 
     it "should return all posts which share at least one tag" do
       post = F("blog/post", :tag_list => "a, b, c")
@@ -140,7 +140,7 @@ describe Blog::Post do
     end
   end
 
-  describe "#published" do # ---------------------------------------------------
+  describe "#published" do # -------------------------------
 
     it "should return all posts published if no date is given" do
       one   = F("blog/post", :published_at => 10.days.ago)
@@ -176,7 +176,7 @@ describe Blog::Post do
 
   end
 
-  describe "#preferred_title" do # ---------------------------------------------
+  describe "#preferred_title" do # -------------------------
 
     it "should return the 'title' if 'page_title' is not set" do
       post = F("blog/post", :title => "A title", :page_title => nil)
@@ -186,6 +186,34 @@ describe Blog::Post do
     it "should return the 'page_title' if set" do
       post = F("blog/post", :title => "A title", :page_title => "A better title")
       post.preferred_title.should == "A better title"
+    end
+
+  end
+
+  describe "#previous_post" do # ---------------------------
+
+    it "should return the previous post" do
+      a = F("blog/post", :published_at => 3.days.ago)
+      b = F("blog/post", :published_at => 2.days.ago)
+      c = F("blog/post", :published_at => 1.days.ago)
+
+      a.previous_post.should be_nil
+      b.previous_post.should == a
+      c.previous_post.should == b
+    end
+
+  end
+
+  describe "#next_post" do # ---------------------------
+
+    it "should return the next post" do
+      a = F("blog/post", :published_at => 3.days.ago)
+      b = F("blog/post", :published_at => 2.days.ago)
+      c = F("blog/post", :published_at => 1.days.ago)
+
+      a.next_post.should == b
+      b.next_post.should == c
+      c.next_post.should be_nil
     end
 
   end

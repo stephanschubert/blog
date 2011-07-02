@@ -73,6 +73,22 @@ module Blog
       self.class.tagged_with(tags).where(:_id.ne => id).limit(limit)
     end
 
+    def previous_post
+      self.class.published.
+        where(:published_at.lt => published_at.utc.to_time).
+        desc(:published_at).
+        limit(1).
+        first
+    end
+
+    def next_post
+      self.class.published.
+        where(:published_at.gt => published_at.utc.to_time).
+        asc(:published_at).
+        limit(1).
+        first
+    end
+
     # ------------------------------------------------------
 
     # Return posts published +before+ a point in time or

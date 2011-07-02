@@ -1,5 +1,6 @@
 %article.hentry.post{:id => "post-#{post.id}"}
   %header
+    = render "blog/shared/previous-and-next-post", :post => post
     = render "blog/shared/share-buttons-for-post", :post => post
 
     %h1.entry-title
