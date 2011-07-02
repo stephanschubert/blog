@@ -2,7 +2,8 @@ module Blog
   class BlogsController < SessionsController
     layout "application"
 
-    respond_to :html, :rss, :atom
+    respond_to :html, :except => %w(feed)
+    respond_to :rss, :atom, :only => %w(feed)
 
     def index
       @posts = posts.latest(10)
@@ -10,11 +11,6 @@ module Blog
 
     def feed
       @posts = posts.latest(10)
-
-      respond_to do |wants|
-        wants.rss
-        wants.atom
-      end
     end
 
     def slug
