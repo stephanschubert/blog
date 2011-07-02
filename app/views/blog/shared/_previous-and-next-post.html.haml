@@ -2,12 +2,12 @@
   %ol.xoxo
     - if p = post.previous_post
       - text = untextilize(p.title)
-      - text = truncate(text, :length => 50, :words_only => true)
+      - text = truncate(text, :length => 50)
 
       %li.previous-post= link_to_post(p, :text => text, :rel => "prev")
 
     - if p = post.next_post
       - text = untextilize(p.title)
-      - text = truncate(text, :length => 50, :words_only => true)
+      - text = truncate(text, :length => 50)
 
       %li.next-post= link_to_post(p, :text => text, :rel => "next")
