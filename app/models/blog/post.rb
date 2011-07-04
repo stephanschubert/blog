@@ -16,14 +16,14 @@ module Blog
     field :body, type: String
     validates_presence_of :body
 
-    field :published_at, type: DateTime
+    field :published_at, type: Time
 
     field :page_title, type: String
     field :meta_description, type: String
 
     field :views, type: Integer, default: 0
 
-    # TAGS ---------------------------------------------------------------------
+    # TAGS -------------------------------------------------
 
     embeds_many :tags, :class_name => "Blog::Tag" do
       def to_s
