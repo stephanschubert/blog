@@ -10,6 +10,8 @@ module Blog
 
     def index
       @posts = posts.latest(10)
+      @page_title = t("blog.index.page_title")
+      @meta_description = t("blog.index.page_title")
     end
 
     def feed
