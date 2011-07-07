@@ -1,4 +1,8 @@
 .entry-sharing
   = flattr_button_for_post(post)
-  = plusone_button_for_post(post, "data-size" => :medium)
-  = addthis_buttons_for_post(post, :layout => :pills)
+
+  - layout = (Settings.blog.plusone.layout rescue :medium)
+  = plusone_button_for_post(post, "data-size" => layout)
+
+  - layout = (Settings.blog.addthis.layout rescue :pills)
+  = addthis_buttons_for_post(post, :layout => layout)
