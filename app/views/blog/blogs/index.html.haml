@@ -1,2 +1,5 @@
 
-= render "blog/shared/post-previews", :posts => @posts
+- if Settings.blog.full_posts
+  = render "blog/shared/posts", :posts => @posts
+- else
+  = render "blog/shared/post-previews", :posts => @posts

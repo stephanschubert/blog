@@ -1,6 +1,9 @@
 %article.hentry.post{:id => "post-#{post.id}"}
   %header
-    = render "blog/shared/previous-and-next-post", :post => post
+
+    - if Settings.blog.show_previous_and_next_links
+      = render "blog/shared/previous-and-next-post", :post => post
+
     = render "blog/shared/share-buttons-for-post", :post => post
 
     %h1.entry-title
@@ -30,8 +33,12 @@
 
   %footer
     = render "blog/shared/share-buttons-for-post", :post => post
-    = render "blog/shared/donate-with-paypal"
-    = render "blog/shared/previous-and-next-post", :post => post
+
+    - if Settings.blog.show_donate_with_paypal
+      = render "blog/shared/donate-with-paypal"
+
+    - if Settings.blog.show_previous_and_next_links
+      = render "blog/shared/previous-and-next-post", :post => post
 
     - unless post.tags.blank?
       .entry-tags
@@ -39,4 +46,5 @@
         = linked_tags_as_sentence(post.tags)
         einsortiert.
 
-    = render "blog/shared/related-posts", :post => post
+    - if Settings.blog.show_related_posts
+      = render "blog/shared/related-posts", :post => post

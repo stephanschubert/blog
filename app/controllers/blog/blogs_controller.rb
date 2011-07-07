@@ -1,6 +1,7 @@
 module Blog
   class BlogsController < SessionsController
-    layout "application"
+
+    layout :determine_layout
 
     respond_to :html, :except => %w(feed)
     respond_to :rss, :atom, :only => %w(feed)
@@ -48,7 +49,13 @@ module Blog
       @posts = posts.desc(:published_at).tagged_with(params[:id], :slug => true)
     end
 
-    private # ------------------------------------------------------------------
+    private # ----------------------------------------------
+
+    def determine_layout(default = "application")
+      Settings.blog.layout || default
+    rescue
+      default
+    end
 
     def posts
       Post.published
