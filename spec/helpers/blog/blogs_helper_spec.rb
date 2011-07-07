@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Blog::BlogsHelper do
 
-  describe "#latest_posts" do # ------------------------------------------------
+  describe "#latest_posts" do # ----------------------------
 
     before :each do
       @one   = F("blog/post", :published_at => Time.parse("2011/04/01"))

@@ -1,15 +1,15 @@
 source "http://rubygems.org"
 gemspec
 
-gem 'rails',     :git => 'git://github.com/rails/rails.git'
-gem 'arel',      :git => 'git://github.com/rails/arel.git'
-gem 'rack',      :git => 'git://github.com/rack/rack.git'
-gem 'sprockets', :git => "git://github.com/sstephenson/sprockets.git"
+gem 'sprockets', '= 2.0.0.beta.10'
+gem 'rack', '= 1.3.0'
+gem 'rails', :git => 'git://github.com/rails/rails.git'
+
 gem 'mongoid',   :git => 'git://github.com/mongoid/mongoid.git'
 gem 'jquery-rails', :git => 'git://github.com/rails/jquery-rails.git'
 
 gem 'bson_ext', '>= 1.3.0'
-gem 'haml', '>= 3.1.0'
+gem 'haml', :git => 'git://github.com/nex3/haml.git'
 
 gem 'sass', :git => 'git://github.com/nex3/sass.git'
 gem 'sass-rails', :git => 'git://github.com/rails/sass-rails.git'

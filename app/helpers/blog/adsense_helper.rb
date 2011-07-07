@@ -7,10 +7,22 @@ module Blog
 
     def adsense_block(options = {}, &block)
       options.reverse_merge! \
-      :class => "adsense"
+      :class  => "adsense",
+      :client => (Settings.blog.adsense.client rescue nil)
+
+      client, slot, width, height =
+        options.pluck(:client, :slot, :height, :width)
 
       content_tag :div, options do
-        capture(&block) + adsense_javascript
+        (<<-ADSENSE
+        <script>
+          google_ad_client = "#{client}";
+          google_ad_slot = "#{slot}";
+          google_ad_width = #{width};
+          google_ad_height = #{height};
+        </script>
+        ADSENSE
+        ) + adsense_javascript
       end
     end
 
