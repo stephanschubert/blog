@@ -38,6 +38,9 @@ module Blog
       @posts_by_year = posts.desc(:published_at).group_by do |post|
         post.published_at.year
       end
+
+      @page_title = t("blog.archive.page_title")
+      @meta_description = t("blog.archive.meta_description")
     end
 
     def posts_by_date
@@ -45,13 +48,27 @@ module Blog
       month  = params[:month]
       @posts = posts.published(year, month)
       @date  = formatted_date(year, month)
+
+      @page_title = t("blog.posts_by_date.page_title", :date => @date)
+      @meta_description = t("blog.posts_by_date.meta_description", :description => enumerate_titles(@posts))
     end
 
     def posts_by_tag
       @posts = posts.desc(:published_at).tagged_with(params[:id], :slug => true)
+      # TODO Ugly
+      @tag = Blog::Tag.all.select { |t| t.slug == params[:id] }.first
+
+      @page_title = t("blog.posts_by_tag.page_title", :title => @tag.name)
+      @meta_description = t("blog.posts_by_tag.meta_description", :description => enumerate_titles(@posts))
     end
 
     private # ----------------------------------------------
+
+    def enumerate_titles(posts, limit = 5)
+      posts.slice(0,limit).map { |post|
+        '"' + post.title + '"'
+      }.join(", ") + ", ..."
+    end
 
     def determine_layout(default = "application")
       Settings.blog.layout || default

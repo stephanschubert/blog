@@ -1,13 +1,13 @@
 Blog::Engine.routes.draw do
 
-  # Backend --------------------------------------------------------------------
+  # Backend ------------------------------------------------
 
   scope "backend", :as => "backend" do
     root :to => "posts#index"
     resources :posts
   end
 
-  # Frontend -------------------------------------------------------------------
+  # Frontend -----------------------------------------------
 
   root :to => "blogs#index"
 

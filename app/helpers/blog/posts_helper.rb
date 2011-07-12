@@ -14,7 +14,7 @@ module Blog
       options.reverse_merge! \
       :text  => untextilize(post.title),
       :url   => url,
-      :title => untextilize(post.title)
+      :title => linify(untextilize(post.title))
 
       text, url = options.pluck(:text, :url)
       text = capture(&block) if block_given?
@@ -62,7 +62,7 @@ module Blog
       :words_only => true
 
       excerpt  = truncate(post.body, options)
-      excerpt  = textilize(excerpt)
+      excerpt  = untextilize(excerpt)
 
       link = link_to_post(post, :text => t("blog.excerpt_from_post.read_on"), :class => "read-on")
 
