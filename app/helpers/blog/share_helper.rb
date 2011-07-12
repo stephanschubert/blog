@@ -5,23 +5,59 @@ module Blog
       options.reverse_merge! \
       :ga_id => (Settings.google.analytics.id rescue nil)
 
-      track_with_ga = if (ga_id = options.pluck(:ga_id))
+      addthis_google_analytics = if (ga_id = options.pluck(:ga_id))
         <<-JS
-        <script>
-          var addthis_config = {
-            data_ga_property: '#{ga_id}',
-            data_track_clickback: true
-          };
-        </script>
+        data_ga_property: '#{ga_id}',
+        data_track_clickback: true,
         JS
       end
 
       (
       <<-JS
-      #{track_with_ga}
-      <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dd2c24527d41a6b"></script>
+      <script>
+        var addthis_config = {
+          #{addthis_google_analytics}
+        }
+        var addthis_share = {
+          #{addthis_bitly_account}
+          #{addthis_twitter_template}
+        }
+      </script>
+      <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=#{Settings.blog.addthis.pubid}"></script>
       JS
       ).html_safe
+    rescue
+      nil
+    end
+
+    def addthis_bitly_account
+      return if Settings.bitly.blank?
+      <<-JS
+      url_transforms : {
+        shorten: {
+          twitter: 'bitly'
+        },
+      },
+      shorteners : {
+        bitly : {
+          username: '#{Settings.bitly.user_name}',
+          apiKey: '#{Settings.bitly.api_key}'
+        }
+      },
+      JS
+    rescue
+      nil
+    end
+
+    def addthis_twitter_template
+      template = Settings.blog.addthis.templates.twitter
+      <<-JS
+      templates: {
+        twitter: '#{template}'
+      },
+      JS
+    rescue
+      nil
     end
 
 
@@ -62,7 +98,7 @@ module Blog
     def addthis_buttons_for_post(post, options = {})
       options.reverse_merge! \
       :url => public_post_url(post),
-      :title => post.title,
+      :title => linify(untextilize(post.title)),
       :description => post.meta_description
 
       if options[:description].blank?

@@ -17,5 +17,9 @@ module Blog
       strip_tags(textilize(*args))
     end
 
+    def linify(s)
+      s.gsub(/[\r\n\t]+/, ' ').strip
+    end
+
   end
 end
