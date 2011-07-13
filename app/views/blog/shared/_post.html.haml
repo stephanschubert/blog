@@ -21,10 +21,13 @@
         = pretty_author(post.user)
 
   .entry-content
+    - html = textilize(post.body)
+
     - if (Settings.blog.adsense.inject_into_posts rescue nil)
-      = inject_adsense(textilize(post.body))
+      = adsense_section do
+        = inject_adsense(html)
     - else
-      = textilize(post.body)
+      = html
 
   %footer
     - if Settings.blog.share_buttons.show_at_post_bottom

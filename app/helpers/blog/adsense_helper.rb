@@ -64,5 +64,15 @@ module Blog
       html.html_safe
     end
 
+    def adsense_section(options = {}, &block)
+      if options[:ignore]
+        attrs = '(weight=ignore)'
+      end
+
+      "<!-- google_ad_section_start#{attrs} -->".html_safe +
+      capture(&block) +
+      "<!-- google_ad_section_end -->".html_safe
+    end
+
   end
 end
