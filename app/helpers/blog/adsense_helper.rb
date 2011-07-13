@@ -5,13 +5,14 @@ module Blog
       '<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>'.html_safe
     end
 
-    def adsense_block(options = {}, &block)
+    def adsense_block(options = {})
       options.reverse_merge! \
-      :class  => "adsense",
       :client => (Settings.blog.adsense.client rescue nil)
 
       client, slot, width, height =
         options.pluck(:client, :slot, :height, :width)
+
+      options[:class] = merge_css("adsense", slot)
 
       content_tag :div, options do
         (<<-ADSENSE
@@ -22,8 +23,45 @@ module Blog
           google_ad_height = #{height};
         </script>
         ADSENSE
-        ) + adsense_javascript
+        ).html_safe + adsense_javascript
       end
+    end
+
+    def adsense_slot(slot, options = {})
+      options.reverse_merge! \
+      :slot   => slot,
+      :width  => Settings.blog.adsense.send(slot).width,
+      :height => Settings.blog.adsense.send(slot).height
+
+      adsense_block(options)
+    end
+
+    def inject_adsense(html, options = {})
+      options.reverse_merge! \
+      :marker => "[ADSENSE]",
+      :delta  => html.size / 3 # Roughly
+
+      last_offset = 0
+      offsets     = []
+
+      html.scan('</p>') do |match|
+        pos = $~.pre_match.size + match.size
+
+        if pos >= last_offset + options[:delta]
+          offsets << pos
+          last_offset += options[:delta]
+        end
+      end
+
+      offsets.slice(0,2).each_with_index do |offset, index|
+        marker = options[:marker]
+        offset = offset + (index * marker.size)
+        html   = html.insert offset, marker
+      end
+
+      html = html.gsub options[:marker], adsense_slot(:banner)
+      html = adsense_slot(:large_rect) + html.html_safe
+      html.html_safe
     end
 
   end
