@@ -27,11 +27,11 @@ module Blog
       end
     end
 
-    def adsense_slot(slot, options = {})
+    def adsense_slot(name, options = {})
       options.reverse_merge! \
-      :slot   => slot,
-      :width  => Settings.blog.adsense.send(slot).width,
-      :height => Settings.blog.adsense.send(slot).height
+      :slot   => Settings.blog.adsense.send(name).slot,
+      :width  => Settings.blog.adsense.send(name).width,
+      :height => Settings.blog.adsense.send(name).height
 
       adsense_block(options)
     end
