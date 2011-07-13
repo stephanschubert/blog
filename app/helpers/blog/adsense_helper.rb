@@ -9,10 +9,10 @@ module Blog
       options.reverse_merge! \
       :client => (Settings.blog.adsense.client rescue nil)
 
-      client, slot, width, height =
-        options.pluck(:client, :slot, :height, :width)
+      client, name, slot, width, height =
+        options.pluck(:client, :name, :slot, :width, :height)
 
-      options[:class] = merge_css("adsense", slot)
+      options[:class] = merge_css("adsense", name)
 
       content_tag :div, options do
         (<<-ADSENSE
@@ -29,6 +29,7 @@ module Blog
 
     def adsense_slot(name, options = {})
       options.reverse_merge! \
+      :name   => name,
       :slot   => Settings.blog.adsense.send(name).slot,
       :width  => Settings.blog.adsense.send(name).width,
       :height => Settings.blog.adsense.send(name).height
