@@ -7,16 +7,18 @@ module Blog
 
     def adsense_block(options = {})
       options.reverse_merge! \
-      :client => (Settings.blog.adsense.client rescue nil)
+      :client => (Settings.blog.adsense.client rescue nil),
+      :ga_id  => (Settings.google.analytics.id rescue nil)
 
-      client, name, slot, width, height =
-        options.pluck(:client, :name, :slot, :width, :height)
+      client, ga_id, name, slot, width, height =
+        options.pluck(:client, :ga_id, :name, :slot, :width, :height)
 
       options[:class] = merge_css("adsense", name)
 
       content_tag :div, options do
         (<<-ADSENSE
         <script>
+          #{"google_analytics_uacct = '#{ga_id}';" if ga_id}
           google_ad_client = "#{client}";
           google_ad_slot = "#{slot}";
           google_ad_width = #{width};
@@ -61,6 +63,8 @@ module Blog
       end
 
       html = html.gsub options[:marker], adsense_slot(:banner)
+
+
       html = adsense_slot(:large_rect) + html.html_safe
       html.html_safe
     end
