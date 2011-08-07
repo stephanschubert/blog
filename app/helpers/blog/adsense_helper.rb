@@ -64,8 +64,13 @@ module Blog
 
       html = html.gsub options[:marker], adsense_slot(:banner)
 
+      if pos = html.index('</figure>')
+        offset = pos + '</figure>'.size
+      else
+        offset = 0
+      end
 
-      html = adsense_slot(:large_rect) + html.html_safe
+      html = html.insert offset, adsense_slot(:large_rect)
       html.html_safe
     end
 
@@ -74,9 +79,9 @@ module Blog
         attrs = '(weight=ignore)'
       end
 
-      "<!-- google_ad_section_start#{attrs} -->".html_safe +
+      "<!-- google_ad_section_start#{attrs} -->\n".html_safe +
       capture(&block) +
-      "<!-- google_ad_section_end -->".html_safe
+      "<!-- google_ad_section_end -->\n".html_safe
     end
 
   end

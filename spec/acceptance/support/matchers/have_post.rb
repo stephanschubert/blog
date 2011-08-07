@@ -1,4 +1,4 @@
-Rspec::Matchers.define :have_post do |post|
+RSpec::Matchers.define :have_post do |post|
   match do |html|
     html.should have_tag(".hentry.post", :id => "post-#{post.id}") do
 
@@ -36,7 +36,7 @@ Rspec::Matchers.define :have_post do |post|
   end
 end
 
-Rspec::Matchers.define :have_link_to_post do |post|
+RSpec::Matchers.define :have_link_to_post do |post|
   match do |html|
     path = post.slug
     html.should have_tag "a[href$='#{path}']"
