@@ -83,11 +83,17 @@ module Blog
         ).html_safe
       else
         # <a class="addthis_button_google_plusone"></a>
+        tweet_attrs = {
+          "tw:via" => Settings.twitter.user_name,
+          "tw:related" => Settings.twitter.user_name
+        }.map { |k,v|
+          "#{k}=\"#{v}\""
+        }.join(" ")
 
         (<<-HTML
         <div class="addthis_toolbox addthis_default_style" #{html_attrs}>
           <a class="addthis_counter addthis_pill_style"></a>
-          <a class="addthis_button_tweet"></a>
+          <a class="addthis_button_tweet #{tweet_attrs}"></a>
           <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
         </div>
         HTML
@@ -109,7 +115,7 @@ module Blog
       addthis_buttons(options)
     end
 
-    # GOOGLE PLUSONE +1 --------------------------------------------------------
+    # GOOGLE PLUSONE +1 ------------------------------------
 
     def plusone_javascript
       (<<-JS
