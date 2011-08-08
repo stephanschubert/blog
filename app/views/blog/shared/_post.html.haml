@@ -24,7 +24,7 @@
     = adsense_section do
       - html = textilize(post.body)
 
-      - if (Settings.blog.adsense.inject_into_posts rescue nil)
+      - if inject_adsense?(post.body)
         = inject_adsense(html)
       - else
         = html

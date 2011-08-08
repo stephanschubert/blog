@@ -26,6 +26,16 @@ TXT
       end
     end
 
+    # it "should support the 'adsense' extension" do
+    #   html = helper.textilize <<-TXT
+    #     !adsense{"class": "left", "name": "banner"}
+    #   TXT
+
+    #   Capybara.string(html).find("div[class='adsense banner left']").tap do |div|
+    #     div.should have_selector('script')
+    #   end
+    # end
+
   end
 
   describe "#textilize_without_paragraph" do # -------------

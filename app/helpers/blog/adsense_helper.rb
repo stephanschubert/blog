@@ -13,7 +13,11 @@ module Blog
       client, ga_id, name, slot, width, height =
         options.pluck(:client, :ga_id, :name, :slot, :width, :height)
 
-      options[:class] = merge_css("adsense", name)
+      options[:class] = [
+        "adsense",
+        name,
+        options[:class]
+      ].compact.uniq.join(" ")
 
       content_tag :div, options do
         (<<-ADSENSE
@@ -39,6 +43,12 @@ module Blog
       adsense_block(options)
     end
 
+    def inject_adsense?(text)
+      result   = Settings.blog.adsense.inject_into_posts rescue nil
+      result &&= (text !~ /^!adsense/)
+      result
+    end
+
     def inject_adsense(html, options = {})
       options.reverse_merge! \
       :marker => "[ADSENSE]",
@@ -62,7 +72,7 @@ module Blog
         html   = html.insert offset, marker
       end
 
-      html = html.gsub options[:marker], adsense_slot(:banner)
+      html = html.gsub options[:marker], adsense_slot(:banner, :class => "auto")
 
       if pos = html.index('</figure>')
         offset = pos + '</figure>'.size
@@ -70,7 +80,7 @@ module Blog
         offset = 0
       end
 
-      html = html.insert offset, adsense_slot(:large_rect)
+      html = html.insert offset, adsense_slot(:large_rect, :class => "auto")
       html.html_safe
     end
 

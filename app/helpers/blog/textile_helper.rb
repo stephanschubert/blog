@@ -3,7 +3,9 @@ module Blog
 
     # Automatically mark all textile'd strings as html-safe.
     def textilize(text, *options)
+      text = process_adsense(text)
       text = process_figures(text)
+
       super(text, *options).html_safe
     end
 
@@ -23,6 +25,19 @@ module Blog
     end
 
     private # ----------------------------------------------
+
+    def process_adsense(text)
+      text.gsub /!adsense(.+)$/ do |match|
+        begin
+          options = JSON.parse($1).symbolize_keys
+        rescue
+          next
+        end
+
+        slot_name = options.pluck(:name)
+        adsense_slot(slot_name, options)
+      end
+    end
 
     def process_figures(text)
       text.gsub /!figure(.+)$/ do |match|
