@@ -19,6 +19,11 @@ de:
 
     feeds: News abonnieren
 
+    comments:
+      link:
+        text: Kommentieren
+        title: Sag uns deine Meinung
+
     archive:
       page_title: Artikel-Archiv
       meta_description: Alle Artikel auf einen Blick.

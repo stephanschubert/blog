@@ -7,9 +7,17 @@
   %h2.entry-title
     = link_to_post(post)
 
+  - if comments_enabled?
+    .entry-comments
+      = link_to_comments(post)
+      = disqus_comment_count_javascript
+
   .entry-excerpt
     = excerpt_from_post(post, :length => length)
 
   .entry-sharing
-    = addthis_buttons_for_post(post)
-    = plusone_button_for_post(post, "data-size" => :small)
+    .addthis-wrapper
+      = addthis_buttons_for_post(post)
+
+    .plusone-wrapper
+      = plusone_button_for_post(post, "data-size" => :small)

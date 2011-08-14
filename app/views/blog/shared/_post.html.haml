@@ -47,3 +47,6 @@
 
     - if Settings.blog.show_related_posts
       = render "blog/shared/related-posts", :post => post
+
+    - if comments_enabled?
+      = disqus_thread_javascript_for(post)
