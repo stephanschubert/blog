@@ -93,7 +93,7 @@ module Blog
         (<<-HTML
         <div class="addthis_toolbox addthis_default_style" #{html_attrs}>
           <a class="addthis_counter addthis_pill_style"></a>
-          <a class="addthis_button_tweet #{tweet_attrs}"></a>
+          <a class="addthis_button_tweet" #{tweet_attrs}"></a>
           <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
         </div>
         HTML
