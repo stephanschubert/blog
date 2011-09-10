@@ -3,8 +3,8 @@ module Blog
 
     def parameters_for_post_path(post, options = {})
       options.reverse_merge! \
-      :year  => post.published_at.year.to_s,
-      :month => post.published_at.month.to_s.rjust(2, '0'),
+      :year  => (post.published_at.year.to_s rescue nil),
+      :month => (post.published_at.month.to_s.rjust(2, '0') rescue nil),
       :slug  => post.slug
     end
 
