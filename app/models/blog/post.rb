@@ -1,3 +1,5 @@
+require "mongoid/slug"
+
 module Blog
   class Post
     include Mongoid::Document
@@ -5,13 +7,11 @@ module Blog
     include Mongoid::MultiParameterAttributes
     include Mongoid::Slug
 
-    belongs_to :user, inverse_of: :posts
+    belongs_to :user, inverse_of: :posts, class_name: "Blog::User"
 
     field :title, type: String
     validates_presence_of :title
-    slug :title do |doc|
-      doc.title.to_url
-    end
+    slug :title
 
     field :body, type: String
     validates_presence_of :body

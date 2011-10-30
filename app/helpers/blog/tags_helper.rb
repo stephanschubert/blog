@@ -7,7 +7,7 @@ module Blog
       :rel   => "tag",
       :title => tag.name,
       :text  => tag.name,
-      :url   => public_tag_path(tag)
+      :url   => public_tag_path(tag.slug)
 
       text, url = options.pluck(:text, :url)
       text = capture(&block) if block_given?

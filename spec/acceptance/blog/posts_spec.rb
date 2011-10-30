@@ -15,19 +15,17 @@ feature "Posts", %q{
   end
 
   scenario "Posts index" do # ------------------------------
-    visit '/blog/backend/posts'
+    visit backend_posts_path
 
-    page.html.should have_tag ".post" do
-      with_tag ".title", :text => "One"
-      with_tag ".body", :text => "This is a body"
-    end
+    page.html.should have_tag "a[href$='/one']", text: "One"
+    page.html.should have_tag "a[href$='/two']", text: "Two"
   end
 
   scenario "Create post" do # ------------------------------
-    visit "/blog/backend/posts"
+    visit backend_posts_path
     click_on t("backend.actions.create_post")
 
-    within "form#new_blog_post" do
+    within "form#new_post" do
       fill_in "post_title", :with => "A new post"
       fill_in "post_body",  :with => "The real content"
 
@@ -38,13 +36,13 @@ feature "Posts", %q{
   end
 
   scenario "Update post" do # ------------------------------
-    visit "/blog/backend/posts"
+    visit backend_posts_path
 
     within ".posts li:first-child" do
       click_on t("backend.post_actions.edit")
     end
 
-    within "form[id^='edit_blog_post']" do
+    within "form[id^='edit_post']" do
       fill_in "post_body", :with => "Updated content"
 
       find("*[type='submit']").click
@@ -77,7 +75,7 @@ feature "Posts", %q{
 
     visit edit_backend_post_path(post)
 
-    within "form[id^='edit_blog_post']" do
+    within "form[id^='edit_post']" do
       fill_in "post_tag_list", :with => "General, Updates"
       find("*[type='submit']").click
     end
@@ -95,7 +93,7 @@ feature "Posts", %q{
 
     visit edit_backend_post_path(post)
 
-    within "form[id^='edit_blog_post']" do
+    within "form[id^='edit_post']" do
       fill_in "post_page_title", :with => "Custom page title"
       find("*[type='submit']").click
     end
@@ -110,7 +108,7 @@ feature "Posts", %q{
 
     visit edit_backend_post_path(post)
 
-    within "form[id^='edit_blog_post']" do
+    within "form[id^='edit_post']" do
       fill_in "post_meta_description", :with => "Custom meta description"
       find("*[type='submit']").click
     end

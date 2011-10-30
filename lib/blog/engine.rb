@@ -1,4 +1,3 @@
-require "mongoid/slug"
 require "redcloth"
 
 module Blog

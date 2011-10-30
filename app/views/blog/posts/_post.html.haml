@@ -2,7 +2,7 @@
   %header
     = render "blog/shared/share-buttons-for-post", :post => post
 
-    %h1.entry-title
+    %h1.entry-title.post-title
       = link_to_post(post,
       :text => textilize_without_paragraph(post.title),
       :rel => "bookmark")
@@ -16,7 +16,7 @@
         = t(".written_by")
         = pretty_author(post.user)
 
-  .entry-content
+  .entry-content.post-body
     = textilize(post.body)
 
   %footer

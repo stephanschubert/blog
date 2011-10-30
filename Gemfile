@@ -1,29 +1,33 @@
 source "http://rubygems.org"
 gemspec
 
-gem 'sprockets', '= 2.0.0.beta.10'
-gem 'rack', '= 1.3.0'
-gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'sprockets',    '~> 2.0'
+gem 'rack',         '~> 1.3.0'
+gem 'rails',        '~> 3.1'
 
-gem 'mongoid',   :git => 'git://github.com/mongoid/mongoid.git'
-gem 'jquery-rails', :git => 'git://github.com/rails/jquery-rails.git'
+gem 'mongoid',      git: 'git://github.com/mongoid/mongoid.git'
+gem 'bson_ext',     '>= 1.3.0'
 
-gem 'bson_ext', '>= 1.3.0'
-gem 'haml', :git => 'git://github.com/nex3/haml.git'
+gem 'haml',         git: 'git://github.com/nex3/haml.git'
+gem 'sass',         '~> 3.1.10'
+gem 'jquery-rails', git: 'git://github.com/rails/jquery-rails.git'
 
-gem 'sass', :git => 'git://github.com/nex3/sass.git'
-gem 'sass-rails', :git => 'git://github.com/rails/sass-rails.git'
-
-gem 'RedCloth', :require => 'redcloth'
+gem 'RedCloth',     require: 'redcloth'
 
 # FIXME
 #gem 'formtastic', :path => '../formtastic'
-#gem 'scss', :require => "scss", :path => '../scss'
+gem 'scss', :require => "scss", :path => '../scss'
 #gem 'santas-little-helpers', :path => '../santas-little-helpers'
 
-gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git'
-gem 'scss', :require => "scss", :git => 'git@github.com:jazen/scss.git'
-gem 'santas-little-helpers', :git => 'git@github.com:jazen/santas-little-helpers.git'
+gem 'formtastic', git: 'git://github.com/justinfrench/formtastic.git'
+#gem 'scss', :require => "scss", git: 'git@github.com:jazen/scss.git'
+gem 'santas-little-helpers', git: 'git@github.com:jazen/santas-little-helpers.git'
+gem 'mongoid-plugins', git: 'git://github.com/jazen/mongoid-plugins.git'
+
+group :assets do
+  gem 'sass-rails'
+  gem 'uglifier'
+end
 
 group :test, :development do
   gem 'database_cleaner', '>= 0.6.6'

@@ -5,6 +5,7 @@ describe Blog::Post do
 
   it { should be_mongoid_document }
   it { should be_timestamped_document }
+  it { should be_slugged_document }
 
   it { should belong_to(:user).as_inverse_of(:posts) }
 
@@ -15,7 +16,7 @@ describe Blog::Post do
   it { should have_field(:body).of_type(String) }
   it { should validate_presence_of(:body) }
 
-  it { should have_field(:published_at).of_type(DateTime) }
+  it { should have_field(:published_at).of_type(Time) }
 
   # it { should have_and_belong_to_many(:tags) }
   it { should embed_many(:tags) }
