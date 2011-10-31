@@ -10,27 +10,27 @@ feature "Default blog behavior", %q{
 
   background do
     @one = F("blog/post",
-             :title => "One",
-             :body => "This is a body",
-             :published_at => Time.parse("2011/04/01"))
+             title: "One",
+             body: "This is a body",
+             published_at: Time.parse("2011/04/01"))
 
     @two = F("blog/post",
-             :title => "Two",
-             :body => "Second body",
-             :published_at => Time.parse("2011/04/03"))
+             title: "Two",
+             body: "Second body",
+             published_at: Time.parse("2011/04/03"))
 
-    @draft = F("blog/post", :published_at => nil)
+    @draft = F("blog/post", published_at: nil)
 
     # Annoying.
-    @host = "example.com"
+    @host = "www.example.com"
   end
 
   scenario "View home page" do # -----------------------------------------------
     visit '/blog'
 
-    page.html.should have_tag(".post", :count => 2)
-    page.html.should have_post @one
-    page.html.should have_post @two
+    page.should have_selector ".post-preview", count: 2
+    page.should have_post_preview @one
+    page.should have_post_preview @two
   end
 
   scenario "View single post" do # ---------------------------------------------
@@ -40,25 +40,25 @@ feature "Default blog behavior", %q{
     @one.reload
     @one.views.should == 1
 
-    page.html.should have_tag(".post", :count => 1)
-    page.html.should have_post @one
-    page.html.should_not have_post @two
+    page.should have_selector ".post", count: 1
+    page.should have_post @one
+    page.should have_no_post @two
   end
 
   scenario "View single post w/ date" do # -------------------------------------
     visit '/blog/2011/04/one'
 
-    page.html.should have_tag(".post", :count => 1)
-    page.html.should have_post @one
-    page.html.should_not have_post @two
+    page.should have_selector ".post", count: 1
+    page.should have_post @one
+    page.should have_no_post @two
   end
 
   scenario "View all posts published in a month" do # --------------------------
     visit '/blog/2011/04'
 
-    page.html.should have_tag(".post", :count => 2)
-    page.html.should have_post @one
-    page.html.should have_post @two
+    page.should have_selector ".post-preview", count: 2
+    page.should have_post_preview @one
+    page.should have_post_preview @two
   end
 
   scenario "View all posts published in a year" do # ---------------------------
@@ -66,10 +66,10 @@ feature "Default blog behavior", %q{
 
     visit '/blog/2011'
 
-    page.html.should have_tag(".post", :count => 2)
-    page.html.should have_post @one
-    page.html.should have_post @two
-    page.html.should_not have_post three
+    page.should have_selector ".post-preview", count: 2
+    page.should have_post_preview @one
+    page.should have_post_preview @two
+    page.should have_no_post_preview three
   end
 
   scenario "View all posts tagged with ..." do # -------------------------------
@@ -79,14 +79,14 @@ feature "Default blog behavior", %q{
 
     visit '/blog/tags/general'
 
-    page.html.should have_tag(".post", :count => 2)
-    page.html.should have_post @one
-    page.html.should have_post @two
+    page.should have_selector ".post-preview", count: 2
+    page.should have_post_preview @one
+    page.should have_post_preview @two
 
     visit '/blog/tags/updates'
 
-    page.html.should have_tag(".post", :count => 1)
-    page.html.should have_post @one
+    page.should have_selector ".post-preview", count: 1
+    page.should have_post_preview @one
   end
 
   scenario "Textilized post content" do # --------------------------------------
@@ -95,9 +95,9 @@ feature "Default blog behavior", %q{
              :body => "This is a body",
              :published_at => Time.parse("2011/04/01"))
 
-    visit '/blog'
+    visit '/blog/one'
 
-    within ".entry-content" do
+    within :css, ".entry-content" do
       page.html.should match(/<p>This is a body<\/p>/)
     end
   end
@@ -105,18 +105,12 @@ feature "Default blog behavior", %q{
   scenario "Latest posts" do # -------------------------------------------------
     visit '/blog'
 
-    page.html.should have_tag("#latest-posts") do
-      path = post_path(:year  => @one.published_at.year.to_s,
-                       :month => @one.published_at.month.to_s.rjust(2, '0'),
-                       :id    => @one.slug)
+    within :css, "#latest-posts" do
+      path = public_post_path(@one)
+      page.should have_selector "a[href$='#{path}']"
 
-      with_tag "a[href$='#{path}']"
-
-      path = post_path(:year  => @two.published_at.year.to_s,
-                       :month => @two.published_at.month.to_s.rjust(2, '0'),
-                       :id    => @two.slug)
-
-      with_tag "a[href$='#{path}']"
+      path = public_post_path(@two)
+      page.should have_selector "a[href$='#{path}']"
     end
   end
 
@@ -127,9 +121,9 @@ feature "Default blog behavior", %q{
 
     visit '/blog'
 
-    page.html.should have_tag("#all-tags") do
-      with_tag "a[href$='/general']"
-      with_tag "a[href$='/updates']"
+    within :css, "#all-tags" do
+      page.should have_selector "a[href$='/general']"
+      page.should have_selector "a[href$='/updates']"
     end
   end
 
@@ -137,7 +131,7 @@ feature "Default blog behavior", %q{
     visit '/blog'
 
     %w(rss atom).each do |type|
-      page.html.should have_tag \
+      page.should have_selector \
       "link[type='application/#{type}+xml'][rel='alternate'][href$='/feed.#{type}']"
     end
   end
@@ -145,9 +139,9 @@ feature "Default blog behavior", %q{
   scenario "Visible Feed Links" do # -------------------------------------------
     visit '/blog'
 
-    page.html.should have_tag "#feeds" do
+    within :css, "#feeds" do
       %w(rss atom).each do |type|
-        with_tag "a[href$='/feed.#{type}']"
+        page.should have_selector "a[href$='/feed.#{type}']"
       end
     end
   end
@@ -155,24 +149,32 @@ feature "Default blog behavior", %q{
   scenario "View RSS Feed" do # ------------------------------------------------
     visit '/blog/feed.rss'
 
-    page.html.should have_tag "rss[version='2.0']" do
-      with_tag "channel" do
-        with_tag "title"
-        with_tag "description"
-        with_tag "link"
+    within :css, "rss[version='2.0']" do
+      within :css, "channel" do
+        page.should have_selector "title"
+        page.should have_selector "description"
+        page.should have_selector "link"
 
-        [ @one, @two ].each do |post|
-          with_tag "item" do
-            with_tag "title", :text => post.title
-            with_tag "description" # TODO
+        [ @two, @one ].each_with_index do |post, index|
+          within :css, "item:#{index == 0 ? 'first' : 'last'}" do
 
-            with_tag "link" #, :text => public_post_url(post, :host => @host)
-            with_tag "guid", :text => public_post_url(post, :host => @host)
+            within :css, "title" do
+              page.should have_content(post.title)
+            end
 
-            with_tag "pubdate", :text => post.published_at.to_s(:rfc822)
+            page.should have_selector "description" # TODO
+            page.should have_selector "link" #, :text => public_post_url(post, :host => @host)
+
+            within :css, "guid" do
+              page.should have_content(public_post_url(post, host: @host))
+            end
+
+            within :css, "pubdate" do
+              page.should have_content(post.published_at.to_s(:rfc822))
+            end
 
             post.tags.each do |tag|
-              with_tag "category", :text => tag.name
+              page.should have_selector "category", text: tag.name
             end
           end
         end
@@ -183,25 +185,34 @@ feature "Default blog behavior", %q{
   scenario "View ATOM Feed" do # -----------------------------------------------
     visit '/blog/feed.atom'
 
-    page.html.should have_tag "feed" do
-      with_tag "id"
-      with_tag "title"
-      with_tag "updated"
+    within :css, "feed" do
+      page.should have_selector "id"
+      page.should have_selector "title"
+      page.should have_selector "updated"
 
-      [ @one, @two ].each do |post|
-        with_tag "entry" do
-          with_tag "id"
-          with_tag "published", :text => post.published_at.iso8601
-          with_tag "updated", :text => post.published_at.iso8601
+      [ @two, @one ].each_with_index do |post, index|
+        within :css, "entry:#{index == 0 ? 'first' : 'last'}" do
+          page.should have_selector "id"
 
-          with_tag "title", :text => post.title
-          with_tag "content[type='html']" # TODO
+          within :css, "published" do
+            page.should have_content(post.published_at.iso8601)
+          end
 
-          url = public_post_url(post, :host => @host)
-          with_tag "link[href='#{url}']"
+          within :css, "updated" do
+            page.should have_content(post.updated_at.iso8601)
+          end
+
+          within :css, "title" do
+            page.should have_content(post.title)
+          end
+
+          page.should have_selector "content[type='html']" # TODO
+
+          url = public_post_url(post, host: @host)
+          page.should have_selector "link[href='#{url}']"
 
           post.tags.each do |tag|
-            with_tag "category", :text => tag.name
+            page.should have_selector "category", text: tag.name
           end
         end
       end
@@ -211,8 +222,8 @@ feature "Default blog behavior", %q{
   scenario "View archive" do # -------------------------------------------------
     visit '/blog/archive'
 
-    page.html.should have_link_to_post(@one)
-    page.html.should have_link_to_post(@two)
+    page.should have_link_to_post(@one)
+    page.should have_link_to_post(@two)
   end
 
 end

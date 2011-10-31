@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dummy</title>
+  <title><%= @page_title %></title>
+
+  <% unless @meta_description.blank? %>
+    <meta name="description" content="<%= @meta_description %>" />
+  <% end %>
+
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
+  <%= auto_discovery_link_tag :atom, atom_feed_url %>
+  <%= auto_discovery_link_tag :rss, rss_feed_url %>
+
 </head>
 <body>
 
 <%= yield %>
+
+<%= render "blog/shared/feeds" %>
+<%= render "blog/shared/latest-posts" %>
+<%= render "blog/shared/all-tags" %>
 
 </body>
 </html>

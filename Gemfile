@@ -17,11 +17,11 @@ gem 'RedCloth',     require: 'redcloth'
 # FIXME
 #gem 'formtastic', path: '../formtastic'
 #gem 'scss', require: "scss", path: '../scss'
-#gem 'santas-little-helpers', path: '../santas-little-helpers'
+gem 'santas-little-helpers', path: '../santas-little-helpers'
 
 gem 'formtastic', git: 'git://github.com/justinfrench/formtastic.git'
 gem 'scss', require: "scss", git: 'git@github.com:jazen/scss.git'
-gem 'santas-little-helpers', git: 'git@github.com:jazen/santas-little-helpers.git'
+#gem 'santas-little-helpers', git: 'git@github.com:jazen/santas-little-helpers.git'
 gem 'mongoid-plugins', git: 'git://github.com/jazen/mongoid-plugins.git'
 
 group :assets do

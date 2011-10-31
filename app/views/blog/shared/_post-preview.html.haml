@@ -1,11 +1,11 @@
 - length ||= 350
 
-= media_block(:class => "post-preview") do
+= media_block(class: "post-preview", id: "post-#{post.id}") do
   .entry-published
-    = pretty_date(post.published_at, :format => :short)
+    = pretty_date(post.published_at, format: :short)
 
   %h2.entry-title
-    = link_to_post(post)
+    = link_to_post(post, rel: :bookmark)
 
   - if comments_enabled?
     .entry-comments
@@ -13,7 +13,7 @@
       = disqus_comment_count_javascript
 
   .entry-excerpt
-    = excerpt_from_post(post, :length => length)
+    = excerpt_from_post(post, length: length)
 
   .entry-sharing
     .addthis-wrapper

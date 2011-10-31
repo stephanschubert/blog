@@ -6,7 +6,7 @@ describe Blog::PostsController do
 
     it "should render a template" do
       get "/blog"
-      should render_template("posts/index")
+      should render_template("blog/blogs/index")
     end
 
   end
