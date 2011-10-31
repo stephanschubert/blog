@@ -30,11 +30,11 @@ de:
       title: Archiv
 
     posts_by_date:
-      title: "Alle Artikel von %{date}"
+      page_title: "Alle Artikel von %{date}"
       meta_description: "Aktuelle Artikel sind: %{description}"
 
     posts_by_tag:
-      title: "Alle Artikel zum Thema %{title}"
+      page_title: "Alle Artikel zum Thema %{title}"
       meta_description: "Aktuelle Artikel sind: %{description}"
 
     slug:
