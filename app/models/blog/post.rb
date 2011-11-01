@@ -1,4 +1,5 @@
 require "mongoid/slug"
+require "mongoid/seo"
 
 module Blog
   class Post
@@ -6,6 +7,7 @@ module Blog
     include Mongoid::Timestamps
     include Mongoid::MultiParameterAttributes
     include Mongoid::Slug
+    include Mongoid::SEO
 
     belongs_to :user, inverse_of: :posts, class_name: "Blog::User"
 
@@ -17,9 +19,6 @@ module Blog
     validates_presence_of :body
 
     field :published_at, type: Time
-
-    field :page_title, type: String
-    field :meta_description, type: String
 
     field :views, type: Integer, default: 0
 

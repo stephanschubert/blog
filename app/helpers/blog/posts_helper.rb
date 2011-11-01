@@ -8,7 +8,7 @@ module Blog
       url = if options.pluck(:backend)
               blog.backend_post_path(post)
             else
-              public_post_path(post.slug)
+              public_post_path(post)
             end
 
       options.reverse_merge! \
