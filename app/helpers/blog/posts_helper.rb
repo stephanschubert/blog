@@ -61,16 +61,16 @@ module Blog
       :length => 350,
       :words_only => true
 
-      excerpt  = truncate(post.body, options)
-      excerpt  = untextilize(excerpt)
+      excerpt  = untextilize(post.body)
+      excerpt  = truncate(excerpt, options)
 
-      link = link_to_post(post, :text => t("blog.excerpt_from_post.read_on"), :class => "read-on")
+      # link = link_to_post(post, :text => t("blog.excerpt_from_post.read_on"), :class => "read-on")
 
-      if excerpt =~ /<\/p>\Z/
-        excerpt.sub! /<\/p>\Z/, " #{link}</p>"
-      else
-        excerpt << content_tag(:p) { link }
-      end
+      # if excerpt =~ /<\/p>\Z/
+      #   excerpt.sub! /<\/p>\Z/, " #{link}</p>"
+      # else
+      #   excerpt << content_tag(:p) { link }
+      # end
 
       excerpt.html_safe
     end

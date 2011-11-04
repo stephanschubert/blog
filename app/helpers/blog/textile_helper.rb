@@ -16,8 +16,13 @@ module Blog
 
     # Remove textile formatting
     def untextilize(*args)
+      text, args = *args
+
+      text = remove_adsense(text)
+      text = remove_figures(text)
+
       # Let textile do the work and just strip the tags afterwards.
-      strip_tags(textilize(*args))
+      strip_tags textilize(text, *args)
     end
 
     def linify(s)
@@ -25,6 +30,16 @@ module Blog
     end
 
     private # ----------------------------------------------
+
+    def remove_adsense(text)
+      text.gsub /!adsense(.+)$/, ""
+    end
+
+    def remove_figures(text)
+      text.
+        gsub(/!figure(.+)$/, "").
+        gsub(/<figure[^>]*>(.*)<\/figure>/m, "")
+    end
 
     def process_adsense(text)
       text.gsub /!adsense(.+)$/ do |match|

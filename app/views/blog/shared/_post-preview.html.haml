@@ -14,6 +14,7 @@
 
   .entry-excerpt
     = excerpt_from_post(post, length: length)
+    %p= link_to_post(post, :text => t("blog.excerpt_from_post.read_on"), :class => "read-on")
 
   .entry-sharing
     .addthis-wrapper

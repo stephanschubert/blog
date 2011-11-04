@@ -1,2 +1,17 @@
-share_buttons:
-  show_at_post_top: true
+test:
+  share_buttons:
+    show_at_post_top: true
+
+  adsense:
+    inject_into_posts: true
+    client: ca-pub-123
+
+    banner:
+      slot: 3490248290
+      width: 468
+      height: 60
+
+    large_rect:
+      slot: 423804892
+      width: 320
+      height: 250
