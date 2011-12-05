@@ -5,7 +5,7 @@ module Blog
     before_filter :find_post, :only => %w(edit show update destroy)
 
     def index
-      @posts = Post.all
+      @posts = Post.order_by(:published_at.desc)
     end
 
     def new

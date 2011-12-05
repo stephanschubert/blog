@@ -7,18 +7,29 @@ feature "Posts", %q{
 } do
 
   background do
-    @one = F("blog/post", :title => "One", :body => "This is a body")
-    @two = F("blog/post", :title => "Two", :body => "Second body")
+    @one = F("blog/post", title: "One", body: "This is a body", published_at: 2.days.ago)
+    @two = F("blog/post", title: "Two", body: "Second body", published_at: 1.day.ago)
 
     # FIXME Add real users/accounts
     basic_auth "baktinet", "6bd5069e47fc68f2"
   end
 
-  scenario "Posts index" do # ------------------------------
-    visit backend_posts_path
+  context "Posts/index" do # -------------------------------
 
-    page.html.should have_tag "a[href$='/one']", text: "One"
-    page.html.should have_tag "a[href$='/two']", text: "Two"
+    scenario "List of posts" do
+      visit backend_posts_path
+
+      page.html.should have_tag "a[href$='/one']", text: "One"
+      page.html.should have_tag "a[href$='/two']", text: "Two"
+    end
+
+    scenario "Recently published post first" do
+      visit backend_posts_path
+
+      page.should have_selector ".posts li:first", text: "Two"
+      page.should have_selector ".posts li:last", text: "One"
+    end
+
   end
 
   scenario "Create post" do # ------------------------------
