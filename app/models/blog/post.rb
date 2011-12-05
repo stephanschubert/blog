@@ -120,5 +120,9 @@ module Blog
       page_title.blank? ? title : page_title
     end
 
+    def published?
+      published_at && published_at < Time.now
+    end
+
   end
 end
