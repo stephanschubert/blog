@@ -13,7 +13,7 @@ Blog::Engine.routes.draw do
 
   match '/archive' => 'blogs#archive', :as => :archive
 
-  match '/tags/:id' => 'blogs#posts_by_tag',
+  match '/tags/:slug' => 'blogs#posts_by_tag',
   :as => :posts_by_tag
 
   match '/feed.:format' => 'blogs#feed',

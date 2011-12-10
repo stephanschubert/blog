@@ -27,6 +27,21 @@ describe Blog::Post do
     F.build("blog/post").should be_valid
   end
 
+  describe "#published?" do # ------------------------------
+
+    it "should return true if the post's publication date is in the past" do
+      post = F.build("blog/post")
+      post.should_not be_published
+
+      post.published_at = 1.day.from_now
+      post.should_not be_published
+
+      post.published_at = 1.day.ago
+      post.should be_published
+    end
+
+  end
+
   describe "#slug" do # ------------------------------------
 
     it "should convert umlauts and other special chars to ASCII" do
