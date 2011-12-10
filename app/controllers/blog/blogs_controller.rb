@@ -54,9 +54,9 @@ module Blog
     end
 
     def posts_by_tag
-      @posts = posts.desc(:published_at).tagged_with(params[:id], :slug => true)
+      @posts = posts.desc(:published_at).tagged_with(params[:slug], :slug => true)
       # TODO Ugly
-      @tag = Blog::Tag.all.select { |t| t.slug == params[:id] }.first
+      @tag = Blog::Tag.all.select { |t| t.slug == params[:slug] }.first
 
       @page_title = t("blog.posts_by_tag.page_title", :title => @tag.name)
       @meta_description = t("blog.posts_by_tag.meta_description", :description => enumerate_titles(@posts))

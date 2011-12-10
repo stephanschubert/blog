@@ -29,5 +29,9 @@ module Blog
       end
     end
 
+    initializer "blog.mongoid.install_observers" do |app|
+      app.config.mongoid.observers = 'blog/post_sweeper'
+    end
+
   end
 end

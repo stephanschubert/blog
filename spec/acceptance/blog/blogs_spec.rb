@@ -25,7 +25,7 @@ feature "Default blog behavior", %q{
     @host = "www.example.com"
   end
 
-  scenario "View home page" do # -----------------------------------------------
+  scenario "View home page" do # ---------------------------
     visit '/blog'
 
     page.should have_selector ".post-preview", count: 2
@@ -33,7 +33,7 @@ feature "Default blog behavior", %q{
     page.should have_post_preview @two
   end
 
-  scenario "View single post" do # ---------------------------------------------
+  scenario "View single post" do # -------------------------
     # Should increase 'views' counter.
     @one.views.should == 0
     visit '/blog/one'
@@ -45,7 +45,7 @@ feature "Default blog behavior", %q{
     page.should have_no_post @two
   end
 
-  scenario "View single post w/ date" do # -------------------------------------
+  scenario "View single post w/ date" do # -----------------
     visit '/blog/2011/04/one'
 
     page.should have_selector ".post", count: 1
@@ -53,7 +53,7 @@ feature "Default blog behavior", %q{
     page.should have_no_post @two
   end
 
-  scenario "View all posts published in a month" do # --------------------------
+  scenario "View all posts published in a month" do # ------
     visit '/blog/2011/04'
 
     page.should have_selector ".post-preview", count: 2
@@ -61,8 +61,8 @@ feature "Default blog behavior", %q{
     page.should have_post_preview @two
   end
 
-  scenario "View all posts published in a year" do # ---------------------------
-    three = F("blog/post", :published_at => Time.parse("2010/12/28"))
+  scenario "View all posts published in a year" do # -------
+    three = F("blog/post", published_at: Time.parse("2010/12/28"))
 
     visit '/blog/2011'
 
@@ -72,7 +72,7 @@ feature "Default blog behavior", %q{
     page.should have_no_post_preview three
   end
 
-  scenario "View all posts tagged with ..." do # -------------------------------
+  scenario "View all posts tagged with ..." do # -----------
     @one.tags.create(:name => "General")
     @one.tags.create(:name => "Updates")
     @two.tags.create(:name => "General")
@@ -89,7 +89,7 @@ feature "Default blog behavior", %q{
     page.should have_post_preview @one
   end
 
-  scenario "Textilized post content" do # --------------------------------------
+  scenario "Textilized post content" do # ------------------
     post = F("blog/post",
              :title => "One",
              :body => "This is a body",
@@ -102,7 +102,7 @@ feature "Default blog behavior", %q{
     end
   end
 
-  scenario "Latest posts" do # -------------------------------------------------
+  scenario "Latest posts" do # -----------------------------
     visit '/blog'
 
     within :css, "#latest-posts" do
@@ -114,7 +114,7 @@ feature "Default blog behavior", %q{
     end
   end
 
-  scenario "Tags overview" do # ------------------------------------------------
+  scenario "Tags overview" do # ----------------------------
     post = F("blog/post", :published_at => 1.day.ago)
     post.tags.create :name => "General"
     post.tags.create :name => "Updates"
@@ -127,7 +127,7 @@ feature "Default blog behavior", %q{
     end
   end
 
-  scenario "Auto-Discovery Links" do # -----------------------------------------
+  scenario "Auto-Discovery Links" do # ---------------------
     visit '/blog'
 
     %w(rss atom).each do |type|
@@ -136,7 +136,7 @@ feature "Default blog behavior", %q{
     end
   end
 
-  scenario "Visible Feed Links" do # -------------------------------------------
+  scenario "Visible Feed Links" do # -----------------------
     visit '/blog'
 
     within :css, "#feeds" do
@@ -146,7 +146,7 @@ feature "Default blog behavior", %q{
     end
   end
 
-  scenario "View RSS Feed" do # ------------------------------------------------
+  scenario "View RSS Feed" do # ----------------------------
     visit '/blog/feed.rss'
 
     within :css, "rss[version='2.0']" do
@@ -182,7 +182,7 @@ feature "Default blog behavior", %q{
     end
   end
 
-  scenario "View ATOM Feed" do # -----------------------------------------------
+  scenario "View ATOM Feed" do # ---------------------------
     visit '/blog/feed.atom'
 
     within :css, "feed" do
@@ -219,11 +219,25 @@ feature "Default blog behavior", %q{
     end
   end
 
-  scenario "View archive" do # -------------------------------------------------
+  scenario "View archive" do # -----------------------------
     visit '/blog/archive'
 
     page.should have_link_to_post(@one)
     page.should have_link_to_post(@two)
   end
+
+  # FIXME Not working - see spec/acceptance/support/capybara/caching for details.
+  # scenario "View updated post" do # ------------------------
+  #   post = F("blog/post", body: "First draft.", published_at: 1.day.ago)
+
+  #   visit public_post_path(post)
+  #   page.should have_content "First draft."
+
+  #   post.body = "Second draft."
+  #   post.save
+
+  #   visit public_post_path(post)
+  #   page.should have_content "Second draft."
+  # end
 
 end
