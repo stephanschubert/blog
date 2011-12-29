@@ -15,3 +15,8 @@ test:
       slot: 423804892
       width: 320
       height: 250
+
+  nofollow:
+    - amazon
+    - amzn
+    - bit.ly

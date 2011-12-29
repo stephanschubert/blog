@@ -5,8 +5,9 @@ module Blog
     def textilize(text, *options)
       text = process_adsense(text)
       text = process_figures(text)
-
-      super(text, *options).html_safe
+      text = super(text, *options)
+      text = nofollow_links(text)
+      text.html_safe
     end
 
     # Textilize the input but don't wrap the result in a <p>aragraph.
@@ -27,6 +28,19 @@ module Blog
 
     def linify(s)
       s.gsub(/[\r\n\t]+/, ' ').strip
+    end
+
+    def nofollow_links(input)
+      patterns   = Settings.blog.nofollow || []
+      patterns   = patterns.map { |p| Regexp.escape(p) }.join("|")
+      regex      = Regexp.new(patterns)
+      href_regex = /href=(["'])[^"']*#{regex}[^"']*\1/
+
+      input.dup.tap do |output|
+        output.gsub!(href_regex) do |match|
+          match.to_s + ' rel="nofollow"'
+        end
+      end
     end
 
     private # ----------------------------------------------

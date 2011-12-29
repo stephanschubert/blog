@@ -111,4 +111,28 @@ TXT
 
   end
 
+  describe "#nofollow_links" do # --------------------------
+
+    before :each do
+      Settings.stub!(:blog).and_return({ :nofollow => ['amazon', 'bit.ly'] })
+    end
+
+    it "should add 'rel=nofollow' to all links matching the configured patterns" do
+      textiled = helper.textilize('"Google":http://google.de and "Amazon":http://amazon.com/2342')
+      html     = Capybara.string(textiled)
+
+      html.should have_selector("a[href='http://google.de']:not([rel])")
+      html.should have_selector("a[href='http://amazon.com/2342'][rel='nofollow']")
+    end
+
+    it "should escape the configured patterns for regex usage" do
+      textiled = helper.textilize('"A":http://bit.ly/2342 and "B":http://bitaly.com')
+      html     = Capybara.string(textiled)
+
+      html.should have_selector("a[href='http://bit.ly/2342'][rel='nofollow']")
+      html.should have_selector("a[href='http://bitaly.com']:not([rel])")
+    end
+
+  end
+
 end
