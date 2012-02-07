@@ -39,6 +39,8 @@
     - if Settings.blog.show_previous_and_next_links
       = render "blog/shared/previous-and-next-post", :post => post
 
+    = render "blog/shared/about_author", :post => @post
+
     - unless post.tags.blank?
       .entry-tags
         Dieser Artikel wurde in den Kategorien
