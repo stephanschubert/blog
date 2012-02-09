@@ -1,7 +1,7 @@
 .previous-and-next-post
   %ol.xoxo
     - if p = post.previous_post
-      %li.previous-post= link_to_post(p, :rel => "prev")
+      %li.previous-post= link_to_post(p)
 
     - if p = post.next_post
-      %li.next-post= link_to_post(p, :rel => "next")
+      %li.next-post= link_to_post(p)
