@@ -5,7 +5,7 @@ gem 'sprockets',    '~> 2.0'
 gem 'rack',         '~> 1.3.0'
 gem 'rails',        '~> 3.1'
 
-gem 'mongoid',      git: 'git://github.com/mongoid/mongoid.git'
+gem 'mongoid',      '~> 2.4.3' # git: 'git://github.com/mongoid/mongoid.git'
 gem 'bson_ext',     '>= 1.3.0'
 
 gem 'haml',         git: 'git://github.com/nex3/haml.git'
@@ -34,7 +34,7 @@ group :test, :development do
 
   gem 'rspec', '>= 2.5.0'
   gem 'rspec-rails', '>= 2.5.0'
-  gem 'mongoid-rspec', :git => 'git://github.com/evansagge/mongoid-rspec.git'
+  gem 'mongoid-rspec', '>= 1.4.1' # :git => 'git://github.com/evansagge/mongoid-rspec.git'
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
 
   gem 'fabrication'

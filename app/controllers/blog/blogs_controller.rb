@@ -1,5 +1,6 @@
 module Blog
   class BlogsController < SessionsController
+    include Blog::UrlHelper
 
     layout :determine_layout
 
@@ -23,6 +24,8 @@ module Blog
         @page_title = t("blog.slug.post.page_title", :title => @post.preferred_title)
         @meta_description = t("blog.slug.post.meta_description", :description => @post.meta_description)
         @post.inc(:views, 1)
+      elsif @post = posts.any_in(slug_aliases: [ params[:slug] ]).first
+        redirect_to public_post_path(@post), :status => :moved_permanently
       else
         @posts = posts.desc(:published_at).tagged_with(params[:slug], :slug => true)
         # TODO Ugly
