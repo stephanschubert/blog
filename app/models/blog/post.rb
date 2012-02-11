@@ -1,26 +1,29 @@
-require "mongoid/slug"
 require "mongoid/seo"
+require "mongoid/seo/aliases"
+require "mongoid/slug"
 
 module Blog
   class Post
     include Mongoid::Document
-    include Mongoid::Timestamps
     include Mongoid::MultiParameterAttributes
-    include Mongoid::Slug
     include Mongoid::SEO
+    include Mongoid::SEO::Aliases
+    include Mongoid::Slug
+    include Mongoid::Timestamps
 
     belongs_to :user, inverse_of: :posts, class_name: "Blog::User"
 
     field :title, type: String
     validates_presence_of :title
-    slug :title
 
     field :body, type: String
     validates_presence_of :body
 
     field :published_at, type: Time
-
     field :views, type: Integer, default: 0
+
+    slug :title, permanent: true
+    aliases :slug
 
     # TAGS -------------------------------------------------
 
