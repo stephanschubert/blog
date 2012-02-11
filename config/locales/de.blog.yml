@@ -1,5 +1,8 @@
 de:
   blog:
+    sentence:
+      connector: und
+
     latest_posts: Neuste Einträge
 
     excerpt_from_post:

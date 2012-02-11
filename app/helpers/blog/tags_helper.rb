@@ -18,11 +18,18 @@ module Blog
       end
     end
 
-    def linked_tags_as_sentence(tags)
-      links     = tags.map { |tag| link_to_tag(tag) }
-      sentence  = links.slice(0..-2).join(", ")
-      sentence << " und " << links.last
-      sentence.html_safe
+    def linked_tags_as_sentence(tags, options = {})
+      options.reverse_merge! \
+      :connector => t("blog.sentence.connector")
+
+      links = tags.map { |tag| link_to_tag(tag) }
+      last  = links.pop
+
+      "".tap do |s|
+        s << links.join(", ")
+        s << " #{options.connector} " if links.size > 0
+        s << last
+      end
     end
 
   end
