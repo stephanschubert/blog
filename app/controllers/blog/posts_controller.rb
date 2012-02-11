@@ -9,7 +9,9 @@ module Blog
     end
 
     def new
-      @post = Post.new
+      @post = Post.new.tap do |p|
+        p.published_at = Time.now
+      end
     end
 
     def edit
