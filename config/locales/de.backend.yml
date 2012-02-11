@@ -13,6 +13,7 @@ de:
         tag_list: Tags / Kategorien
         page_title: Titel der Seite
         meta_description: Meta-Beschreibung
+        slug: Slug / Permalink
 
     hints:
       'blog/post':
@@ -20,6 +21,7 @@ de:
         body: '"Textile Formatierungen":http://redcloth.org/textile/writing-paragraph-text/ können verwendet werden.'
         page_title: Wenn leergelassen, wird der Titel des Beitrags verwendet.
         meta_description: 1-2 Sätze, die den Inhalt der Seite zusammenfassen.
+        slug: Wird aus dem Titel generiert, wenn leergelassen. Spätere Änderungen werden automatisch getracked und veraltete Permalinks per 301 auf den aktuellen weitergeleitet.
 
     actions:
       'blog/post':
