@@ -15,15 +15,15 @@ gem 'jquery-rails', git: 'git://github.com/rails/jquery-rails.git'
 gem 'RedCloth',     require: 'redcloth'
 gem 'formtastic',   git: 'git://github.com/justinfrench/formtastic.git'
 
-if `hostname` =~ /local/
-  gem 'scss', require: "scss", path: '../scss'
-  gem 'santas-little-helpers', path: '../santas-little-helpers'
-  gem 'mongoid-plugins', require: "mongoid-plugins", path: '../mongoid-plugins'
-else
+#if `hostname` =~ /local/
+#  gem 'scss', require: "scss", path: '../scss'
+#  gem 'santas-little-helpers', path: '../santas-little-helpers'
+#  gem 'mongoid-plugins', require: "mongoid-plugins", path: '../mongoid-plugins'
+#else
   gem 'scss', require: "scss", git: 'git@github.com:jazen/scss.git'
   gem 'santas-little-helpers', git: 'git@github.com:jazen/santas-little-helpers.git'
   gem 'mongoid-plugins', require: "mongoid-plugins", git: 'git://github.com/jazen/mongoid-plugins.git'
-end
+#end
 
 group :assets do
   gem 'sass-rails'
