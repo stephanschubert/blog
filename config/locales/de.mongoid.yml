@@ -1,0 +1,10 @@
+de:
+  mongoid:
+    errors:
+      models:
+        'blog/post':
+          attributes:
+            title:
+              blank: Ein Titel muss angegeben werden.
+            body:
+              blank: Etwas Text muss eingegeben werden.

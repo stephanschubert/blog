@@ -21,7 +21,7 @@ module Blog
     end
 
     def create
-      @post = Post.new(params[:post])
+      @post = Post.new incoming_changes
 
       if @post.save
         flash[:notice] = t("post.created")
@@ -33,7 +33,7 @@ module Blog
     end
 
     def update
-      if @post.update_attributes(params[:post])
+      if @post.update_attributes incoming_changes
         flash[:notice] = t("post.updated")
         respond_with :backend, @post
       else
@@ -52,6 +52,10 @@ module Blog
 
     def find_post
       @post = Post.find params[:id]
+    end
+
+    def incoming_changes
+      params[:post]
     end
 
   end

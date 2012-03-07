@@ -1,7 +1,3 @@
-require "mongoid/seo"
-require "mongoid/seo/aliases"
-require "mongoid/slug"
-
 module Blog
   class Post
     include Mongoid::Document
@@ -24,6 +20,15 @@ module Blog
 
     slug :title, permanent: true
     aliases :slug
+
+    # Localization -----------------------------------------
+
+    if Settings.blog.localize
+      include Mongoid::Localization
+
+      localize Settings.blog.localize.post.fields,
+          for: Settings.blog.localize.languages
+    end
 
     # TAGS -------------------------------------------------
 

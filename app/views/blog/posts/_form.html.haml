@@ -1,16 +1,36 @@
-
+-# TODO The localization support is pretty incomplete.
 = semantic_form_for(post, :url => polymorphic_url([:backend, post])) do |f|
+
+  = f.inputs :localizations, class: "localizations" do
+    = f.semantic_fields_for :localizations do |l|
+      = l.input :language, as: :hidden
+      = l.input :title,    as: :text
+      = l.input :body,     as: :text
+
   = f.inputs do
-    = f.input :title, :as => :text, :required => textilize_without_paragraph(t("formtastic.required"))
-    = f.input :body, :as => :text, :hint => textilize_without_paragraph(t("formtastic.hints.blog/post.body")), :required => textilize_without_paragraph(t("formtastic.required"))
+    = f.input   :title,
+      as:       :text,
+      required: textilize_without_paragraph(t("formtastic.required"))
 
-    = f.input :tag_list
-    = f.input :published_at, :as => :datetime, :use_month_numbers => true
+    = f.input   :body,
+      as:       :text,
+      hint:     textilize_without_paragraph(t("formtastic.hints.blog/post.body")),
+      required: textilize_without_paragraph(t("formtastic.required"))
 
-  = f.inputs :advanced, :class => "advanced" do
-    = f.input :slug, :hint => textilize_without_paragraph(t("formtastic.hints.blog/post.slug"))
+    = f.input   :tag_list
+
+    = f.input   :published_at,
+      as:       :datetime,
+      use_month_numbers: true
+
+  = f.inputs :advanced, class: "advanced" do
+    = f.input :slug,
+      hint:   textilize_without_paragraph(t("formtastic.hints.blog/post.slug"))
+
     = f.input :page_title
-    = f.input :meta_description, :as => :text
+
+    = f.input :meta_description,
+      as:     :text
 
   = f.buttons do
     = f.commit_button
