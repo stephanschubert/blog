@@ -29,7 +29,7 @@ module Blog
         s << links.join(", ")
         s << " #{options.connector} " if links.size > 0
         s << last
-      end
+      end.html_safe
     end
 
   end
