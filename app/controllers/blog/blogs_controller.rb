@@ -9,7 +9,10 @@ module Blog
 
     caches_page :index, :slug, :archive, :posts_by_date, :posts_by_tag
 
-    helper_method :view_all?
+    helper_method \
+    :paginated?,
+    :view_all?,
+    :canonical_url
 
     def index
       @posts = posts.latest(10)
@@ -79,6 +82,20 @@ module Blog
       Settings.blog.layout || default
     rescue
       default
+    end
+
+    def canonical_url
+      if paginated? or view_all?
+        protocol = request.scheme + "://"
+        path = request.fullpath.split("?").first
+        host = request.host_with_port
+
+        protocol + host + path + "?all"
+      end
+    end
+
+    def paginated?
+      params.include?(:page)
     end
 
     def view_all?

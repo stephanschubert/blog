@@ -1,3 +1,7 @@
+# TODO
+# * How to test existance of rel=canonical if the main app is responsible for rendering it?
+#   -> Put into presenter and test at least him?
+
 require 'acceptance/acceptance_helper'
 
 feature "Pagination" do
