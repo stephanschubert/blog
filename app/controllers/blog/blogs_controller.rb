@@ -85,13 +85,16 @@ module Blog
     end
 
     def canonical_url
-      if paginated? or view_all?
-        protocol = request.scheme + "://"
-        path = request.fullpath.split("?").first
-        host = request.host_with_port
+      protocol = request.scheme + "://"
+      path = request.fullpath.split("?").first
+      host = request.host_with_port
+      url  = protocol + host + path
 
-        protocol + host + path + "?all"
+      if paginated? or view_all? or @tag
+        url << "?all"
       end
+
+      url
     end
 
     def paginated?
