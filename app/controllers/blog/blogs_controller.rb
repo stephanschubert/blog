@@ -14,7 +14,8 @@ module Blog
     :view_all?,
     :canonical_url
 
-    before_filter :redirect_slug_with_comma
+    before_filter :redirect_slug_with_comma,
+                  :redirect_slug_with_post_id
 
     def index
       @posts = posts.latest(10)
@@ -96,6 +97,15 @@ module Blog
     def redirect_slug_with_comma
       if params[:slug] =~ /,/
         redirect_to request.fullpath.gsub(',', ''), status: :moved_permanently
+      end
+    end
+
+    # No idea where Google got them from but the bot is trying to access posts using
+    # their internal IDs. This is annoying.
+
+    def redirect_slug_with_post_id
+      if BSON::ObjectId.legal?(params[:slug]) and post = posts.find(params[:slug])
+        redirect_to public_post_path(post), status: :moved_permanently
       end
     end
 
