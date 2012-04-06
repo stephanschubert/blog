@@ -80,7 +80,7 @@ module Blog
     end
 
     def posts
-      Post.published
+      Post.published.page(params[:page])
     end
 
     def formatted_date(year, month)
