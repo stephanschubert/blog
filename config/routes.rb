@@ -28,4 +28,6 @@ Blog::Engine.routes.draw do
   as: :slug,
   constraints: { year: /\d{4}/, month: /\d{2}/ }
 
+  match '*shit', to: "blogs#routing_error"
+
 end

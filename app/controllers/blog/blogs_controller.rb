@@ -88,6 +88,27 @@ module Blog
       @meta_description = t("blog.posts_by_tag.meta_description", :description => enumerate_titles(@posts))
     end
 
+    # Some websites are pretty stupid and shorten links randomly (adding ".." to the end).
+    # Lets try to fix this shit by removing the broken stuff and looking for a post whose
+    # slug's beginning matches.
+    #
+    # Example: /a-fresh-new-po.. should redirect to the post with slug /a-fresh-new-post
+    #
+    # NOTE:
+    # An URL like this generates an ActionController::RoutingError so we have to handle it
+    # with a catch-all route at the bottom of config/routes.rb
+
+    def routing_error
+      broken_pattern = /\.{1,3}$/
+
+      if params[:shit] =~ broken_pattern
+        partial_slug = params[:shit].split("/").last.gsub(broken_pattern, '')
+        if post = posts.where(slug: /^#{partial_slug}/).first
+          redirect_to public_post_path(post), status: :moved_permanently
+        end
+      end
+    end
+
     private # ----------------------------------------------
 
     # There was a time when commata where not removed from a post's slug. Even months
