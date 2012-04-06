@@ -26,6 +26,12 @@ feature "Pagination" do
     page.should have_selector ".pagination"
   end
 
+  scenario "View all posts by tag" do
+    visit "/blog/tags/success?all"
+    page.should have_selector ".post-preview", count: 10
+    page.should_not have_selector ".pagination"
+  end
+
   scenario "View posts by date" do
     visit "/blog/#{Time.now.year}"
     page.should have_selector ".post-preview", count: 3
@@ -38,6 +44,12 @@ feature "Pagination" do
     page.should have_selector ".pagination"
   end
 
+  scenario "View all posts by date" do
+    visit "/blog/#{Time.now.year}?all"
+    page.should have_selector ".post-preview", count: 10
+    page.should_not have_selector ".pagination"
+  end
+
   scenario "View posts by slug" do
     visit "/blog/success"
     page.should have_selector ".post-preview", count: 3
@@ -48,6 +60,12 @@ feature "Pagination" do
     visit "/blog/success/page/2"
     page.should have_selector ".post-preview", count: 3
     page.should have_selector ".pagination"
+  end
+
+  scenario "View all posts by slug" do
+    visit "/blog/success?all"
+    page.should have_selector ".post-preview", count: 10
+    page.should_not have_selector ".pagination"
   end
 
 end

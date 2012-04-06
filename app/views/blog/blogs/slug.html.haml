@@ -3,4 +3,4 @@
   = render "blog/shared/post", post: @post
 - elsif @posts
   = render "blog/shared/post-previews", posts: @posts
-  = will_paginate @posts
+  = will_paginate @posts unless view_all?

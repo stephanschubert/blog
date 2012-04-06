@@ -9,6 +9,8 @@ module Blog
 
     caches_page :index, :slug, :archive, :posts_by_date, :posts_by_tag
 
+    helper_method :view_all?
+
     def index
       @posts = posts.latest(10)
       @page_title = t("blog.index.page_title")
@@ -79,8 +81,14 @@ module Blog
       default
     end
 
+    def view_all?
+      params.include?(:all)
+    end
+
     def posts
-      Post.published.page(params[:page])
+      posts = Post.published
+      posts = posts.page(params[:page]) unless view_all?
+      posts
     end
 
     def formatted_date(year, month)
