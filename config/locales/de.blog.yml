@@ -1,4 +1,10 @@
 de:
+  will_paginate:
+    previous_label: "&#8592; Zurück"
+    next_label: "Weiter &#8594;"
+    page_gap: "&hellip;"
+    link_separator: "·"
+
   blog:
     sentence:
       connector: und
@@ -33,10 +39,12 @@ de:
       title: Archiv
 
     posts_by_date:
+      paginated_page_title: "Alle Artikel von %{date} - Seite %{page}"
       page_title: "Alle Artikel von %{date}"
       meta_description: "Aktuelle Artikel sind: %{description}"
 
     posts_by_tag:
+      paginated_page_title: "Alle Artikel zum Thema %{title} - Seite %{page}"
       page_title: "Alle Artikel zum Thema %{title}"
       meta_description: "Aktuelle Artikel sind: %{description}"
 
@@ -46,8 +54,9 @@ de:
         meta_description: "%{description}"
 
       posts:
-        page_title: "Artikel zum Thema '%{title}'"
-        meta_description: "Alle Artikel zum Thema '%{title}' auf einen Blick. %{description} ..."
+        paginated_page_title: "Alle Artikel zum Thema %{title} - Seite %{page}"
+        page_title: "Artikel zum Thema %{title}"
+        meta_description: "Alle Artikel zum Thema %{title} auf einen Blick. %{description} ..."
 
     shared:
       post:

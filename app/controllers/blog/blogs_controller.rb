@@ -35,7 +35,12 @@ module Blog
         @posts = posts.desc(:published_at).tagged_with(params[:slug], :slug => true)
         # TODO Ugly
         @tag = Blog::Tag.all.select { |t| t.slug == params[:slug] }.first
-        @page_title = t("blog.slug.posts.page_title", :title => @tag.name)
+
+        if view_all?
+          @page_title = t("blog.slug.posts.page_title", title: @tag.name)
+        else
+          @page_title = t("blog.slug.posts.paginated_page_title", title: @tag.name, page: page)
+        end
 
         some_post_titles = @posts.slice(0,5).map(&:title).join(", ")
         @meta_description = t("blog.slug.posts.meta_description", :title => @tag.name, :description => some_post_titles)
@@ -57,7 +62,12 @@ module Blog
       @posts = posts.published(year, month)
       @date  = formatted_date(year, month)
 
-      @page_title = t("blog.posts_by_date.page_title", :date => @date)
+      if view_all?
+        @page_title = t("blog.posts_by_date.page_title", date: @date)
+      else
+        @page_title = t("blog.posts_by_date.paginated_page_title", date: @date, page: page)
+      end
+
       @meta_description = t("blog.posts_by_date.meta_description", :description => enumerate_titles(@posts))
     end
 
@@ -66,7 +76,12 @@ module Blog
       # TODO Ugly
       @tag = Blog::Tag.all.select { |t| t.slug == params[:slug] }.first
 
-      @page_title = t("blog.posts_by_tag.page_title", :title => @tag.name)
+      if view_all?
+        @page_title = t("blog.posts_by_tag.page_title", title: @tag.name)
+      else
+        @page_title = t("blog.posts_by_tag.paginated_page_title", title: @tag.name, page: page)
+      end
+
       @meta_description = t("blog.posts_by_tag.meta_description", :description => enumerate_titles(@posts))
     end
 
@@ -95,6 +110,10 @@ module Blog
       end
 
       url
+    end
+
+    def page
+      (params[:page] || 1).to_i
     end
 
     def paginated?
