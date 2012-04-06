@@ -21,7 +21,7 @@ feature "Pagination" do
   end
 
   scenario "View posts by tag and custom page" do
-    visit "/blog/tags/success/page/2"
+    visit "/blog/tags/success?page=2"
     page.should have_selector ".post-preview", count: 3
     page.should have_selector ".pagination"
   end
@@ -39,7 +39,7 @@ feature "Pagination" do
   end
 
   scenario "View posts by date and custom page" do
-    visit "/blog/#{Time.now.year}/page/2"
+    visit "/blog/#{Time.now.year}?page=2"
     page.should have_selector ".post-preview", count: 3
     page.should have_selector ".pagination"
   end
@@ -57,7 +57,7 @@ feature "Pagination" do
   end
 
   scenario "View posts by slug and custom page" do
-    visit "/blog/success/page/2"
+    visit "/blog/success?page=2"
     page.should have_selector ".post-preview", count: 3
     page.should have_selector ".pagination"
   end

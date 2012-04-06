@@ -13,18 +13,18 @@ Blog::Engine.routes.draw do
 
   match '/archive' => 'blogs#archive', as: :archive
 
-  match '/tags/:slug(/page/:page)' => 'blogs#posts_by_tag',
+  match '/tags/:slug' => 'blogs#posts_by_tag',
   as: :posts_by_tag,
   constraints: { }
 
   match '/feed.:format' => 'blogs#feed',
   as: :feed
 
-  match '/:year(/:month)(/page/:page)' => 'blogs#posts_by_date',
+  match '/:year(/:month)' => 'blogs#posts_by_date',
   as: :posts_by_date,
   constraints: { year: /\d{4}/, month: /\d{2}/ }
 
-  match '(/:year/:month)/:slug(/page/:page)' => 'blogs#slug',
+  match '(/:year/:month)/:slug' => 'blogs#slug',
   as: :slug,
   constraints: { year: /\d{4}/, month: /\d{2}/ }
 
