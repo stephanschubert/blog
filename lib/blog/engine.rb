@@ -1,4 +1,5 @@
 require "redcloth"
+require "will_paginate/mongoid"
 
 module Blog
   class Engine < Rails::Engine

@@ -1,19 +1,21 @@
 source "http://rubygems.org"
 gemspec
 
-gem 'sprockets',    '~> 2.0'
-gem 'rack',         '~> 1.3.0'
-gem 'rails',        '~> 3.1'
+gem 'sprockets',     '~> 2.0'
+gem 'rack',          '~> 1.3.0'
+gem 'rails',         '~> 3.1'
 
-gem 'mongoid',      '~> 2.4.3' # git: 'git://github.com/mongoid/mongoid.git'
-gem 'bson_ext',     '>= 1.3.0'
+gem 'mongoid',       '~> 2.4.3' # git: 'git://github.com/mongoid/mongoid.git'
+gem 'bson_ext',      '>= 1.3.0'
 
-gem 'haml',         git: 'git://github.com/nex3/haml.git'
-gem 'sass',         '~> 3.1.10'
-gem 'jquery-rails', git: 'git://github.com/rails/jquery-rails.git'
+gem 'haml',          git: 'git://github.com/nex3/haml.git'
+gem 'sass',          '~> 3.1.10'
+gem 'jquery-rails',  git: 'git://github.com/rails/jquery-rails.git'
 
-gem 'RedCloth',     require: 'redcloth'
-gem 'formtastic',   git: 'git://github.com/justinfrench/formtastic.git'
+gem 'RedCloth',      require: 'redcloth'
+gem 'formtastic',    git: 'git://github.com/justinfrench/formtastic.git'
+
+gem 'will_paginate', git: 'git://github.com/dbackeus/will_paginate.git' # '~> 3.0'
 
 #if `hostname` =~ /local/
 #  gem 'scss', require: "scss", path: '../scss'
