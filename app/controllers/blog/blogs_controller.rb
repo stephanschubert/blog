@@ -14,6 +14,8 @@ module Blog
     :view_all?,
     :canonical_url
 
+    before_filter :redirect_slug_with_comma
+
     def index
       @posts = posts.latest(10)
       @page_title = t("blog.index.page_title")
@@ -86,6 +88,16 @@ module Blog
     end
 
     private # ----------------------------------------------
+
+    # There was a time when commata where not removed from a post's slug. Even months
+    # after this issue was fixed GoogleBot is still trying to access them which leads
+    # to crawl errors in Google Webmasters Tools.
+
+    def redirect_slug_with_comma
+      if params[:slug] =~ /,/
+        redirect_to request.fullpath.gsub(',', ''), status: :moved_permanently
+      end
+    end
 
     def enumerate_titles(posts, limit = 5)
       posts.slice(0,limit).map { |post|
