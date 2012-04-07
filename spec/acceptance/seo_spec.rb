@@ -20,4 +20,10 @@ feature "SEO" do
     page.current_path.should match(/a-new-fresh-post$/)
   end
 
+  scenario "Redirect mixed-case slugs" do
+    post = F("blog/post", title: "A new, fresh post", published_at: 1.day.ago)
+    visit "/blog/A-new-fresh-Post"
+    page.current_path.should match(/a-new-fresh-post$/)
+  end
+
 end

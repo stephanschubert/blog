@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module Blog
   class BlogsController < SessionsController
     include Blog::UrlHelper
@@ -15,7 +16,8 @@ module Blog
     :canonical_url
 
     before_filter :redirect_slug_with_comma,
-                  :redirect_slug_with_post_id
+                  :redirect_slug_with_post_id,
+                  :redirect_mixed_case_slug
 
     def index
       @posts = posts.latest(10)
@@ -127,6 +129,15 @@ module Blog
     def redirect_slug_with_post_id
       if BSON::ObjectId.legal?(params[:slug]) and post = posts.find(params[:slug])
         redirect_to public_post_path(post), status: :moved_permanently
+      end
+    end
+
+    # Ensure we always using lowercased slugs.
+    # Some people linking manually will mix it up for sure.
+
+    def redirect_mixed_case_slug
+      if params[:slug] =~ /[A-Z]/
+        redirect_to request.fullpath.downcase, status: :moved_permanently
       end
     end
 
