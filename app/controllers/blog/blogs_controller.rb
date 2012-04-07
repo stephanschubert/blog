@@ -8,16 +8,22 @@ module Blog
     respond_to :html, :except => %w(feed)
     respond_to :rss, :atom, :only => %w(feed)
 
-    caches_page :index, :slug, :archive, :posts_by_date, :posts_by_tag
+    caches_page \
+      :index,
+      :slug,
+      :archive,
+      :posts_by_date,
+      :posts_by_tag
 
     helper_method \
-    :paginated?,
-    :view_all?,
-    :canonical_url
+      :paginated?,
+      :view_all?,
+      :canonical_url
 
-    before_filter :redirect_slug_with_comma,
-                  :redirect_slug_with_post_id,
-                  :redirect_mixed_case_slug
+    before_filter \
+      :redirect_slug_with_comma,
+      :redirect_slug_with_post_id,
+      :redirect_mixed_case_slug
 
     def index
       @posts = posts.latest(10)
@@ -154,13 +160,13 @@ module Blog
     end
 
     def canonical_url
-      protocol = request.scheme + "://"
-      path = request.fullpath.split("?").first
-      host = request.host_with_port
-      url  = protocol + host + path
+      proto = request.scheme + "://"
+      path  = request.fullpath.split("/page/").first
+      host  = request.host_with_port
+      url   = proto + host + path
 
       if paginated? or view_all? or @tag
-        url << "?all"
+        url << "/page/all"
       end
 
       url
@@ -175,7 +181,7 @@ module Blog
     end
 
     def view_all?
-      params.include?(:all)
+      params[:page] == "all"
     end
 
     def posts
