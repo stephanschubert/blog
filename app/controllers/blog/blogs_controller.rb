@@ -160,13 +160,13 @@ module Blog
     end
 
     def canonical_url
-      protocol = request.scheme + "://"
-      path = request.fullpath.split("?").first
-      host = request.host_with_port
-      url  = protocol + host + path
+      proto = request.scheme + "://"
+      path  = request.fullpath.split("/page/").first
+      host  = request.host_with_port
+      url   = proto + host + path
 
       if paginated? or view_all? or @tag
-        url << "?all"
+        url << "/page/all"
       end
 
       url
@@ -181,7 +181,7 @@ module Blog
     end
 
     def view_all?
-      params.include?(:all)
+      params[:page] == "all"
     end
 
     def posts
