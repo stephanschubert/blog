@@ -8,16 +8,22 @@ module Blog
     respond_to :html, :except => %w(feed)
     respond_to :rss, :atom, :only => %w(feed)
 
-    caches_page :index, :slug, :archive, :posts_by_date, :posts_by_tag
+    caches_page \
+      :index,
+      :slug,
+      :archive,
+      :posts_by_date,
+      :posts_by_tag
 
     helper_method \
-    :paginated?,
-    :view_all?,
-    :canonical_url
+      :paginated?,
+      :view_all?,
+      :canonical_url
 
-    before_filter :redirect_slug_with_comma,
-                  :redirect_slug_with_post_id,
-                  :redirect_mixed_case_slug
+    before_filter \
+      :redirect_slug_with_comma,
+      :redirect_slug_with_post_id,
+      :redirect_mixed_case_slug
 
     def index
       @posts = posts.latest(10)
