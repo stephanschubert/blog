@@ -35,17 +35,19 @@ de:
 
     archive:
       page_title: Artikel-Archiv
-      meta_description: Alle Artikel auf einen Blick.
       title: Archiv
+      meta_description: Alle Artikel auf einen Blick.
 
     posts_by_date:
       paginated_page_title: "Alle Artikel von %{date} - Seite %{page}"
       page_title: "Alle Artikel von %{date}"
+      title: "Alle Artikel von %{date}"
       meta_description: "Aktuelle Artikel sind: %{description}"
 
     posts_by_tag:
       paginated_page_title: "Alle Artikel zum Thema %{title} - Seite %{page}"
       page_title: "Alle Artikel zum Thema %{title}"
+      title: "Alle Artikel zum Thema %{title}"
       meta_description: "Aktuelle Artikel sind: %{description}"
 
     slug:

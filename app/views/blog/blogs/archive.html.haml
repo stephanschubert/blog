@@ -3,4 +3,4 @@
 
   - @posts_by_year.each do |year, posts|
     %h2= year
-    = render "blog/shared/post-list", :posts => posts
+    = render "blog/shared/post-list", posts: posts
