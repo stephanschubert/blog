@@ -1,5 +1,5 @@
 #archived-posts
-  %h1= t("blog.posts_by_date.title", date: @date)
+  %h1= @page_title
 
   = render "blog/shared/post-previews", posts: @posts
   = will_paginate @posts unless view_all?
