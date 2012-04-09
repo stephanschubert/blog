@@ -91,13 +91,14 @@ feature "Default blog behavior", %q{
 
   scenario "Textilized post content" do # ------------------
     post = F("blog/post",
-             :title => "One",
-             :body => "This is a body",
-             :published_at => Time.parse("2011/04/01"))
+      title: "A crazy cool new post",
+      body:  "This is a body",
+      published_at: 1.day.ago
+    )
 
-    visit '/blog/one'
+    visit '/blog/a-crazy-cool-new-post'
 
-    within :css, ".entry-content" do
+    within ".entry-content" do
       page.html.should match(/<p>This is a body<\/p>/)
     end
   end
