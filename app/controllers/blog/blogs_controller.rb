@@ -25,6 +25,7 @@ module Blog
       :redirect_slug_with_post_id,
       :redirect_mixed_case_slug
 
+    # TODO Should use paginated_posts and posts to avoid subtile errors..
     def index
       @posts = posts.latest(10)
       @page_title = t("blog.index.page_title")
@@ -36,16 +37,31 @@ module Blog
     end
 
     def slug
-      if @post = posts.find_by_slug(params[:slug])
-        @page_title = t("blog.slug.post.page_title", :title => @post.preferred_title)
-        @meta_description = t("blog.slug.post.meta_description", :description => @post.meta_description)
+      slug   = params[:slug]
+      @posts = posts.where(slug: /^#{slug}/)
+
+      # Render a search results page if we found several posts whose
+      # slugs start with the same given string. Tell search engines
+      # not to index those pages.
+
+      if @posts.size > 1
+        @page_title       = t("blog.slug.search.page_title", query: slug)
+        @meta_description = t("blog.slug.search.title", query: slug, count: @posts.size)
+        @title            = t("blog.slug.search.title", query: slug)
+        @noindex          = true
+
+      elsif @post = posts.find_by_slug(slug)
+        @page_title = t("blog.slug.post.page_title", title: @post.preferred_title)
+        @meta_description = t("blog.slug.post.meta_description", description: @post.meta_description)
         @post.inc(:views, 1)
-      elsif @post = posts.any_in(slug_aliases: [ params[:slug] ]).first
-        redirect_to public_post_path(@post), :status => :moved_permanently
+
+      elsif @post = posts.any_in(slug_aliases: [ slug ]).first
+        redirect_to public_post_path(@post), status: :moved_permanently
+
       else
-        @posts = posts.desc(:published_at).tagged_with(params[:slug], :slug => true)
+        @posts = posts.desc(:published_at).tagged_with(slug, slug: true)
         # TODO Ugly
-        @tag = Blog::Tag.all.select { |t| t.slug == params[:slug] }.first
+        @tag = Blog::Tag.all.select { |t| t.slug == slug }.first
 
         if view_all?
           @page_title = t("blog.slug.posts.page_title", title: @tag.name)
@@ -53,8 +69,10 @@ module Blog
           @page_title = t("blog.slug.posts.paginated_page_title", title: @tag.name, page: page)
         end
 
-        some_post_titles = @posts.slice(0,5).map(&:title).join(", ")
-        @meta_description = t("blog.slug.posts.meta_description", :title => @tag.name, :description => some_post_titles)
+        @meta_description = t("blog.slug.posts.meta_description",
+          title: @tag.name,
+          description: @posts.slice(0,5).map(&:title).join(", ")
+        )
       end
     end
 

@@ -51,6 +51,11 @@ de:
       meta_description: "Aktuelle Artikel sind: %{description}"
 
     slug:
+      search:
+        page_title: "Suchergebnisse für '%{query}'"
+        title: "Suchergebnisse für '%{query}'"
+        meta_description: "Artikel unbekannt - Die Suche nach '%{query}' hat %{count} gefunden, die ähnlich klingen."
+
       post:
         page_title: "%{title}"
         meta_description: "%{description}"
