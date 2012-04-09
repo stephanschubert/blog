@@ -59,7 +59,7 @@ module Blog
     end
 
     def archive
-      @posts_by_year = posts.desc(:published_at).group_by do |post|
+      @posts_by_year = Post.published.desc(:published_at).group_by do |post|
         post.published_at.year
       end
 

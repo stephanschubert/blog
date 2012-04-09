@@ -220,10 +220,15 @@ feature "Default blog behavior", %q{
   end
 
   scenario "View archive" do # -----------------------------
+    one   = F("blog/post", published_at: Time.parse("2009/02/01"))
+    two   = F("blog/post", published_at: Time.parse("2010/04/03"))
+    three = F("blog/post", published_at: Time.parse("2011/08/05"))
+
     visit '/blog/archive'
 
-    page.should have_link_to_post(@one)
-    page.should have_link_to_post(@two)
+    page.should have_link_to_post one
+    page.should have_link_to_post two
+    page.should have_link_to_post three
   end
 
   # FIXME Not working - see spec/acceptance/support/capybara/caching for details.
