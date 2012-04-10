@@ -141,7 +141,7 @@ module Blog
       if params[:shit] =~ broken_pattern
         partial_slug = params[:shit].split("/").last.gsub(broken_pattern, '')
         if post = posts.where(slug: /^#{partial_slug}/).first
-          redirect_to public_post_path(post), status: :moved_permanently
+          redirect_to public_post_path(post), status: :moved_permanently and return
         end
       end
 
