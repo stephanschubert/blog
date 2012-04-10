@@ -6,6 +6,13 @@ de:
     link_separator: "·"
 
   blog:
+    errors:
+      not_found:
+        page_title: "404 - Nichts gefunden"
+        title: "404 - Nichts gefunden"
+        description: |-
+          Leider konnte die gewünschte Seite nicht gefunden werden. Haben Sie die richtige Adresse eingegeben? Bitte benachrichtigen Sie uns, wenn die Adresse korrekt ist - wir überprüfen das Problem schnellstmöglich.
+
     sentence:
       connector: und
 

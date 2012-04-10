@@ -70,6 +70,10 @@ module Blog
         # TODO Ugly
         @tag = Blog::Tag.all.select { |t| t.slug == slug }.first
 
+        if @posts.blank? or @tag.nil?
+          render_404 and return
+        end
+
         if view_all?
           @page_title = t("blog.slug.posts.page_title", title: @tag.name)
         else
@@ -140,9 +144,16 @@ module Blog
           redirect_to public_post_path(post), status: :moved_permanently
         end
       end
+
+      render_404
     end
 
     private # ----------------------------------------------
+
+    def render_404
+      @page_title = t("blog.errors.not_found.page_title")
+      render "errors/404-not-found", status: :not_found
+    end
 
     # There was a time when commata where not removed from a post's slug. Even months
     # after this issue was fixed GoogleBot is still trying to access them which leads
