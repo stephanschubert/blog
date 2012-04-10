@@ -26,4 +26,10 @@ feature "SEO" do
     page.current_path.should match(/a-new-fresh-post$/)
   end
 
+  scenario "Redirect partial, substring slugs" do
+    post = F("blog/post", title: "A new, fresh post", published_at: 1.day.ago)
+    visit "/blog/a-new-fresh"
+    page.current_path.should match(/a-new-fresh-post$/)
+  end
+
 end

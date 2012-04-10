@@ -40,11 +40,18 @@ module Blog
       slug   = params[:slug]
       @posts = posts.where(slug: /^#{slug}/)
 
+      # In case we found just one post and the slug's are not identical
+      # this means it's a partial/broken slug and we should redirect
+      # the user to the real url.
+
+      if @posts.size == 1 and post = @posts.first and post.slug != slug
+        redirect_to public_post_path(post), status: :moved_permanently
+
       # Render a search results page if we found several posts whose
       # slugs start with the same given string. Tell search engines
       # not to index those pages.
 
-      if @posts.size > 1
+      elsif @posts.size > 1
         @page_title       = t("blog.slug.search.page_title", query: slug)
         @meta_description = t("blog.slug.search.title", query: slug, count: @posts.size)
         @title            = t("blog.slug.search.title", query: slug)
