@@ -232,15 +232,31 @@ feature "Default blog behavior", %q{
     page.should have_link_to_post three
   end
 
-  scenario "Two posts where one's slug contains the other one's" do
-    one  = F('blog/post', title: 'A tale', published_at: 2.days.ago)
-    two  = F('blog/post', title: 'A tale (Part 2)', published_at: 1.day.ago)
+  scenario "One post with matching slug alias" do
+    one = F('blog/post', slug_aliases: ['a-tale'], published_at: 2.days.ago)
 
     visit '/blog/a-tale'
-
     page.should have_post(one)
-    page.should have_no_post(two)
   end
+
+  scenario "Two posts where one slug contains the other one" do
+    one = F('blog/post', title: 'A tale', published_at: 2.days.ago)
+    two = F('blog/post', title: 'A tale (Part 2)', published_at: 1.day.ago)
+
+    visit '/blog/a-tale'
+    page.should have_post(one)
+  end
+
+  scenario "Three posts where two have a similar slug and the third one a matching slug alias" do
+    one   = F('blog/post', title: 'A tale (Part 1)', published_at: 3.days.ago)
+    two   = F('blog/post', title: 'A tale (Part 2)', published_at: 2.days.ago)
+    three = F('blog/post', slug_aliases: ['a-tale'], published_at: 1.day.ago)
+
+    visit '/blog/a-tale'
+    page.should have_post(three)
+  end
+
+
 
   # FIXME Not working - see spec/acceptance/support/capybara/caching for details.
   # scenario "View updated post" do # ------------------------

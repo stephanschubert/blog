@@ -39,32 +39,44 @@ module Blog
     def slug
       slug   = params[:slug]
       @posts = posts.where(slug: /^#{slug}/)
-      @post  = @posts.find_by_slug(slug)
+
+      # Is there any post whose slug (or one of it's aliases) is an exact match?
+
+      exact_match_post = posts.find_by_slug(slug)
+      alias_match_post = posts.any_in(slug_aliases: [slug]).first
 
       # In case we found just one post and the slug's are not identical
       # this means it's a partial/broken slug and we should redirect
       # the user to the real url.
 
-      if @posts.size == 1 and post = @posts.first and post.slug != slug
-        redirect_to public_post_path(post), status: :moved_permanently
+      if @posts.one? and !exact_match_post
+        redirect_to public_post_path(@posts.first), status: :moved_permanently
 
       # Render a search results page if we found several posts whose
       # slugs start with the same given string. Tell search engines
       # not to index those pages.
 
-      elsif @posts.size > 1 and not @post
+      elsif @posts.many? and !exact_match_post and !alias_match_post
         @page_title       = t("blog.slug.search.page_title", query: slug)
         @meta_description = t("blog.slug.search.title", query: slug, count: @posts.size)
         @title            = t("blog.slug.search.title", query: slug)
         @noindex          = true
 
-      elsif @post
+      # We found an exact match and should show this post as expected.
+
+      elsif @post = exact_match_post
         @page_title = t("blog.slug.post.page_title", title: @post.preferred_title)
         @meta_description = t("blog.slug.post.meta_description", description: @post.meta_description)
         @post.inc(:views, 1)
 
-      elsif @post = posts.any_in(slug_aliases: [ slug ]).first
-        redirect_to public_post_path(@post), status: :moved_permanently
+      # We found a post which got a matching slug alias.
+      # Redirect to the current official slug.
+
+      elsif alias_match_post
+        redirect_to public_post_path(alias_match_post), status: :moved_permanently
+
+      # Still got nothing? Let's see if there's a tag/category with a matching slug
+      # and show all posts which belong to it.
 
       else
         @posts = posts.desc(:published_at).tagged_with(slug, slug: true)
