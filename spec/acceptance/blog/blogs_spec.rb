@@ -232,6 +232,16 @@ feature "Default blog behavior", %q{
     page.should have_link_to_post three
   end
 
+  scenario "Two posts where one's slug contains the other one's" do
+    one  = F('blog/post', title: 'A tale', published_at: 2.days.ago)
+    two  = F('blog/post', title: 'A tale (Part 2)', published_at: 1.day.ago)
+
+    visit '/blog/a-tale'
+
+    page.should have_post(one)
+    page.should have_no_post(two)
+  end
+
   # FIXME Not working - see spec/acceptance/support/capybara/caching for details.
   # scenario "View updated post" do # ------------------------
   #   post = F("blog/post", body: "First draft.", published_at: 1.day.ago)

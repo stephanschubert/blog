@@ -39,6 +39,7 @@ module Blog
     def slug
       slug   = params[:slug]
       @posts = posts.where(slug: /^#{slug}/)
+      @post  = @posts.find_by_slug(slug)
 
       # In case we found just one post and the slug's are not identical
       # this means it's a partial/broken slug and we should redirect
@@ -51,13 +52,13 @@ module Blog
       # slugs start with the same given string. Tell search engines
       # not to index those pages.
 
-      elsif @posts.size > 1
+      elsif @posts.size > 1 and not @post
         @page_title       = t("blog.slug.search.page_title", query: slug)
         @meta_description = t("blog.slug.search.title", query: slug, count: @posts.size)
         @title            = t("blog.slug.search.title", query: slug)
         @noindex          = true
 
-      elsif @post = posts.find_by_slug(slug)
+      elsif @post
         @page_title = t("blog.slug.post.page_title", title: @post.preferred_title)
         @meta_description = t("blog.slug.post.meta_description", description: @post.meta_description)
         @post.inc(:views, 1)
