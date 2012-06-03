@@ -1,15 +1,16 @@
 source "http://rubygems.org"
 gemspec
 
-gem 'sprockets',     '~> 2.0'
-gem 'rack',          '~> 1.3.0'
-gem 'rails',         '~> 3.1'
+gem 'sprockets'
+gem 'rack'
+gem 'rails', '~> 3.2'
 
-gem 'mongoid',       '~> 2.4.3' # git: 'git://github.com/mongoid/mongoid.git'
-gem 'bson_ext',      '>= 1.3.0'
+gem 'mongoid'
+gem 'bson_ext'
 
-gem 'haml',          git: 'git://github.com/nex3/haml.git'
-gem 'sass',          '~> 3.1.10'
+gem 'haml'
+gem 'haml-rails'
+gem 'sass'
 gem 'jquery-rails',  git: 'git://github.com/rails/jquery-rails.git'
 
 gem 'RedCloth',      require: 'redcloth'
