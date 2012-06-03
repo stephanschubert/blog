@@ -13,7 +13,7 @@ gem 'sass',          '~> 3.1.10'
 gem 'jquery-rails',  git: 'git://github.com/rails/jquery-rails.git'
 
 gem 'RedCloth',      require: 'redcloth'
-gem 'formtastic',    git: 'git://github.com/justinfrench/formtastic.git'
+gem 'formtastic'
 
 gem 'will_paginate', git: 'git://github.com/dbackeus/will_paginate.git' # '~> 3.0'
 
