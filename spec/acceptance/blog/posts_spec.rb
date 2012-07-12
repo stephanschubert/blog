@@ -39,8 +39,7 @@ feature "Posts", %q{
     within "form#new_post" do
       fill_in "post_title", :with => "A new post"
       fill_in "post_body",  :with => "The real content"
-
-      find("*[type='submit']").click
+      submit
     end
 
     page.should have_content t("post.created")
@@ -55,8 +54,7 @@ feature "Posts", %q{
 
     within "form[id^='edit_post']" do
       fill_in "post_body", :with => "Updated content"
-
-      find("*[type='submit']").click
+      submit
     end
 
     page.should have_content t("post.updated")
@@ -88,7 +86,7 @@ feature "Posts", %q{
 
     within "form[id^='edit_post']" do
       fill_in "post_tag_list", :with => "General, Updates"
-      find("*[type='submit']").click
+      submit
     end
 
     visit public_post_path(post)
@@ -106,7 +104,7 @@ feature "Posts", %q{
 
     within "form[id^='edit_post']" do
       fill_in "post_page_title", :with => "Custom page title"
-      find("*[type='submit']").click
+      submit
     end
 
     visit public_post_path(post)
@@ -121,7 +119,7 @@ feature "Posts", %q{
 
     within "form[id^='edit_post']" do
       fill_in "post_meta_description", :with => "Custom meta description"
-      find("*[type='submit']").click
+      submit
     end
 
     visit public_post_path(post)
