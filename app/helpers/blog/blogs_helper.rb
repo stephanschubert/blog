@@ -9,6 +9,10 @@ module Blog
       tag :link, options
     end
 
+    def noindex_meta_tag
+      tag :meta, name: "robots", content: "noindex"
+    end
+
     def latest_posts(max = 5)
       Blog::Post.published.latest(max)
     end

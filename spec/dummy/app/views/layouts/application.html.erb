@@ -7,6 +7,10 @@
     <meta name="description" content="<%= @meta_description %>" />
   <% end %>
 
+  <% if @noindex %>
+    <%= noindex_meta_tag %>
+  <% end %>
+
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>

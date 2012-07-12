@@ -25,6 +25,8 @@ module Blog
       :redirect_slug_with_post_id,
       :redirect_mixed_case_slug
 
+    before_filter :set_noindex, only: %w(archive posts_by_date posts_by_tag)
+
     # TODO Should use paginated_posts and posts to avoid subtile errors..
     def index
       @posts = posts.latest(10)
@@ -162,6 +164,11 @@ module Blog
     end
 
     private # ----------------------------------------------
+
+    # TODO This belongs into a decorator?
+    def set_noindex
+      @noindex = true
+    end
 
     def render_404
       @page_title = t("blog.errors.not_found.page_title")

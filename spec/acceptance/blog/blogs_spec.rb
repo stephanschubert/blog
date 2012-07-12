@@ -55,6 +55,7 @@ feature "Default blog behavior", %q{
 
   scenario "View all posts published in a month" do # ------
     visit '/blog/2011/04'
+    page.should have_noindex_tag
 
     page.should have_selector ".post-preview", count: 2
     page.should have_post_preview @one
@@ -65,6 +66,7 @@ feature "Default blog behavior", %q{
     three = F("blog/post", published_at: Time.parse("2010/12/28"))
 
     visit '/blog/2011'
+    page.should have_noindex_tag
 
     page.should have_selector ".post-preview", count: 2
     page.should have_post_preview @one
@@ -78,12 +80,14 @@ feature "Default blog behavior", %q{
     @two.tags.create(:name => "General")
 
     visit '/blog/tags/general'
+    page.should have_noindex_tag
 
     page.should have_selector ".post-preview", count: 2
     page.should have_post_preview @one
     page.should have_post_preview @two
 
     visit '/blog/tags/updates'
+    page.should have_noindex_tag
 
     page.should have_selector ".post-preview", count: 1
     page.should have_post_preview @one
@@ -226,6 +230,7 @@ feature "Default blog behavior", %q{
     three = F("blog/post", published_at: Time.parse("2011/08/05"))
 
     visit '/blog/archive'
+    page.should have_noindex_tag
 
     page.should have_link_to_post one
     page.should have_link_to_post two
