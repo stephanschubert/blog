@@ -1,4 +1,7 @@
 de:
+  yes: Ja
+  no:  Nein
+
   will_paginate:
     previous_label: "&#8592; Zurück"
     next_label: "Weiter &#8594;"

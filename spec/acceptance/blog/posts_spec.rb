@@ -26,8 +26,8 @@ feature "Posts", %q{
     scenario "Recently published post first" do
       visit backend_posts_path
 
-      page.should have_selector ".posts li:first", text: "Two"
-      page.should have_selector ".posts li:last", text: "One"
+      page.should have_selector ".posts tbody tr:first", text: "Two"
+      page.should have_selector ".posts tbody tr:last", text: "One"
     end
 
   end
@@ -48,7 +48,7 @@ feature "Posts", %q{
   scenario "Update post" do # ------------------------------
     visit backend_posts_path
 
-    within ".posts > li:first-child" do
+    within ".posts tbody tr:first-child" do
       click_on t("backend.post_actions.edit")
     end
 

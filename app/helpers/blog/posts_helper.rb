@@ -1,6 +1,19 @@
 module Blog
   module PostsHelper
 
+    def picture_count(post)
+      count = 0
+      post.body.scan(/\.(jpe?g|png|gif)/i) { |match| count += 1 }
+      count
+    end
+
+    def html_attributes_for(post, options = {})
+      {}.tap do |html_attrs|
+        html_attrs[:class]  = Array(options[:class])
+        html_attrs[:class] << (post.published? ? "published" : "draft")
+      end
+    end
+
     def link_to_post(post, options = {}, &block)
       options.reverse_merge! \
       :backend => false

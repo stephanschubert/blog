@@ -4,19 +4,35 @@
       = link_to t("backend.actions.create_post"),
       new_backend_post_path
 
-%ol.xoxo.posts
-  - @posts.each do |post|
-    %li
-      .post-actions
-        %ul
-          %li
-            = link_to t("backend.post_actions.edit"),
-            edit_backend_post_path(post)
+%table.posts
+  %thead
+    %tr
+      %th.index= t("backend.tables.posts.headers.index")
+      %th.publication_date= t("backend.tables.posts.headers.publication_date")
+      %th.pictures= t("backend.tables.posts.headers.pictures")
+      %th.title= t("backend.tables.posts.headers.title")
+      %th.actions= t("backend.tables.posts.headers.actions")
 
-          %li
-            = link_to t("backend.post_actions.delete"),
-            backend_post_path(post),
-            method: 'delete',
-            confirm: t("backend.post_actions.confirm_delete")
+  %tbody
+    - @posts.each_with_index do |post, index|
+      %tr{html_attributes_for(post, class: cycle("odd", "even"))}
+        %td.index= index + 1
+        %td.publication_date= post.published? ? post.published_at.strftime("%m. %B %Y") : t("backend.posts.states.draft")
 
-      = link_to_post(post)
+        %td.pictures
+          - count = picture_count(post)
+          = count > 0 ? t("yes") + ", #{count}" : t("no")
+
+        %td.title= link_to_post(post)
+
+        %td.actions
+          %ul
+            %li
+              = link_to t("backend.post_actions.edit"),
+                edit_backend_post_path(post)
+
+            %li
+              = link_to t("backend.post_actions.delete"),
+                backend_post_path(post),
+                method: 'delete',
+                confirm: t("backend.post_actions.confirm_delete")

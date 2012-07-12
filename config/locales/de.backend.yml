@@ -29,6 +29,19 @@ de:
         update: Artikel speichern
 
   backend:
+    posts:
+      states:
+        draft: Entwurf
+
+    tables:
+      posts:
+        headers:
+          index: '#'
+          publication_date: Veröffentlichung
+          pictures: Bilder
+          title: Titel
+          actions: Aktionen
+
     links:
       dashboard: Übersicht
       posts: Artikel
