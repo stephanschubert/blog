@@ -49,7 +49,17 @@ body, table, input, textarea, select {
 
     li { @include clearfix; }
 
-    .post-actions {
+  }
+
+  table { width: 100%; }
+
+  th, td {
+    padding: .25em .5em;
+  }
+
+  th.actions { width: 7em; text-align: center; }
+  td.actions {
+    .xoxo {
       @include clearfix;
       @include float-right;
 
@@ -59,14 +69,6 @@ body, table, input, textarea, select {
       }
     }
   }
-
-  table { width: 100%; }
-
-  th, td {
-    padding: .25em .5em;
-  }
-
-  th.actions { text-align: center; }
 
   // POST STATE ////////////////////////////////////////////
 
