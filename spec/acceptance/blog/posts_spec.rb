@@ -36,7 +36,7 @@ feature "Posts", %q{
     visit backend_posts_path
     click_on t("backend.actions.create_post")
 
-    within "form#new_blog_post" do
+    within "form#new_post" do
       fill_in "post_title", :with => "A new post"
       fill_in "post_body",  :with => "The real content"
 
@@ -49,11 +49,11 @@ feature "Posts", %q{
   scenario "Update post" do # ------------------------------
     visit backend_posts_path
 
-    within ".posts li:first-child" do
+    within ".posts > li:first-child" do
       click_on t("backend.post_actions.edit")
     end
 
-    within "form[id^='edit_blog_post']" do
+    within "form[id^='edit_post']" do
       fill_in "post_body", :with => "Updated content"
 
       find("*[type='submit']").click
@@ -72,7 +72,7 @@ feature "Posts", %q{
 
     visit public_post_path(post)
 
-    page.should have_selector "title", text: "A post"
+    page.should have_title "A post"
     page.should have_no_selector "meta[name='description']"
 
     page.html.should have_tag ".post" do
@@ -86,7 +86,7 @@ feature "Posts", %q{
 
     visit edit_backend_post_path(post)
 
-    within "form[id^='edit_blog_post']" do
+    within "form[id^='edit_post']" do
       fill_in "post_tag_list", :with => "General, Updates"
       find("*[type='submit']").click
     end
@@ -104,7 +104,7 @@ feature "Posts", %q{
 
     visit edit_backend_post_path(post)
 
-    within "form[id^='edit_blog_post']" do
+    within "form[id^='edit_post']" do
       fill_in "post_page_title", :with => "Custom page title"
       find("*[type='submit']").click
     end
@@ -119,7 +119,7 @@ feature "Posts", %q{
 
     visit edit_backend_post_path(post)
 
-    within "form[id^='edit_blog_post']" do
+    within "form[id^='edit_post']" do
       fill_in "post_meta_description", :with => "Custom meta description"
       find("*[type='submit']").click
     end

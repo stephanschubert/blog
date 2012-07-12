@@ -39,7 +39,7 @@ group :test, :development do
   gem 'rspec', '>= 2.5.0'
   gem 'rspec-rails', '>= 2.5.0'
   gem 'mongoid-rspec', '>= 1.4.1' # :git => 'git://github.com/evansagge/mongoid-rspec.git'
-  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
+  gem 'capybara'
 
   gem 'fabrication'
   gem 'timecop', '>= 0.3.5'
