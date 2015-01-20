@@ -1,5 +1,4 @@
 require "redcloth"
-require "will_paginate/mongoid"
 
 module Blog
   class Engine < Rails::Engine
@@ -33,6 +32,5 @@ module Blog
     initializer "blog.mongoid.install_observers" do |app|
       app.config.mongoid.observers = 'blog/post_sweeper'
     end
-
   end
 end

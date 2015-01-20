@@ -47,6 +47,9 @@ Spork.prefork do
 
     config.mock_with :rspec
 
+    config.warnings = false
+    config.infer_spec_type_from_file_location!
+
     config.include Mongoid::Matchers
     config.include Capybara::RSpecMatchers, :type => :helper
 

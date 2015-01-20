@@ -4,19 +4,15 @@ gemspec
 gem 'sprockets'
 gem 'rack'
 gem 'rails', '~> 3.2'
-
 gem 'mongoid'
 gem 'bson_ext'
-
 gem 'haml'
 gem 'haml-rails'
 gem 'sass'
-gem 'jquery-rails',  git: 'git://github.com/rails/jquery-rails.git'
-
-gem 'RedCloth',      require: 'redcloth'
+gem 'jquery-rails', git: 'git://github.com/rails/jquery-rails.git'
+gem 'RedCloth', require: 'redcloth'
 gem 'formtastic'
-
-gem 'will_paginate', git: 'git://github.com/dbackeus/will_paginate.git' # '~> 3.0'
+gem 'will_paginate_mongoid'
 
 #if `hostname` =~ /local/
 #  gem 'scss', require: "scss", path: '../scss'
@@ -35,10 +31,13 @@ end
 
 group :test, :development do
   gem 'database_cleaner', '>= 0.6.6'
+  gem 'fivemat'
+  gem 'pry-rails'
 
-  gem 'rspec', '>= 2.5.0'
-  gem 'rspec-rails', '>= 2.5.0'
-  gem 'mongoid-rspec', '>= 1.4.1' # :git => 'git://github.com/evansagge/mongoid-rspec.git'
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'rubysl-test-unit'
+  gem 'mongoid-rspec'
   gem 'capybara'
 
   gem 'fabrication'

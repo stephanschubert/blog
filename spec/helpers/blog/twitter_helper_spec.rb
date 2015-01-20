@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Blog::TwitterHelper do
 
-  describe "#tweet_button" do # ------------------------------------------------
+  describe "#tweet_button" do
 
     it "should return least valid markup" do
       url  = "http://test.de"
@@ -14,7 +14,7 @@ describe Blog::TwitterHelper do
 
   end
 
-  describe "#tweet_button_for_post" do # ---------------------------------------
+  describe "#tweet_button_for_post" do
 
     it "should return valid markup for tweeting a post" do
       post = F("blog/post", :title => "A *new* post", :published_at => 1.day.ago)
@@ -27,7 +27,7 @@ describe Blog::TwitterHelper do
 
   end
 
-  describe "#twitter_follow_button" do # ---------------------------------------
+  describe "#twitter_follow_button" do
 
     it "should return valid markup" do
       user = "Matt"
@@ -35,7 +35,5 @@ describe Blog::TwitterHelper do
       html = helper.twitter_follow_button(user)
       html.should have_tag "a.twitter-follow-button[href='#{url}']", :text => "Follow #{user}"
     end
-
   end
-
 end
