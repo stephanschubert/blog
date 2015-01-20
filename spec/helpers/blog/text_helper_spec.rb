@@ -8,7 +8,7 @@ describe Blog::TextHelper do
       text  = "The quick brown fox jumps over the lazy dog."
       short = helper.truncate(text, :words_only => true, :length => 21)
 
-      short.should == "The quick brown ..."
+      expect(short).to eq("The quick brown ...")
     end
 
   end

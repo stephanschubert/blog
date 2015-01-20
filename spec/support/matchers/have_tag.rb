@@ -162,7 +162,7 @@ end
     # @see #have_tag
     # @note this should be used within block of have_tag matcher
     def with_tag tag, options={}, &block
-      @__current_scope_for_nokogiri_matcher.should have_tag(tag, options, &block)
+      expect(@__current_scope_for_nokogiri_matcher).to have_tag(tag, options, &block)
     end
 
     # without_tag matcher
@@ -170,7 +170,7 @@ end
     # @see #have_tag
     # @note this should be used within block of have_tag matcher
     def without_tag tag, options={}, &block
-      @__current_scope_for_nokogiri_matcher.should_not have_tag(tag, options, &block)
+      expect(@__current_scope_for_nokogiri_matcher).not_to have_tag(tag, options, &block)
     end
 
     def have_form action_url, method, options={}, &block
@@ -185,35 +185,35 @@ end
     def with_hidden_field name, value=nil
       options = { :with => { :name => name, :type => 'hidden' } }
       options[:with].merge!(:value => value) if value
-      @__current_scope_for_nokogiri_matcher.should have_tag('input', options)
+      expect(@__current_scope_for_nokogiri_matcher).to have_tag('input', options)
     end
 
     def without_hidden_field name, value=nil
       options = { :with => { :name => name, :type => 'hidden' } }
       options[:with].merge!(:value => value) if value
-      @__current_scope_for_nokogiri_matcher.should_not have_tag('input', options)
+      expect(@__current_scope_for_nokogiri_matcher).not_to have_tag('input', options)
     end
 
     def with_text_field name, value=nil
       options = { :with => { :name => name, :type => 'text' } }
       options[:with].merge!(:value => value) if value
-      @__current_scope_for_nokogiri_matcher.should have_tag('input', options)
+      expect(@__current_scope_for_nokogiri_matcher).to have_tag('input', options)
     end
 
     def without_text_field name, value=nil
       options = { :with => { :name => name, :type => 'text' } }
       options[:with].merge!(:value => value) if value
-      @__current_scope_for_nokogiri_matcher.should_not have_tag('input', options)
+      expect(@__current_scope_for_nokogiri_matcher).not_to have_tag('input', options)
     end
 
     def with_password_field name
       options = { :with => { :name => name, :type => 'password' } }
-      @__current_scope_for_nokogiri_matcher.should have_tag('input', options)
+      expect(@__current_scope_for_nokogiri_matcher).to have_tag('input', options)
     end
 
     def without_password_field name
       options = { :with => { :name => name, :type => 'password' } }
-      @__current_scope_for_nokogiri_matcher.should_not have_tag('input', options)
+      expect(@__current_scope_for_nokogiri_matcher).not_to have_tag('input', options)
     end
 
     def with_select name, options={}, &block
@@ -221,7 +221,7 @@ end
       id = options[:with].delete(:id)
       tag='select'; tag += '#'+id if id
       options[:with].merge!(:name => name)
-      @__current_scope_for_nokogiri_matcher.should have_tag(tag, options, &block)
+      expect(@__current_scope_for_nokogiri_matcher).to have_tag(tag, options, &block)
     end
 
     def without_select name, options={}, &block
@@ -229,7 +229,7 @@ end
       id = options[:with].delete(:id)
       tag='select'; tag += '#'+id if id
       options[:with].merge!(:name => name)
-      @__current_scope_for_nokogiri_matcher.should_not have_tag(tag, options, &block)
+      expect(@__current_scope_for_nokogiri_matcher).not_to have_tag(tag, options, &block)
     end
 
     def with_option text, value=nil, options={}
@@ -245,7 +245,7 @@ options[:with].merge!(:selected => "selected")
       end
       options.delete(:selected)
       options.merge!(:text => text) if text
-      @__current_scope_for_nokogiri_matcher.should have_tag(tag, options)
+      expect(@__current_scope_for_nokogiri_matcher).to have_tag(tag, options)
     end
 
     def without_option text, value=nil, options={}
@@ -261,7 +261,7 @@ options[:with].merge!(:selected => "selected")
       end
       options.delete(:selected)
       options.merge!(:text => text) if text
-      @__current_scope_for_nokogiri_matcher.should_not have_tag(tag, options)
+      expect(@__current_scope_for_nokogiri_matcher).not_to have_tag(tag, options)
     end
 
   end

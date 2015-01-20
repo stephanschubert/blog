@@ -6,7 +6,7 @@ describe Blog::ShareHelper do
 
     it "should be html safe" do
       html = helper.addthis_buttons
-      html.should be_html_safe
+      expect(html).to be_html_safe
     end
 
     it "should support custom 'addthis:' HTML attributes" do
@@ -15,7 +15,7 @@ describe Blog::ShareHelper do
       :title => "A custom title",
       :description => "A custom description"
 
-      html.should have_tag \
+      expect(html).to have_tag \
       ".addthis_toolbox",
       "addthis:url" => "http://custom.com/url",
       "addthis:title" => "A custom title",
@@ -28,14 +28,14 @@ describe Blog::ShareHelper do
 
     it "should return least valid markup" do
       html = helper.plusone_button
-      html.should have_tag "div.g-plusone[data-size=standard][data-count=true]"
+      expect(html).to have_tag "div.g-plusone[data-size=standard][data-count=true]"
     end
 
     it "should set the 'lang' attribute" do
       locale = I18n.locale
       html   = helper.plusone_button
 
-      html.should have_tag "div.g-plusone[lang=#{locale}]"
+      expect(html).to have_tag "div.g-plusone[lang=#{locale}]"
     end
 
   end

@@ -2,27 +2,27 @@ require 'spec_helper'
 
 describe Blog::Tag do
 
-  it { should be_mongoid_document }
-  it { should be_timestamped_document }
+  it { is_expected.to be_mongoid_document }
+  it { is_expected.to be_timestamped_document }
 
-  it { should have_field(:name).of_type(String) }
-  it { should validate_presence_of(:name) }
+  it { is_expected.to have_field(:name).of_type(String) }
+  it { is_expected.to validate_presence_of(:name) }
 
-  it { should have_slug(:name) }
+  it { is_expected.to have_slug(:name) }
 
   # it { should have_and_belong_to_many(:posts) }
-  it { should be_embedded_in(:post) }
+  it { is_expected.to be_embedded_in(:post) }
 
   it "should be valid using the factory" do
-    F.build("blog/tag").should be_valid
+    expect(F.build("blog/tag")).to be_valid
   end
 
   describe ".separator" do # ---------------------------------------------------
 
     it "should be configurable and have a default" do
-      Blog::Tag.separator.should == ','
+      expect(Blog::Tag.separator).to eq(',')
       Blog::Tag.separator = ';'
-      Blog::Tag.separator.should == ';'
+      expect(Blog::Tag.separator).to eq(';')
     end
 
   end
@@ -38,7 +38,7 @@ describe Blog::Tag do
       b   = two.tags.create :name => "B"
       c   = two.tags.create :name => "C"
 
-      Blog::Tag.all.should == [ a, b, c ]
+      expect(Blog::Tag.all).to eq([ a, b, c ])
     end
 
   end

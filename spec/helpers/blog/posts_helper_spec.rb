@@ -9,7 +9,7 @@ describe Blog::PostsHelper do
       post = F("blog/post", :title => "First post")
       html = helper.link_to_post(post)
 
-      html.should have_tag "a[href$='/first-post']"
+      expect(html).to have_tag "a[href$='/first-post']"
     end
 
     it "should return a link to the public post w/ date as default" do
@@ -18,7 +18,7 @@ describe Blog::PostsHelper do
                :published_at => Time.parse("2011/04/02"))
 
       html = helper.link_to_post(post)
-      html.should have_tag "a[href='/blog/2011/04/first-post']"
+      expect(html).to have_tag "a[href='/blog/2011/04/first-post']"
     end
 
     it "should accept a block" do
@@ -28,7 +28,7 @@ describe Blog::PostsHelper do
         "test"
       end
 
-      html.should have_tag "a" do
+      expect(html).to have_tag "a" do
         with_tag "span", :text => /test/
       end
     end
@@ -42,7 +42,7 @@ describe Blog::PostsHelper do
       tag  = post.tags.create(:name => "A tag")
       html = helper.link_to_tag(tag)
 
-      html.should have_tag "a[href$='/a-tag']" do
+      expect(html).to have_tag "a[href$='/a-tag']" do
         with_tag "span", :text => tag.name
       end
     end
@@ -55,7 +55,7 @@ describe Blog::PostsHelper do
         "test"
       end
 
-      html.should have_tag "a" do
+      expect(html).to have_tag "a" do
         with_tag "span", :text => /test/
       end
     end
@@ -70,7 +70,7 @@ describe Blog::PostsHelper do
       humanized = l(date, :format => "%d.%m.%Y")
       html      = helper.pretty_date(date)
 
-      html.should have_tag("abbr[title='#{iso8601}']", :text => humanized)
+      expect(html).to have_tag("abbr[title='#{iso8601}']", :text => humanized)
     end
 
   end
@@ -81,7 +81,7 @@ describe Blog::PostsHelper do
       user = F("blog/user", :name => "Stephan Schubert")
       html = helper.pretty_author(user)
 
-      html.should have_tag("span[class='author vcard']") do
+      expect(html).to have_tag("span[class='author vcard']") do
         with_tag "span[class='fn']", :text => "Stephan Schubert"
       end
     end
@@ -97,7 +97,7 @@ describe Blog::PostsHelper do
       p3 = F("blog/post", :views => 48, :published_at => nil)
 
       posts = helper.most_viewed_posts.to_a
-      posts.should == [ p1, p2, p0 ]
+      expect(posts).to eq([ p1, p2, p0 ])
     end
 
   end
@@ -123,7 +123,7 @@ TXT
       post    = F("blog/post", title: "Wie man ein Superheld wird", body: body)
       excerpt = helper.excerpt_from_post(post, length: 350)
 
-      excerpt.should == (<<-TXT
+      expect(excerpt).to eq (<<-TXT
 Wenn man mal wirklich lachen will, sollte man sich das Buch How to Be a Superhero von Dr. Metropolis (Barry Neville) anschauen. Ich fand es vor einigen Monaten in einem Buchladen. Der Untertitel ist: &#8220;Your Complete Guide to Finding a Secret HQ, Hiring a Sidekick, Thwarting the Forces of Evil, and Much More!!&#8221; (&#8220;Der ...
 TXT
 ).strip

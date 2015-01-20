@@ -6,7 +6,7 @@ describe Blog::AdsenseHelper do
 
     it "should return a <script> loading 'show_ads.js'" do
       html = helper.adsense_javascript
-      html.should == '<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>'
+      expect(html).to eq('<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>')
     end
 
   end

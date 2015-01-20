@@ -28,50 +28,50 @@ feature "Default blog behavior", %q{
   scenario "View home page" do # ---------------------------
     visit '/blog'
 
-    page.should have_selector ".post-preview", count: 2
-    page.should have_post_preview @one
-    page.should have_post_preview @two
+    expect(page).to have_selector ".post-preview", count: 2
+    expect(page).to have_post_preview @one
+    expect(page).to have_post_preview @two
   end
 
   scenario "View single post" do # -------------------------
     # Should increase 'views' counter.
-    @one.views.should == 0
+    expect(@one.views).to eq(0)
     visit '/blog/one'
     @one.reload
-    @one.views.should == 1
+    expect(@one.views).to eq(1)
 
-    page.should have_selector ".post", count: 1
-    page.should have_post @one
-    page.should have_no_post @two
+    expect(page).to have_selector ".post", count: 1
+    expect(page).to have_post @one
+    expect(page).to have_no_post @two
   end
 
   scenario "View single post w/ date" do # -----------------
     visit '/blog/2011/04/one'
 
-    page.should have_selector ".post", count: 1
-    page.should have_post @one
-    page.should have_no_post @two
+    expect(page).to have_selector ".post", count: 1
+    expect(page).to have_post @one
+    expect(page).to have_no_post @two
   end
 
   scenario "View all posts published in a month" do # ------
     visit '/blog/2011/04'
-    page.should have_noindex_tag
+    expect(page).to have_noindex_tag
 
-    page.should have_selector ".post-preview", count: 2
-    page.should have_post_preview @one
-    page.should have_post_preview @two
+    expect(page).to have_selector ".post-preview", count: 2
+    expect(page).to have_post_preview @one
+    expect(page).to have_post_preview @two
   end
 
   scenario "View all posts published in a year" do # -------
     three = F("blog/post", published_at: Time.parse("2010/12/28"))
 
     visit '/blog/2011'
-    page.should have_noindex_tag
+    expect(page).to have_noindex_tag
 
-    page.should have_selector ".post-preview", count: 2
-    page.should have_post_preview @one
-    page.should have_post_preview @two
-    page.should have_no_post_preview three
+    expect(page).to have_selector ".post-preview", count: 2
+    expect(page).to have_post_preview @one
+    expect(page).to have_post_preview @two
+    expect(page).to have_no_post_preview three
   end
 
   scenario "View all posts tagged with ..." do # -----------
@@ -80,17 +80,17 @@ feature "Default blog behavior", %q{
     @two.tags.create(:name => "General")
 
     visit '/blog/tags/general'
-    page.should have_noindex_tag
+    expect(page).to have_noindex_tag
 
-    page.should have_selector ".post-preview", count: 2
-    page.should have_post_preview @one
-    page.should have_post_preview @two
+    expect(page).to have_selector ".post-preview", count: 2
+    expect(page).to have_post_preview @one
+    expect(page).to have_post_preview @two
 
     visit '/blog/tags/updates'
-    page.should have_noindex_tag
+    expect(page).to have_noindex_tag
 
-    page.should have_selector ".post-preview", count: 1
-    page.should have_post_preview @one
+    expect(page).to have_selector ".post-preview", count: 1
+    expect(page).to have_post_preview @one
   end
 
   scenario "Textilized post content" do # ------------------
@@ -103,7 +103,7 @@ feature "Default blog behavior", %q{
     visit '/blog/a-crazy-cool-new-post'
 
     within ".entry-content" do
-      page.html.should match(/<p>This is a body<\/p>/)
+      expect(page.html).to match(/<p>This is a body<\/p>/)
     end
   end
 
@@ -112,10 +112,10 @@ feature "Default blog behavior", %q{
 
     within :css, "#latest-posts" do
       path = public_post_path(@one)
-      page.should have_selector "a[href$='#{path}']"
+      expect(page).to have_selector "a[href$='#{path}']"
 
       path = public_post_path(@two)
-      page.should have_selector "a[href$='#{path}']"
+      expect(page).to have_selector "a[href$='#{path}']"
     end
   end
 
@@ -127,8 +127,8 @@ feature "Default blog behavior", %q{
     visit '/blog'
 
     within :css, "#all-tags" do
-      page.should have_selector "a[href$='/general']"
-      page.should have_selector "a[href$='/updates']"
+      expect(page).to have_selector "a[href$='/general']"
+      expect(page).to have_selector "a[href$='/updates']"
     end
   end
 
@@ -136,8 +136,9 @@ feature "Default blog behavior", %q{
     visit '/blog'
 
     %w(rss atom).each do |type|
-      page.should have_selector \
-      "link[type='application/#{type}+xml'][rel='alternate'][href$='/feed.#{type}']"
+      expect(page).to have_selector(
+        "link[type='application/#{type}+xml'][rel='alternate'][href$='/feed.#{type}']", visible: false
+      )
     end
   end
 
@@ -146,7 +147,7 @@ feature "Default blog behavior", %q{
 
     within :css, "#feeds" do
       %w(rss atom).each do |type|
-        page.should have_selector "a[href$='/feed.#{type}']"
+        expect(page).to have_selector "a[href$='/feed.#{type}']"
       end
     end
   end
@@ -156,30 +157,30 @@ feature "Default blog behavior", %q{
 
     within :css, "rss[version='2.0']" do
       within :css, "channel" do
-        page.should have_selector "title"
-        page.should have_selector "description"
-        page.should have_selector "link"
+        expect(page).to have_selector "title"
+        expect(page).to have_selector "description"
+        expect(page).to have_selector "link"
 
         [ @two, @one ].each_with_index do |post, index|
           within :css, "item:#{index == 0 ? 'first' : 'last'}" do
 
             within :css, "title" do
-              page.should have_content(post.title)
+              expect(page).to have_content(post.title)
             end
 
-            page.should have_selector "description" # TODO
-            page.should have_selector "link" #, :text => public_post_url(post, :host => @host)
+            expect(page).to have_selector "description" # TODO
+            expect(page).to have_selector "link" #, :text => public_post_url(post, :host => @host)
 
             within :css, "guid" do
-              page.should have_content(public_post_url(post, host: @host))
+              expect(page).to have_content(public_post_url(post, host: @host))
             end
 
             within :css, "pubdate" do
-              page.should have_content(post.published_at.to_s(:rfc822))
+              expect(page).to have_content(post.published_at.to_s(:rfc822))
             end
 
             post.tags.each do |tag|
-              page.should have_selector "category", text: tag.name
+              expect(page).to have_selector "category", text: tag.name
             end
           end
         end
@@ -191,33 +192,33 @@ feature "Default blog behavior", %q{
     visit '/blog/feed.atom'
 
     within :css, "feed" do
-      page.should have_selector "id"
-      page.should have_selector "title"
-      page.should have_selector "updated"
+      expect(page).to have_selector "id"
+      expect(page).to have_selector "title"
+      expect(page).to have_selector "updated"
 
       [ @two, @one ].each_with_index do |post, index|
         within :css, "entry:#{index == 0 ? 'first' : 'last'}" do
-          page.should have_selector "id"
+          expect(page).to have_selector "id"
 
           within :css, "published" do
-            page.should have_content(post.published_at.iso8601)
+            expect(page).to have_content(post.published_at.iso8601)
           end
 
           within :css, "updated" do
-            page.should have_content(post.updated_at.iso8601)
+            expect(page).to have_content(post.updated_at.iso8601)
           end
 
           within :css, "title" do
-            page.should have_content(post.title)
+            expect(page).to have_content(post.title)
           end
 
-          page.should have_selector "content[type='html']" # TODO
+          expect(page).to have_selector "content[type='html']" # TODO
 
           url = public_post_url(post, host: @host)
-          page.should have_selector "link[href='#{url}']"
+          expect(page).to have_selector "link[href='#{url}']"
 
           post.tags.each do |tag|
-            page.should have_selector "category", text: tag.name
+            expect(page).to have_selector "category", text: tag.name
           end
         end
       end
@@ -230,18 +231,18 @@ feature "Default blog behavior", %q{
     three = F("blog/post", published_at: Time.parse("2011/08/05"))
 
     visit '/blog/archive'
-    page.should have_noindex_tag
+    expect(page).to have_noindex_tag
 
-    page.should have_link_to_post one
-    page.should have_link_to_post two
-    page.should have_link_to_post three
+    expect(page).to have_link_to_post one
+    expect(page).to have_link_to_post two
+    expect(page).to have_link_to_post three
   end
 
   scenario "One post with matching slug alias" do
     one = F('blog/post', slug_aliases: ['a-tale'], published_at: 2.days.ago)
 
     visit '/blog/a-tale'
-    page.should have_post(one)
+    expect(page).to have_post(one)
   end
 
   scenario "Two posts where one slug contains the other one" do
@@ -249,7 +250,7 @@ feature "Default blog behavior", %q{
     two = F('blog/post', title: 'A tale (Part 2)', published_at: 1.day.ago)
 
     visit '/blog/a-tale'
-    page.should have_post(one)
+    expect(page).to have_post(one)
   end
 
   scenario "Three posts where two have a similar slug and the third one a matching slug alias" do
@@ -258,7 +259,7 @@ feature "Default blog behavior", %q{
     three = F('blog/post', slug_aliases: ['a-tale'], published_at: 1.day.ago)
 
     visit '/blog/a-tale'
-    page.should have_post(three)
+    expect(page).to have_post(three)
   end
 
 

@@ -7,6 +7,9 @@ Gem::Specification.new do |s|
   s.files       = Dir["{config,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.version     = "0.0.1"
 
-  s.add_dependency 'RedCloth'
+  s.add_runtime_dependency "RedCloth"
+  s.add_runtime_dependency "will_paginate"
+  s.add_runtime_dependency "will_paginate_mongoid"
+
   # TODO Add santas-little-helpers?
 end

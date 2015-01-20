@@ -9,7 +9,7 @@ describe Blog::TwitterHelper do
       text = "Test"
       html = helper.tweet_button(url, text)
 
-      html.should have_tag "a.twitter-share-button[data-url='#{url}'][data-text='#{text}']"
+      expect(html).to have_tag "a.twitter-share-button[data-url='#{url}'][data-text='#{text}']"
     end
 
   end
@@ -22,7 +22,7 @@ describe Blog::TwitterHelper do
       text = untextilize(post.title)
       html = helper.tweet_button_for_post(post)
 
-      html.should have_tag "a.twitter-share-button[data-url$='#{path}'][data-text='#{text}']"
+      expect(html).to have_tag "a.twitter-share-button[data-url$='#{path}'][data-text='#{text}']"
     end
 
   end
@@ -33,7 +33,7 @@ describe Blog::TwitterHelper do
       user = "Matt"
       url  = "http://twitter.com/#{user}"
       html = helper.twitter_follow_button(user)
-      html.should have_tag "a.twitter-follow-button[href='#{url}']", :text => "Follow #{user}"
+      expect(html).to have_tag "a.twitter-follow-button[href='#{url}']", :text => "Follow #{user}"
     end
   end
 end

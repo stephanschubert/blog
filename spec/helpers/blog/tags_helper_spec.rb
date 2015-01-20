@@ -8,17 +8,17 @@ describe Blog::TagsHelper do
       post = F("blog/post", tag_list: "a")
       html = helper.linked_tags_as_sentence(post.tags)
       html = helper.strip_tags(html)
-      html.should == "a"
+      expect(html).to eq("a")
 
       post = F("blog/post", tag_list: "a,b")
       html = helper.linked_tags_as_sentence(post.tags)
       html = helper.strip_tags(html)
-      html.should == "a und b"
+      expect(html).to eq("a und b")
 
       post = F("blog/post", tag_list: "a,b,c")
       html = helper.linked_tags_as_sentence(post.tags)
       html = helper.strip_tags(html)
-      html.should == "a, b und c"
+      expect(html).to eq("a, b und c")
     end
   end
 

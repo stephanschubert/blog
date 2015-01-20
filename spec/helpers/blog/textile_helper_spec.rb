@@ -7,7 +7,7 @@ describe Blog::TextileHelper do
 
     it "should return a html-safe tring" do
       result = helper.textilize("Some text")
-      result.should be_html_safe
+      expect(result).to be_html_safe
     end
 
     it "should support the 'figure' extension" do
@@ -17,12 +17,12 @@ TXT
 
       Capybara.string(html).find("figure[class='media photo']").tap do |f|
         f.find("*[class='media-image']").tap do |div|
-          div.should have_selector("img[src='/images/blah.jpg'][title='A caption.']")
+          expect(div).to have_selector("img[src='/images/blah.jpg'][title='A caption.']")
         end
 
         f.find("figcaption[class='media-body']").tap do |caption|
-          caption.should have_content("A caption.")
-          caption.should have_content("Max Test")
+          expect(caption).to have_content("A caption.")
+          expect(caption).to have_content("Max Test")
         end
       end
     end
@@ -43,12 +43,12 @@ TXT
 
     it "should return an result not wrapped in <p>" do
       result = helper.textilize_without_paragraph("Some text")
-      result.should_not match(/^<p>|<\/p>$/)
+      expect(result).not_to match(/^<p>|<\/p>$/)
     end
 
     it "should be html-safe" do
       result = helper.textilize_without_paragraph("Some text")
-      result.should be_html_safe
+      expect(result).to be_html_safe
     end
 
   end
@@ -58,7 +58,7 @@ TXT
     it "should return the cleaned string" do
       textiled = "The *quick* _brown fox_ <em>jumps</em> over the lazy dog."
       cleaned  = helper.untextilize(textiled)
-      cleaned.should == "The quick brown fox jumps over the lazy dog."
+      expect(cleaned).to eq("The quick brown fox jumps over the lazy dog.")
     end
 
     it "should remove markup from !adsense" do
@@ -70,7 +70,7 @@ First paragraph.
 Second paragraph.
 TXT
       cleaned = helper.untextilize(textiled)
-      cleaned.should == "First paragraph.\nSecond paragraph."
+      expect(cleaned).to eq("First paragraph.\nSecond paragraph.")
     end
 
     it "should remove markup from !figure" do
@@ -82,7 +82,7 @@ First paragraph.
 Second paragraph.
 TXT
       cleaned = helper.untextilize(textiled)
-      cleaned.should == "First paragraph.\nSecond paragraph."
+      expect(cleaned).to eq("First paragraph.\nSecond paragraph.")
     end
 
     it "should remove <figure> markup" do
@@ -100,13 +100,13 @@ First paragraph.
 Second paragraph.
 TXT
       cleaned = helper.untextilize(textiled)
-      cleaned.should == "First paragraph.\nSecond paragraph."
+      expect(cleaned).to eq("First paragraph.\nSecond paragraph.")
     end
 
     it "should be html-safe" do
       textiled = "The *quick* _brown fox_ <em>jumps</em> over the lazy dog."
       cleaned  = helper.untextilize(textiled)
-      cleaned.should be_html_safe
+      expect(cleaned).to be_html_safe
     end
 
   end
@@ -114,23 +114,23 @@ TXT
   describe "#nofollow_links" do # --------------------------
 
     before :each do
-      Settings.stub!(:blog).and_return({ :nofollow => ['amazon', 'bit.ly'] })
+      allow(Settings).to receive(:blog).and_return({ :nofollow => ['amazon', 'bit.ly'] })
     end
 
     it "should add 'rel=nofollow' to all links matching the configured patterns" do
       textiled = helper.textilize('"Google":http://google.de and "Amazon":http://amazon.com/2342')
       html     = Capybara.string(textiled)
 
-      html.should have_selector("a[href='http://google.de']:not([rel])")
-      html.should have_selector("a[href='http://amazon.com/2342'][rel='nofollow']")
+      expect(html).to have_selector("a[href='http://google.de']:not([rel])")
+      expect(html).to have_selector("a[href='http://amazon.com/2342'][rel='nofollow']")
     end
 
     it "should escape the configured patterns for regex usage" do
       textiled = helper.textilize('"A":http://bit.ly/2342 and "B":http://bitaly.com')
       html     = Capybara.string(textiled)
 
-      html.should have_selector("a[href='http://bit.ly/2342'][rel='nofollow']")
-      html.should have_selector("a[href='http://bitaly.com']:not([rel])")
+      expect(html).to have_selector("a[href='http://bit.ly/2342'][rel='nofollow']")
+      expect(html).to have_selector("a[href='http://bitaly.com']:not([rel])")
     end
 
   end

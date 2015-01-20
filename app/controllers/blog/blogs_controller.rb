@@ -29,13 +29,13 @@ module Blog
 
     # TODO Should use paginated_posts and posts to avoid subtile errors..
     def index
-      @posts = posts.latest(10)
+      @posts = paginated(posts.latest(10))
       @page_title = t("blog.index.page_title")
       @meta_description = t("blog.index.page_title")
     end
 
     def feed
-      @posts = posts.latest(10)
+      @posts = paginated(posts.latest(10))
     end
 
     def slug
@@ -63,6 +63,7 @@ module Blog
         @meta_description = t("blog.slug.search.title", query: slug, count: @posts.size)
         @title            = t("blog.slug.search.title", query: slug)
         @noindex          = true
+        @posts            = paginated(@posts)
 
       # We found an exact match and should show this post as expected.
 
@@ -93,11 +94,12 @@ module Blog
           @page_title = t("blog.slug.posts.page_title", title: @tag.name)
         else
           @page_title = t("blog.slug.posts.paginated_page_title", title: @tag.name, page: page)
+          @posts = paginated(@posts)
         end
 
         @meta_description = t("blog.slug.posts.meta_description",
-          title: @tag.name,
-          description: @posts.slice(0,5).map(&:title).join(", ")
+          title:       @tag.name,
+          description: @posts.slice(0, 5).map(&:title).join(", ")
         )
       end
     end
@@ -121,6 +123,7 @@ module Blog
         @page_title = t("blog.posts_by_date.page_title", date: @date)
       else
         @page_title = t("blog.posts_by_date.paginated_page_title", date: @date, page: page)
+        @posts = paginated(@posts)
       end
 
       @meta_description = t("blog.posts_by_date.meta_description", :description => enumerate_titles(@posts))
@@ -135,6 +138,7 @@ module Blog
         @page_title = t("blog.posts_by_tag.page_title", title: @tag.name)
       else
         @page_title = t("blog.posts_by_tag.paginated_page_title", title: @tag.name, page: page)
+        @posts = paginated(@posts)
       end
 
       @meta_description = t("blog.posts_by_tag.meta_description", :description => enumerate_titles(@posts))
@@ -241,9 +245,11 @@ module Blog
     end
 
     def posts
-      posts = Post.published
-      posts = posts.page(params[:page]) unless view_all?
-      posts
+      Post.published
+    end
+
+    def paginated(posts)
+      view_all? ? posts : posts.page(params[:page])
     end
 
     def formatted_date(year, month)

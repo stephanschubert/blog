@@ -12,12 +12,12 @@ describe Blog::BlogsHelper do
 
     it "should return the latest published posts" do
       posts = helper.latest_posts
-      posts.should == [ @two, @one ]
+      expect(posts).to eq([ @two, @one ])
     end
 
     it "should support an integer-argument as count" do
       posts = helper.latest_posts(1)
-      posts.should == [ @two ]
+      expect(posts).to eq([ @two ])
     end
 
   end

@@ -14,7 +14,7 @@ feature "Aliases", %q{
       post.update_attribute :slug, "two"
 
       visit "/blog/2012/02/one"
-      current_path.should == "/blog/2012/02/two"
+      expect(current_path).to eq("/blog/2012/02/two")
     end
 
   end

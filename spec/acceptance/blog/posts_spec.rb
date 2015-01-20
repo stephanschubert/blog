@@ -19,15 +19,15 @@ feature "Posts", %q{
     scenario "List of posts" do
       visit backend_posts_path
 
-      page.html.should have_tag "a[href$='/one']", text: "One"
-      page.html.should have_tag "a[href$='/two']", text: "Two"
+      expect(page.html).to have_tag "a[href$='/one']", text: "One"
+      expect(page.html).to have_tag "a[href$='/two']", text: "Two"
     end
 
     scenario "Recently published post first" do
       visit backend_posts_path
 
-      page.should have_selector ".posts tbody tr:first", text: "Two"
-      page.should have_selector ".posts tbody tr:last", text: "One"
+      expect(page).to have_selector ".posts tbody tr:first", text: "Two"
+      expect(page).to have_selector ".posts tbody tr:last", text: "One"
     end
 
   end
@@ -42,7 +42,7 @@ feature "Posts", %q{
       submit
     end
 
-    page.should have_content t("post.created")
+    expect(page).to have_content t("post.created")
   end
 
   scenario "Update post" do # ------------------------------
@@ -57,7 +57,7 @@ feature "Posts", %q{
       submit
     end
 
-    page.should have_content t("post.updated")
+    expect(page).to have_content t("post.updated")
   end
 
   scenario "View public post" do # -------------------------
@@ -70,10 +70,10 @@ feature "Posts", %q{
 
     visit public_post_path(post)
 
-    page.should have_title "A post"
-    page.should have_no_selector "meta[name='description']"
+    expect(page).to have_title "A post"
+    expect(page).to have_no_selector "meta[name='description']"
 
-    page.html.should have_tag ".post" do
+    expect(page.html).to have_tag ".post" do
       with_tag ".entry-title", :text => "A post"
       with_tag ".entry-content", :text => /The content/
     end
@@ -91,7 +91,7 @@ feature "Posts", %q{
 
     visit public_post_path(post)
 
-    page.html.should have_tag ".post .entry-tags" do
+    expect(page.html).to have_tag ".post .entry-tags" do
       with_tag "a", :text => /General/
       with_tag "a", :text => /Updates/
     end
@@ -109,7 +109,7 @@ feature "Posts", %q{
 
     visit public_post_path(post)
 
-    page.html.should have_tag "title", :text => "Custom page title"
+    expect(page.html).to have_tag "title", :text => "Custom page title"
   end
 
   scenario "Add custom meta description" do # --------------
@@ -124,7 +124,7 @@ feature "Posts", %q{
 
     visit public_post_path(post)
 
-    page.html.should have_tag "meta[name='description'][content='Custom meta description']"
+    expect(page.html).to have_tag "meta[name='description'][content='Custom meta description']"
   end
 
   # TODO https://github.com/thoughtbot/capybara-webkit
