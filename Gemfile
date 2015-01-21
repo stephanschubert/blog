@@ -9,7 +9,7 @@ gem 'bson_ext'
 gem 'haml'
 gem 'haml-rails'
 gem 'sass'
-gem 'jquery-rails', git: 'git://github.com/rails/jquery-rails.git'
+gem 'jquery-rails'
 gem 'RedCloth', require: 'redcloth'
 gem 'formtastic'
 gem 'will_paginate_mongoid'
@@ -19,9 +19,9 @@ gem 'will_paginate_mongoid'
 #  gem 'santas-little-helpers', path: '../santas-little-helpers'
 #  gem 'mongoid-plugins', require: "mongoid-plugins", path: '../mongoid-plugins'
 #else
-  gem 'scss', require: "scss", git: 'git@github.com:jazen/scss.git'
-  gem 'santas-little-helpers', git: 'git@github.com:jazen/santas-little-helpers.git'
-  gem 'mongoid-plugins', require: "mongoid-plugins", git: 'git://github.com/jazen/mongoid-plugins.git'
+  gem 'scss', require: "scss", git: 'git@github.com:jazen/scss'
+  gem 'santas-little-helpers', git: 'git@github.com:jazen/santas-little-helpers'
+  gem 'mongoid-plugins', require: "mongoid-plugins", git: 'git@github.com:jazen/mongoid-plugins'
 #end
 
 group :assets do
@@ -30,7 +30,8 @@ group :assets do
 end
 
 group :test, :development do
-  gem 'database_cleaner', '>= 0.6.6'
+  # TODO. Use 1.3 series because 1.4 got an issue with mongoid/truncation strategy.
+  gem 'database_cleaner', '~> 1.3.0'
   gem 'fivemat'
   gem 'pry-rails'
 
@@ -41,9 +42,9 @@ group :test, :development do
   gem 'capybara'
 
   gem 'fabrication'
-  gem 'timecop', '>= 0.3.5'
+  gem 'timecop'
 
   # Blazin' fast, continous testing
   gem 'watchr'
-  gem 'spork', '0.9.0.rc4'
+  gem 'spork'
 end

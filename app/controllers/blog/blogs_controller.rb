@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require "bson"
+
 module Blog
   class BlogsController < SessionsController
     include Blog::UrlHelper
@@ -99,7 +101,7 @@ module Blog
 
         @meta_description = t("blog.slug.posts.meta_description",
           title:       @tag.name,
-          description: @posts.slice(0, 5).map(&:title).join(", ")
+          description: @posts.to_a.take(5).map(&:title).join(", ")
         )
       end
     end
@@ -208,7 +210,7 @@ module Blog
     end
 
     def enumerate_titles(posts, limit = 5)
-      posts.slice(0,limit).map { |post|
+      posts.to_a.take(limit).map { |post|
         '"' + post.title + '"'
       }.join(", ") + ", ..."
     end

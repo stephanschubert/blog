@@ -23,7 +23,7 @@ module Blog
       text = remove_figures(text)
 
       # Let textile do the work and just strip the tags afterwards.
-      strip_tags textilize(text, *args)
+      strip_tags(textilize(text, *args)).html_safe
     end
 
     def linify(s)
