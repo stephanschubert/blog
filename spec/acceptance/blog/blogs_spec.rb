@@ -262,8 +262,6 @@ feature "Default blog behavior", %q{
     expect(page).to have_post(three)
   end
 
-
-
   # FIXME Not working - see spec/acceptance/support/capybara/caching for details.
   # scenario "View updated post" do # ------------------------
   #   post = F("blog/post", body: "First draft.", published_at: 1.day.ago)
@@ -277,5 +275,4 @@ feature "Default blog behavior", %q{
   #   visit public_post_path(post)
   #   page.should have_content "Second draft."
   # end
-
 end

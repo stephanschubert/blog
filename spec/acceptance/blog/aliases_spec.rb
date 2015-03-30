@@ -16,7 +16,5 @@ feature "Aliases", %q{
       visit "/blog/2012/02/one"
       expect(current_path).to eq("/blog/2012/02/two")
     end
-
   end
-
 end

@@ -8,8 +8,8 @@ feature "Search" do
 
     visit "/blog/10"
 
-    expect(page).to have_link_to_post one
-    expect(page).to have_link_to_post two
+    expect(page).to have_link_to_post(one)
+    expect(page).to have_link_to_post(two)
   end
 
 end

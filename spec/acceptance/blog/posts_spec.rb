@@ -150,5 +150,4 @@ feature "Posts", %q{
 
   #   page.html.should have_tag ".addthis_toolbox[addthis:description='A custom description']"
   # end
-
 end
