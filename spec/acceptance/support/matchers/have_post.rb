@@ -69,19 +69,19 @@ end
 
 RSpec::Matchers.define :have_no_post do |post|
   match do |page|
-    page.should have_no_selector("#post-#{post.id}.hentry.post")
+    expect(page).to have_no_selector("#post-#{post.id}.hentry.post")
   end
 end
 
 RSpec::Matchers.define :have_no_post_preview do |post|
   match do |page|
-    page.should have_no_selector("#post-#{post.id}.hentry.post-preview")
+    expect(page).to have_no_selector("#post-#{post.id}.hentry.post-preview")
   end
 end
 
 RSpec::Matchers.define :have_link_to_post do |post|
   match do |page|
     path = post.slug
-    page.should have_selector "a[href$='#{path}']"
+    expect(page).to have_selector "a[href$='#{path}']"
   end
 end
